@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -9,18 +9,28 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('register')
-  create(@Body() registerUserDto: RegisterUserDto) {
-    return this.userService.registerUser(registerUserDto);
+  async create(@Body() registerUserDto: RegisterUserDto) {
+    return await this.userService.registerUser(registerUserDto);
   }
 
-  @Get(':email')
-  async findAll(@Body() userLoginData: LoginUserDto) {
-    const user = await this.userService.LoginIn(userLoginData);
-    return user
+  @Post('login')
+  async login(@Body() loginUserDto: LoginUserDto) {
+    return await this.userService.loginIn(loginUserDto)
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @Get('id=:id')
+  async findUserById(@Param('id') id: string) {
+    return await this.userService.findUserById(id);
+  }
+
+  @Get('all')
+  async findAllUsers() {
+    return await this.userService.findAllUsers()
+  }
+
+
+  @Get('name/:name')
+  async findUserByName(@Param('name') name: string) {
+    return await this.userService.findUserByName(name)
   }
 }
