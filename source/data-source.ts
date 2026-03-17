@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'dotenv';
+import { User } from 'src/user/entities/user.entity';
 
-config
+config()
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -12,9 +13,10 @@ config
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [],
-      synchronize: true,
+      entities: [User],
+      synchronize: false,
     }),
   ],
 })
-export class AppModule {}
+
+export class DataModule {}
