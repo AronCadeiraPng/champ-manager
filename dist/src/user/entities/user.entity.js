@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
+const class_transformer_1 = require("class-transformer");
+const class_validator_1 = require("class-validator");
 const user_roles_enum_1 = require("../../common/enums/user-roles.enum");
 const typeorm_1 = require("typeorm");
 let User = class User {
@@ -34,7 +36,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', length: 11, unique: true }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 55, unique: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_transformer_1.Transform)(({ value }) => value.replace(/\D/g, '')),
+    (0, class_validator_1.Length)(11, 11),
     __metadata("design:type", String)
 ], User.prototype, "cpf", void 0);
 __decorate([

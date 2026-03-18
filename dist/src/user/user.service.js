@@ -92,28 +92,16 @@ let UserService = class UserService {
         return await this.usersRepository.find();
     }
     async findUserByName(name) {
-        const user = await this.usersRepository.findOneBy({ name });
-        if (!user)
-            throw new common_1.NotFoundException(`Usuário com email "${name}" não encontrado...`);
-        return user;
+        return await this.usersRepository.findOneBy({ name });
     }
     async findUserById(id) {
-        const user = await this.usersRepository.findOneBy({ id });
-        if (!user)
-            throw new common_1.NotFoundException(`Usuário de id "${id}" não encontrado...`);
-        return user;
+        return await this.usersRepository.findOneBy({ id });
     }
     async findUserByEmail(email) {
-        const user = await this.usersRepository.findOneBy({ email });
-        if (!user)
-            throw new common_1.NotFoundException(`Usuário com email "${email}" não encontrado...`);
-        return user;
+        return await this.usersRepository.findOneBy({ email });
     }
     async findUserByCpf(cpf) {
-        const user = await this.usersRepository.findOneBy({ cpf });
-        if (!user)
-            throw new common_1.NotFoundException(`Usuário com o cpf "${cpf}" não encontrado...`);
-        return user;
+        return await this.usersRepository.findOneBy({ cpf });
     }
 };
 exports.UserService = UserService;

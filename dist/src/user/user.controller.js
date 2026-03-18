@@ -16,7 +16,8 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const register_user_dto_1 = require("./dto/register-user.dto");
-const login_user_dto_1 = require("./dto/login-user.dto");
+const swagger_1 = require("@nestjs/swagger");
+const user_entity_1 = require("./entities/user.entity");
 let UserController = class UserController {
     userService;
     constructor(userService) {
@@ -25,21 +26,22 @@ let UserController = class UserController {
     async create(registerUserDto) {
         return await this.userService.registerUser(registerUserDto);
     }
-    async login(loginUserDto) {
-        return await this.userService.loginIn(loginUserDto);
-    }
     async findUserById(id) {
         return await this.userService.findUserById(id);
     }
     async findAllUsers() {
         return await this.userService.findAllUsers();
     }
-    async findUserByName(name) {
-        return await this.userService.findUserByName(name);
-    }
 };
 exports.UserController = UserController;
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Registra um novo usuário' }),
+    (0, swagger_1.ApiBody)({ type: register_user_dto_1.RegisterUserDto }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Usuário criado com sucesso',
+        type: user_entity_1.User,
+    }),
     (0, common_1.Post)('register'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -47,13 +49,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
 __decorate([
-    (0, common_1.Post)('login'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [login_user_dto_1.LoginUserDto]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "login", null);
-__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Busca um usuário pelo seu ID' }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        type: user_entity_1.User,
+    }),
     (0, common_1.Get)('id=:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -61,18 +61,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findUserById", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os usuários' }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        type: user_entity_1.User,
+    }),
     (0, common_1.Get)('all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findAllUsers", null);
-__decorate([
-    (0, common_1.Get)('name/:name'),
-    __param(0, (0, common_1.Param)('name')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "findUserByName", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

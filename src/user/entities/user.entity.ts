@@ -1,3 +1,5 @@
+import { Transform } from "class-transformer";
+import { IsString, Length } from "class-validator";
 import { UserRoles } from "src/common/enums/user-roles.enum";
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
@@ -13,7 +15,10 @@ export class User {
     @Column({type: 'varchar', length: 255, unique: true})
     email: string;
 
-    @Column({type: 'varchar', length: 11, unique: true})
+    @Column({type: 'varchar', length: 55, unique: true})
+    @IsString()
+    @Transform(({ value }) => value.replace(/\D/g, ''))
+    @Length(11, 11)
     cpf: string;
     
     @Column({type: 'varchar', length: 255})

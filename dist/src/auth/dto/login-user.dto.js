@@ -9,46 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegisterUserDto = void 0;
+exports.LoginUserDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
-class RegisterUserDto {
-    name;
-    email;
-    cpf;
+class LoginUserDto {
+    account;
     password;
 }
-exports.RegisterUserDto = RegisterUserDto;
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        example: 'Gabriel',
-        description: 'Nome do usuário',
-    }),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], RegisterUserDto.prototype, "name", void 0);
+exports.LoginUserDto = LoginUserDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Gabriel@gmail.com',
         description: 'Email do usuário',
     }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEmail)(),
     (0, class_transformer_1.Transform)(({ value }) => value.toLowerCase().trim()),
     __metadata("design:type", String)
-], RegisterUserDto.prototype, "email", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        example: '100.100.100-10',
-        description: 'CPF do usuário',
-    }),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], RegisterUserDto.prototype, "cpf", void 0);
+], LoginUserDto.prototype, "account", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Senha123',
@@ -57,5 +37,5 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], RegisterUserDto.prototype, "password", void 0);
-//# sourceMappingURL=register-user.dto.js.map
+], LoginUserDto.prototype, "password", void 0);
+//# sourceMappingURL=login-user.dto.js.map

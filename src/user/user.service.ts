@@ -1,6 +1,6 @@
   import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
   import { RegisterUserDto } from './dto/register-user.dto';
-  import { LoginUserDto } from './dto/login-user.dto';
+  import { LoginUserDto } from '../auth/dto/login-user.dto';
   import { InjectRepository } from '@nestjs/typeorm';
   import { Repository } from 'typeorm';
   import { hash, compare } from 'bcrypt';
@@ -63,27 +63,19 @@
       return await this.usersRepository.find()
     }
 
-    async findUserByName(name: string): Promise<User> {
-      const user = await this.usersRepository.findOneBy({name});
-      if(!user) throw new NotFoundException(`Usuário com email "${name}" não encontrado...`);
-      return user;
+    async findUserByName(name: string) {
+      return await this.usersRepository.findOneBy({name});
     }
     
-    async findUserById(id: string): Promise<User> {
-      const user = await this.usersRepository.findOneBy({id});
-      if(!user) throw new NotFoundException(`Usuário de id "${id}" não encontrado...`);
-      return user;
+    async findUserById(id: string) {
+      return await this.usersRepository.findOneBy({id});
     }
 
-    async findUserByEmail(email: string): Promise<User> {
-      const user = await this.usersRepository.findOneBy({email});
-      if(!user) throw new NotFoundException(`Usuário com email "${email}" não encontrado...`);
-      return user;
+    async findUserByEmail(email: string) {
+      return await this.usersRepository.findOneBy({email});
     }
 
-    async findUserByCpf(cpf: string): Promise<User> {
-      const user = await this.usersRepository.findOneBy({cpf});
-      if(!user) throw new NotFoundException(`Usuário com o cpf "${cpf}" não encontrado...`);
-      return user;
+    async findUserByCpf(cpf: string) {
+      return await this.usersRepository.findOneBy({cpf});
     }
   }
