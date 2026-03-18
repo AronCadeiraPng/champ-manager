@@ -14,6 +14,7 @@ const common_1 = require("@nestjs/common");
 const user_service_1 = require("../user/user.service");
 const jwt_1 = require("@nestjs/jwt");
 const bcrypt_1 = require("bcrypt");
+const exceptions_1 = require("../common/exceptions");
 let AuthService = class AuthService {
     userService;
     jwtService;
@@ -24,11 +25,11 @@ let AuthService = class AuthService {
     async login(email, password) {
         const user = await this.userService.findUserByEmail(email);
         if (!user) {
-            throw new common_1.UnauthorizedException('Usuário não encontrado');
+            throw new exceptions_1.NotFoundException('Usuário', email, 'email');
         }
         const isMatch = await (0, bcrypt_1.compare)(password, user.password);
         if (!isMatch) {
-            throw new common_1.UnauthorizedException('Credenciais incorretas');
+            throw new exceptions_1.ConflictException('Credenciais incorretas');
         }
         const payload = {
             sub: user.id,

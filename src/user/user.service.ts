@@ -1,4 +1,4 @@
-  import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+  import { BadRequestException, Injectable } from '@nestjs/common';
   import { RegisterUserDto } from './dto/register-user.dto';
   import { LoginUserDto } from '../auth/dto/login-user.dto';
   import { InjectRepository } from '@nestjs/typeorm';
@@ -6,6 +6,8 @@
   import { hash, compare } from 'bcrypt';
   import { User } from './entities/user.entity';
   import * as bcrypt from 'bcrypt'
+  import { NotFoundException } from 'src/common/exceptions';
+  import { ParseUUIDPipe } from '@nestjs/common';
 
   @Injectable()
   export class UserService {
@@ -68,7 +70,9 @@
     }
     
     async findUserById(id: string) {
-      return await this.usersRepository.findOneBy({id});
+      const user = await this.usersRepository.findOneBy({id});
+      if (!user) { throw new NotFoundException('Usuário', id) };
+      return user;
     }
 
     async findUserByEmail(email: string) {

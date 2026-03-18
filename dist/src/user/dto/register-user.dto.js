@@ -35,7 +35,7 @@ __decorate([
         description: 'Email do usuário',
     }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsEmail)({}, { message: 'Email inválido!' }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_transformer_1.Transform)(({ value }) => value.toLowerCase().trim()),
     __metadata("design:type", String)
@@ -45,7 +45,7 @@ __decorate([
         example: '100.100.100-10',
         description: 'CPF do usuário',
     }),
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsString)({ message: 'Cpf inválido!' }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "cpf", void 0);
@@ -55,6 +55,7 @@ __decorate([
         description: 'Senha do usuário',
     }),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(8, { message: 'A senha deve ter pelo menos 8 caractetes...' }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "password", void 0);

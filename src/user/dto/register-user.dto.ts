@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { IsEmail, IsNotEmpty, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
 
 export class RegisterUserDto {
     @ApiProperty({
@@ -16,7 +16,7 @@ export class RegisterUserDto {
       description: 'Email do usuário',
     })
     @IsString()
-    @IsEmail()
+    @IsEmail({}, {message: 'Email inválido!'})
     @IsNotEmpty()
     @Transform(({ value }) => value.toLowerCase().trim())
     email: string;
@@ -25,7 +25,7 @@ export class RegisterUserDto {
       example: '100.100.100-10',
       description: 'CPF do usuário',
     })
-    @IsString()
+    @IsString({message: 'Cpf inválido!'})
     @IsNotEmpty()
     cpf: string;
 
@@ -34,6 +34,7 @@ export class RegisterUserDto {
       description: 'Senha do usuário',
     })
     @IsString()
+    @MinLength(8, { message: 'A senha deve ter pelo menos 8 caractetes...' })
     @IsNotEmpty()
     password: string;
 }

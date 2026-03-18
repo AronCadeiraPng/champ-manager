@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
+import { NotFoundException, ConflictException } from 'src/common/exceptions';
 
 @Injectable()
 export class AuthService {
@@ -14,13 +15,13 @@ export class AuthService {
     const user = await this.userService.findUserByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException('Usuário não encontrado');
+      throw new NotFoundException('Usuário', email, 'email');
     }
 
     const isMatch = await compare(password, user.password);
 
     if (!isMatch) {
-      throw new UnauthorizedException('Credenciais incorretas');
+      throw new ConflictException('Credenciais incorretas');
     }
 
     const payload = {

@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards, Req } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
+import { ParseUUIDPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -20,13 +22,9 @@ export class UserController {
     return await this.userService.registerUser(registerUserDto);
   }
 
-  @ApiOperation({ summary: 'Busca um usuário pelo seu ID' })
-  @ApiResponse({
-    status: 201,
-    type: User,
-  })
+  @UseGuards(AuthGuard('jwt'))
   @Get('id=:id')
-  async findUserById(@Param('id') id: string) {
+  async findUserById(@Param('id', ParseUUIDPipe) id: string) {
     return await this.userService.findUserById(id);
   }
 

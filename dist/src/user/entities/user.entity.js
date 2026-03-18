@@ -21,6 +21,9 @@ let User = class User {
     cpf;
     password;
     role;
+    createdAt;
+    updatedAt;
+    deletedAt;
 };
 exports.User = User;
 __decorate([
@@ -50,6 +53,18 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: user_roles_enum_1.UserRoles, default: user_roles_enum_1.UserRoles.USER }),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz' }),
+    __metadata("design:type", typeorm_1.Timestamp)
+], User.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamptz' }),
+    __metadata("design:type", typeorm_1.Timestamp)
+], User.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.DeleteDateColumn)({ type: 'timestamptz' }),
+    __metadata("design:type", typeorm_1.Timestamp)
+], User.prototype, "deletedAt", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)('users'),
     (0, typeorm_1.Index)(['email'])

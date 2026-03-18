@@ -52,6 +52,7 @@ const typeorm_2 = require("typeorm");
 const bcrypt_1 = require("bcrypt");
 const user_entity_1 = require("./entities/user.entity");
 const bcrypt = __importStar(require("bcrypt"));
+const exceptions_1 = require("../common/exceptions");
 let UserService = class UserService {
     usersRepository;
     constructor(usersRepository) {
@@ -80,7 +81,7 @@ let UserService = class UserService {
             ],
         });
         if (!user) {
-            throw new common_1.NotFoundException('Usuário não encontrado');
+            throw new exceptions_1.NotFoundException('Usuário não encontrado');
         }
         const isPasswordValid = await (0, bcrypt_1.compare)(loginUser.password, user.password);
         if (!isPasswordValid) {
@@ -95,7 +96,12 @@ let UserService = class UserService {
         return await this.usersRepository.findOneBy({ name });
     }
     async findUserById(id) {
-        return await this.usersRepository.findOneBy({ id });
+        const user = await this.usersRepository.findOneBy({ id });
+        if (!user) {
+            throw new exceptions_1.NotFoundException('Usuário', id);
+        }
+        ;
+        return user;
     }
     async findUserByEmail(email) {
         return await this.usersRepository.findOneBy({ email });

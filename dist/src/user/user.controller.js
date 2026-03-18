@@ -18,6 +18,8 @@ const user_service_1 = require("./user.service");
 const register_user_dto_1 = require("./dto/register-user.dto");
 const swagger_1 = require("@nestjs/swagger");
 const user_entity_1 = require("./entities/user.entity");
+const common_2 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
 let UserController = class UserController {
     userService;
     constructor(userService) {
@@ -49,13 +51,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: 'Busca um usuário pelo seu ID' }),
-    (0, swagger_1.ApiResponse)({
-        status: 201,
-        type: user_entity_1.User,
-    }),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Get)('id=:id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_2.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

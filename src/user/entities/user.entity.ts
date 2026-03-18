@@ -1,7 +1,16 @@
 import { Transform } from "class-transformer";
 import { IsString, Length } from "class-validator";
 import { UserRoles } from "src/common/enums/user-roles.enum";
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import { 
+    Column, 
+    CreateDateColumn, 
+    DeleteDateColumn,
+    Entity,
+    Index,
+    PrimaryGeneratedColumn,
+    Timestamp,
+    UpdateDateColumn 
+} from "typeorm";
 
 @Entity('users')
 @Index(['email'])
@@ -26,4 +35,13 @@ export class User {
 
     @Column({type: 'enum', enum: UserRoles, default: UserRoles.USER})
     role: UserRoles;
+
+    @CreateDateColumn({ type: 'timestamptz' })
+    createdAt: Timestamp;
+
+    @UpdateDateColumn({ type: 'timestamptz' })
+    updatedAt: Timestamp;
+
+    @DeleteDateColumn({ type: 'timestamptz' })
+    deletedAt: Timestamp;
 }
