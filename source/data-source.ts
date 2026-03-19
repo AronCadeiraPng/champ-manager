@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'dotenv';
+import { Championship } from 'src/championships/entities/championship.entity';
 import { User } from 'src/users/entities/user.entity';
 
 config()
@@ -13,7 +14,7 @@ config()
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [User],
+      entities: [User, Championship],
       synchronize: true,
     }),
   ],

@@ -10,6 +10,7 @@ exports.DataModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const dotenv_1 = require("dotenv");
+const championship_entity_1 = require("../src/championships/entities/championship.entity");
 const user_entity_1 = require("../src/users/entities/user.entity");
 (0, dotenv_1.config)();
 let DataModule = class DataModule {
@@ -25,7 +26,7 @@ exports.DataModule = DataModule = __decorate([
                 username: process.env.DB_USERNAME,
                 password: process.env.DB_PASSWORD,
                 database: process.env.DB_DATABASE,
-                entities: [user_entity_1.User],
+                entities: [user_entity_1.User, championship_entity_1.Championship],
                 synchronize: true,
             }),
         ],
