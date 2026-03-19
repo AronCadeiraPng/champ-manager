@@ -3,11 +3,11 @@
   import { LoginUserDto } from '../auth/dto/login-user.dto';
   import { InjectRepository } from '@nestjs/typeorm';
   import { Repository } from 'typeorm';
-  import { hash, compare } from 'bcrypt';
+  import { compare } from 'bcrypt';
   import { User } from './entities/user.entity';
   import * as bcrypt from 'bcrypt'
   import { NotFoundException } from 'src/common/exceptions';
-  import { ParseUUIDPipe } from '@nestjs/common';
+import { UpdateUserDto } from './dto/update-user.dto';
 
   @Injectable()
   export class UserService {
@@ -59,6 +59,9 @@
       return user;
     }
 
+    async updateUser(userNewData: UpdateUserDto) {
+      
+    }
 
     ///MÉTODOS FIND BY / GET
     async findAllUsers(): Promise<User[]> {

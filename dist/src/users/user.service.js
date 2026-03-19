@@ -89,6 +89,8 @@ let UserService = class UserService {
         }
         return user;
     }
+    async updateUser(userNewData) {
+    }
     async findAllUsers() {
         return await this.usersRepository.find();
     }

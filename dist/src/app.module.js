@@ -8,12 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const user_module_1 = require("./user/user.module");
+const user_module_1 = require("./users/user.module");
 const data_source_1 = require("../source/data-source");
 const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("./user/entities/user.entity");
+const user_entity_1 = require("./users/entities/user.entity");
 const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
@@ -21,7 +20,7 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [data_source_1.DataModule, user_module_1.UserModule, typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]), auth_module_1.AuthModule],
-        controllers: [app_controller_1.AppController],
+        controllers: [],
         providers: [app_service_1.AppService],
     })
 ], AppModule);

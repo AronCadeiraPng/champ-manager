@@ -20,6 +20,7 @@ const swagger_1 = require("@nestjs/swagger");
 const user_entity_1 = require("./entities/user.entity");
 const common_2 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
+const update_user_dto_1 = require("./dto/update-user.dto");
 let UserController = class UserController {
     userService;
     constructor(userService) {
@@ -27,6 +28,9 @@ let UserController = class UserController {
     }
     async create(registerUserDto) {
         return await this.userService.registerUser(registerUserDto);
+    }
+    async updateUser(updateUserDto) {
+        return await this.userService.updateUser(updateUserDto);
     }
     async findUserById(id) {
         return await this.userService.findUserById(id);
@@ -50,6 +54,13 @@ __decorate([
     __metadata("design:paramtypes", [register_user_dto_1.RegisterUserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
+__decorate([
+    (0, common_1.Patch)('id=:id'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_user_dto_1.UpdateUserDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateUser", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Get)('id=:id'),

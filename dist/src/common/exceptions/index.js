@@ -17,4 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./domain.exception"), exports);
 __exportStar(require("./not-found.exeception"), exports);
 __exportStar(require("./conflict.exception"), exports);
+__exportStar(require("./forbidden.exception"), exports);
 //# sourceMappingURL=index.js.map

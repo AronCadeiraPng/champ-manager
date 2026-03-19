@@ -10,7 +10,7 @@ exports.DataModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const dotenv_1 = require("dotenv");
-const user_entity_1 = require("../src/user/entities/user.entity");
+const user_entity_1 = require("../src/users/entities/user.entity");
 (0, dotenv_1.config)();
 let DataModule = class DataModule {
 };
