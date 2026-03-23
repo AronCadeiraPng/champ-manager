@@ -1,4 +1,5 @@
 import { UserRoles } from "src/common/enums/user-roles.enum";
+import { Registration } from "src/registrations/entities/registration.entity";
 import { Timestamp } from "typeorm";
 export declare class User {
     id: string;
@@ -7,6 +8,7 @@ export declare class User {
     cpf: string;
     password: string;
     role: UserRoles;
+    registrations?: Registration[];
     createdAt: Timestamp;
     updatedAt: Timestamp;
     deletedAt: Timestamp;

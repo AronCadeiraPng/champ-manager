@@ -14,6 +14,7 @@ const championship_esports_enum_1 = require("../../common/enums/championship-esp
 const gender_enum_1 = require("../../common/enums/gender-enum");
 const modality_enum_1 = require("../../common/enums/modality-enum");
 const status_enum_1 = require("../../common/enums/status.enum");
+const registration_entity_1 = require("../../registrations/entities/registration.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("typeorm");
 let Championship = class Championship {
@@ -23,6 +24,7 @@ let Championship = class Championship {
     gender;
     modality;
     status;
+    registrations;
     createdAt;
     updatedAt;
     deletedAt;
@@ -52,6 +54,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: status_enum_1.StatusEnum, default: status_enum_1.StatusEnum.INPROGRESS }),
     __metadata("design:type", String)
 ], Championship.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => registration_entity_1.Registration, (registration) => registration.championship),
+    __metadata("design:type", Array)
+], Championship.prototype, "registrations", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz' }),
     __metadata("design:type", typeorm_2.Timestamp)

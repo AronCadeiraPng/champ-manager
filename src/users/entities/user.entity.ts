@@ -1,12 +1,14 @@
 import { Transform } from "class-transformer";
 import { IsString, Length } from "class-validator";
 import { UserRoles } from "src/common/enums/user-roles.enum";
+import { Registration } from "src/registrations/entities/registration.entity";
 import { 
     Column, 
     CreateDateColumn, 
     DeleteDateColumn,
     Entity,
     Index,
+    OneToMany,
     PrimaryGeneratedColumn,
     Timestamp,
     UpdateDateColumn 
@@ -35,6 +37,9 @@ export class User {
 
     @Column({type: 'enum', enum: UserRoles, default: UserRoles.USER})
     role: UserRoles;
+
+    @OneToMany(() => Registration, (registration) => registration.user)
+    registrations?: Registration[]
 
     @CreateDateColumn({ type: 'timestamptz' })
     createdAt: Timestamp;

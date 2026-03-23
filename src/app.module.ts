@@ -7,6 +7,7 @@ import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ChampionshipsModule } from './championships/championships.module';
 import { ConfigModule } from '@nestjs/config';
+import { RegistrationsModule } from './registrations/registrations.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     TypeOrmModule.forFeature([User]),
     AuthModule,
     ChampionshipsModule,
+    RegistrationsModule,
   ],
   controllers: [],
   providers: [AppService],

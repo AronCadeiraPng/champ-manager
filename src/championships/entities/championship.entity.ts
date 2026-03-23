@@ -2,11 +2,13 @@ import { SportsEnum } from "src/common/enums/championship-esports.enum";
 import { GenderEnum } from "src/common/enums/gender-enum";
 import { ModalityEnum } from "src/common/enums/modality-enum";
 import { StatusEnum } from "src/common/enums/status.enum";
+import { Registration } from "src/registrations/entities/registration.entity";
 import { 
     Column, 
     CreateDateColumn, 
     DeleteDateColumn, 
     Entity, 
+    OneToMany, 
     PrimaryGeneratedColumn, 
     UpdateDateColumn 
 } from "typeorm";
@@ -31,6 +33,9 @@ export class Championship {
 
     @Column({ type: 'enum', enum: StatusEnum, default: StatusEnum.INPROGRESS})
     status: StatusEnum;
+
+    @OneToMany(() => Registration, (registration) => registration.championship)
+    registrations: Registration[];
 
     @CreateDateColumn({ type: 'timestamptz' })
     createdAt: Timestamp;
