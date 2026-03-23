@@ -15,12 +15,20 @@ const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./users/entities/user.entity");
 const auth_module_1 = require("./auth/auth.module");
 const championships_module_1 = require("./championships/championships.module");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [data_source_1.DataModule, user_module_1.UserModule, typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]), auth_module_1.AuthModule, championships_module_1.ChampionshipsModule],
+        imports: [
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            data_source_1.DataModule,
+            user_module_1.UserModule,
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]),
+            auth_module_1.AuthModule,
+            championships_module_1.ChampionshipsModule,
+        ],
         controllers: [],
         providers: [app_service_1.AppService],
     })

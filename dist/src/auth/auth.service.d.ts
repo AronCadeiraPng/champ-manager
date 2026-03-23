@@ -12,5 +12,5 @@ export declare class AuthService {
         access_token: string;
     }>;
     updateUser(id: string, updateUserDto: UpdateUserDto, requesterId: string): Promise<User>;
-    deleteUser(id: string, requesterId: string): Promise<User>;
+    deleteUser(id: string): Promise<User>;
 }

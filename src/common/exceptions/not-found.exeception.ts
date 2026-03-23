@@ -5,7 +5,7 @@ export class NotFoundException extends DomainException {
   constructor(resource: string, value?: string | number, label: string = 'id') {
     super(
       value
-        ? `${resource} com ${label} "${value}" não encontrado`
+        ? `${resource} com ${label} ${value} não encontrado`
         : `${resource} não encontrado`,
       HttpStatus.NOT_FOUND,
     );

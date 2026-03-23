@@ -1,4 +1,4 @@
-import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/users/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
@@ -32,6 +32,7 @@ export class AuthService {
       sub: user.id,
       name: user.name,
       email: user.email,
+      role: user.role
     };
 
     return {
@@ -46,9 +47,9 @@ export class AuthService {
     return this.usersRepository.save(user)
   }
 
-  async deleteUser(id: string, requesterId: string) {
+  async deleteUser(id: string) {
     const user = await this.userService.findUserById(id);
-    if(user.id !== requesterId) throw new ConflictException('Erro ao deletar usuário');
+    if(!user) throw new ConflictException('Erro ao deletar usuário');
     return this.usersRepository.remove(user)
   }
 }

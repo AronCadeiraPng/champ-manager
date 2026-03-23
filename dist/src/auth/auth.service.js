@@ -43,6 +43,7 @@ let AuthService = class AuthService {
             sub: user.id,
             name: user.name,
             email: user.email,
+            role: user.role
         };
         return {
             access_token: this.jwtService.sign(payload),
@@ -55,9 +56,9 @@ let AuthService = class AuthService {
         Object.assign(user, updateUserDto);
         return this.usersRepository.save(user);
     }
-    async deleteUser(id, requesterId) {
+    async deleteUser(id) {
         const user = await this.userService.findUserById(id);
-        if (user.id !== requesterId)
+        if (!user)
             throw new exceptions_1.ConflictException('Erro ao deletar usuário');
         return this.usersRepository.remove(user);
     }

@@ -53,6 +53,8 @@ const bcrypt_1 = require("bcrypt");
 const user_entity_1 = require("./entities/user.entity");
 const bcrypt = __importStar(require("bcrypt"));
 const exceptions_1 = require("../common/exceptions");
+const roles_decorator_1 = require("../decorators/roles.decorator");
+const user_roles_enum_1 = require("../common/enums/user-roles.enum");
 let UserService = class UserService {
     usersRepository;
     constructor(usersRepository) {
@@ -89,8 +91,6 @@ let UserService = class UserService {
         }
         return user;
     }
-    async updateUser(userNewData) {
-    }
     async findAllUsers() {
         return await this.usersRepository.find();
     }
@@ -113,6 +113,12 @@ let UserService = class UserService {
     }
 };
 exports.UserService = UserService;
+__decorate([
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserService.prototype, "findAllUsers", null);
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),

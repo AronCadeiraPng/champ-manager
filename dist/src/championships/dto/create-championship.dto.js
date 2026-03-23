@@ -35,7 +35,7 @@ __decorate([
 ], CreateChampionshipDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'Sinuca',
+        example: 'snoker',
         description: 'Esporte do torneio'
     }),
     (0, class_validator_1.IsString)(),
@@ -44,7 +44,7 @@ __decorate([
 ], CreateChampionshipDto.prototype, "sport", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'Masculino',
+        example: 'masculine',
         description: 'Gênero do torneio'
     }),
     (0, class_validator_1.IsString)(),
@@ -53,7 +53,7 @@ __decorate([
 ], CreateChampionshipDto.prototype, "gender", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'Duplas',
+        example: 'solo-game',
         description: 'Modo do torneio (dupla ou sozinho)'
     }),
     (0, class_validator_1.IsString)(),
@@ -62,7 +62,7 @@ __decorate([
 ], CreateChampionshipDto.prototype, "modality", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'Em andamento...',
+        example: 'in-progress',
         description: 'Status do torneio'
     }),
     (0, class_validator_1.IsString)(),

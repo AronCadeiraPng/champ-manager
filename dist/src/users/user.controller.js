@@ -20,7 +20,8 @@ const swagger_1 = require("@nestjs/swagger");
 const user_entity_1 = require("./entities/user.entity");
 const common_2 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
-const update_user_dto_1 = require("./dto/update-user.dto");
+const roles_decorator_1 = require("../decorators/roles.decorator");
+const user_roles_enum_1 = require("../common/enums/user-roles.enum");
 let UserController = class UserController {
     userService;
     constructor(userService) {
@@ -29,18 +30,16 @@ let UserController = class UserController {
     async create(registerUserDto) {
         return await this.userService.registerUser(registerUserDto);
     }
-    async updateUser(updateUserDto) {
-        return await this.userService.updateUser(updateUserDto);
+    async findAllUsers() {
+        return await this.userService.findAllUsers();
     }
     async findUserById(id) {
         return await this.userService.findUserById(id);
     }
-    async findAllUsers() {
-        return await this.userService.findAllUsers();
-    }
 };
 exports.UserController = UserController;
 __decorate([
+    (0, common_1.Post)('register'),
     (0, swagger_1.ApiOperation)({ summary: 'Registra um novo usuário' }),
     (0, swagger_1.ApiBody)({ type: register_user_dto_1.RegisterUserDto }),
     (0, swagger_1.ApiResponse)({
@@ -48,38 +47,32 @@ __decorate([
         description: 'Usuário criado com sucesso',
         type: user_entity_1.User,
     }),
-    (0, common_1.Post)('register'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [register_user_dto_1.RegisterUserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
 __decorate([
-    (0, common_1.Patch)('id=:id'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_user_dto_1.UpdateUserDto]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "updateUser", null);
-__decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Get)('id=:id'),
-    __param(0, (0, common_1.Param)('id', common_2.ParseUUIDPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "findUserById", null);
-__decorate([
+    (0, common_1.Get)('all'),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os usuários' }),
     (0, swagger_1.ApiResponse)({
         status: 201,
         type: user_entity_1.User,
     }),
-    (0, common_1.Get)('all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findAllUsers", null);
+__decorate([
+    (0, common_1.Get)('id=:id'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    __param(0, (0, common_1.Param)('id', common_2.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "findUserById", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

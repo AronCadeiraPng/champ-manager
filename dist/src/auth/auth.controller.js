@@ -20,6 +20,9 @@ const swagger_1 = require("@nestjs/swagger");
 const user_entity_1 = require("../users/entities/user.entity");
 const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 const update_user_dto_1 = require("../users/dto/update-user.dto");
+const roles_decorator_1 = require("../decorators/roles.decorator");
+const user_roles_enum_1 = require("../common/enums/user-roles.enum");
+const register_user_dto_1 = require("../users/dto/register-user.dto");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -31,12 +34,13 @@ let AuthController = class AuthController {
     async update(id, dto, req) {
         return await this.authService.updateUser(id, dto, req.user.userId);
     }
-    async delete(id, req) {
-        return await this.authService.deleteUser(id, req.user.userId);
+    async delete(id) {
+        return await this.authService.deleteUser(id);
     }
 };
 exports.AuthController = AuthController;
 __decorate([
+    (0, common_1.Post)('login'),
     (0, swagger_1.ApiOperation)({ summary: 'Login do usuário' }),
     (0, swagger_1.ApiBody)({ type: login_user_dto_1.LoginUserDto }),
     (0, swagger_1.ApiResponse)({
@@ -44,15 +48,21 @@ __decorate([
         description: 'Usuário logado com sucesso',
         type: user_entity_1.User,
     }),
-    (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [login_user_dto_1.LoginUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)('update/id=:id'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiOperation)({ summary: 'Update do usuário' }),
+    (0, swagger_1.ApiBody)({ type: register_user_dto_1.RegisterUserDto }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Usuário editado com sucesso',
+        type: user_entity_1.User,
+    }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Request)()),
@@ -61,12 +71,19 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "update", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)('delete/id=:id'),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
+    (0, swagger_1.ApiOperation)({ summary: 'Deletar um usuário' }),
+    (0, swagger_1.ApiBody)({ type: login_user_dto_1.LoginUserDto }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Usuário deletado com sucesso',
+        type: user_entity_1.User,
+    }),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
-    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "delete", null);
 exports.AuthController = AuthController = __decorate([

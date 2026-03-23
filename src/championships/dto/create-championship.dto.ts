@@ -15,15 +15,14 @@ export class CreateChampionshipDto {
     name: string;
 
     @ApiProperty({
-        example: 'Sinuca',
+        example: 'snoker',
         description: 'Esporte do torneio'
     })
     @IsString()
     @IsNotEmpty()
     sport: SportsEnum;
-
     @ApiProperty({
-        example: 'Masculino',
+        example: 'masculine',
         description: 'Gênero do torneio'
     })
     @IsString()
@@ -31,7 +30,7 @@ export class CreateChampionshipDto {
     gender: GenderEnum;
 
     @ApiProperty({
-        example: 'Duplas',
+        example: 'solo-game',
         description: 'Modo do torneio (dupla ou sozinho)'
     })
     @IsString()
@@ -39,7 +38,7 @@ export class CreateChampionshipDto {
     modality: ModalityEnum;
 
     @ApiProperty({
-        example: 'Em andamento...',
+        example: 'in-progress',
         description: 'Status do torneio'
     })
     @IsString()

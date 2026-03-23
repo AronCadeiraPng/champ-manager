@@ -9,5 +9,5 @@ export declare class AuthController {
         access_token: string;
     }>;
     update(id: string, dto: UpdateUserDto, req: any): Promise<User>;
-    delete(id: string, req: any): Promise<User>;
+    delete(id: string): Promise<User>;
 }

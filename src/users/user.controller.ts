@@ -6,12 +6,15 @@ import { User } from './entities/user.entity';
 import { ParseUUIDPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Roles } from 'src/decorators/roles.decorator';
+import { UserRoles } from 'src/common/enums/user-roles.enum';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  /// POST
+  /// CRIA UM NOVO USUÁRIO
+  @Post('register')
   @ApiOperation({ summary: 'Registra um novo usuário' })
   @ApiBody({ type: RegisterUserDto })
   @ApiResponse({
@@ -19,31 +22,27 @@ export class UserController {
     description: 'Usuário criado com sucesso',
     type: User,
   })
-  @Post('register')
   async create(@Body() registerUserDto: RegisterUserDto) {
     return await this.userService.registerUser(registerUserDto);
   }
 
-  /// PATCH & PUT
-  @Patch('id=:id')
-  async updateUser(@Body() updateUserDto: UpdateUserDto) {
-    return await this.userService.updateUser(updateUserDto)
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Get('id=:id')
-  async findUserById(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.userService.findUserById(id);
-  }
-
-  /// GET
+  /// RETORNA TODAS OS USUÁRIOS
+  @Get('all')
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @ApiOperation({ summary: 'Retorna todos os usuários' })
   @ApiResponse({
     status: 201,
     type: User,
   })
-  @Get('all')
   async findAllUsers() {
     return await this.userService.findAllUsers()
+  }
+
+  /// RETORNA USUÁRIO POR ID
+  @Get('id=:id')
+  @UseGuards(AuthGuard('jwt'))
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  async findUserById(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.userService.findUserById(id);
   }
 }

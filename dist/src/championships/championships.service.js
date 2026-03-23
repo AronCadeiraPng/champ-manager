@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const championship_entity_1 = require("./entities/championship.entity");
 const typeorm_2 = require("typeorm");
+const bad_request_exception_1 = require("../common/exceptions/bad-request.exception");
 let ChampionshipsService = class ChampionshipsService {
     championshipsRepository;
     constructor(championshipsRepository) {
@@ -24,7 +25,33 @@ let ChampionshipsService = class ChampionshipsService {
     }
     async createChampionship(createChampionshipDto) {
         const championship = this.championshipsRepository.create(createChampionshipDto);
-        this.championshipsRepository.save(championship);
+        const championshipExists = await this.findChampionshipByName(createChampionshipDto.name);
+        if (championshipExists)
+            throw new bad_request_exception_1.BadRequestException('Torneio com este nome já existe', 400);
+        return this.championshipsRepository.save(championship);
+    }
+    async updateChampionship(id, updateChampionshipDto) {
+        const championship = await this.findChampionshipById(id);
+        Object.assign(championship, updateChampionshipDto);
+        return this.championshipsRepository.save(championship);
+    }
+    async deleteChampionship(id) {
+        const championship = await this.findChampionshipById(id);
+        if (!championship)
+            throw new common_1.NotFoundException('Torneio', id);
+        return this.championshipsRepository.remove(championship);
+    }
+    async findAllChampionships() {
+        return await this.championshipsRepository.find();
+    }
+    async findChampionshipByName(name) {
+        return await this.championshipsRepository.findOneBy({ name });
+    }
+    async findChampionshipById(id) {
+        const championship = await this.championshipsRepository.findOneBy({ id });
+        if (!championship)
+            throw new common_1.NotFoundException('Torneio não encontrado', id);
+        return championship;
     }
 };
 exports.ChampionshipsService = ChampionshipsService;
