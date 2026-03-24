@@ -1,8 +1,6 @@
-import { IsString } from "class-validator";
 import { Championship } from "src/championships/entities/championship.entity";
 import { User } from "src/users/entities/user.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Timestamp, Unique } from "typeorm";
-import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata.js";
 
 @Entity('registrations')
 @Unique(['userId', 'championshipId'])

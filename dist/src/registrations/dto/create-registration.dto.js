@@ -17,6 +17,7 @@ class CreateRegistrationDto {
 exports.CreateRegistrationDto = CreateRegistrationDto;
 __decorate([
     (0, class_validator_1.IsUUID)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateRegistrationDto.prototype, "championshipId", void 0);
 //# sourceMappingURL=create-registration.dto.js.map

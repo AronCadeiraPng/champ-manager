@@ -20,6 +20,7 @@ exports.ChampionshipsModule = ChampionshipsModule = __decorate([
         imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship])],
         controllers: [championships_controller_1.ChampionshipsController],
         providers: [championship_entity_1.Championship, championships_service_1.ChampionshipsService],
+        exports: [championships_service_1.ChampionshipsService]
     })
 ], ChampionshipsModule);
 //# sourceMappingURL=championships.module.js.map

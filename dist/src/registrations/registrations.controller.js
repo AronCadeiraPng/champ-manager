@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const registrations_service_1 = require("./registrations.service");
 const create_registration_dto_1 = require("./dto/create-registration.dto");
 const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
+const roles_decorator_1 = require("../decorators/roles.decorator");
+const user_roles_enum_1 = require("../common/enums/user-roles.enum");
 const swagger_1 = require("@nestjs/swagger");
 const registration_entity_1 = require("./entities/registration.entity");
 let RegistrationsController = class RegistrationsController {
@@ -26,6 +28,9 @@ let RegistrationsController = class RegistrationsController {
     }
     async register(createRegistrationDto, req) {
         return await this.registrationsService.register(createRegistrationDto, req.user.userId);
+    }
+    async delete(id) {
+        return await this.registrationsService.deleteRegistration(id);
     }
     async getAllRegistrations() {
         return await this.registrationsService.allRegisters();
@@ -41,6 +46,21 @@ __decorate([
     __metadata("design:paramtypes", [create_registration_dto_1.CreateRegistrationDto, Object]),
     __metadata("design:returntype", Promise)
 ], RegistrationsController.prototype, "register", null);
+__decorate([
+    (0, common_1.Delete)('delete/:id'),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
+    (0, swagger_1.ApiOperation)({ summary: 'Deletar um registro' }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Registro deletado com sucesso',
+        type: registration_entity_1.Registration,
+    }),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RegistrationsController.prototype, "delete", null);
 __decorate([
     (0, common_1.Get)('all'),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os registros' }),

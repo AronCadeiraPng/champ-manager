@@ -16,7 +16,9 @@ const typeorm_1 = require("typeorm");
 let Registration = class Registration {
     id;
     userId;
+    userName;
     championshipId;
+    championshipName;
     user;
     championship;
     registredAt;
@@ -33,7 +35,15 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
+], Registration.prototype, "userName", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
 ], Registration.prototype, "championshipId", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Registration.prototype, "championshipName", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.User, { onDelete: 'CASCADE' }),
     (0, typeorm_1.JoinColumn)({ name: 'userId' }),

@@ -17,10 +17,17 @@ const common_1 = require("@nestjs/common");
 const registration_entity_1 = require("./entities/registration.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const exceptions_1 = require("../common/exceptions");
+const championships_service_1 = require("../championships/championships.service");
+const user_service_1 = require("../users/user.service");
 let RegistrationsService = class RegistrationsService {
     registrationsRepository;
-    constructor(registrationsRepository) {
+    userService;
+    championshipsService;
+    constructor(registrationsRepository, userService, championshipsService) {
         this.registrationsRepository = registrationsRepository;
+        this.userService = userService;
+        this.championshipsService = championshipsService;
     }
     async register(createRegistrationDto, userId) {
         const alreadyRegistered = await this.registrationsRepository.findOne({
@@ -28,8 +35,14 @@ let RegistrationsService = class RegistrationsService {
         });
         if (alreadyRegistered)
             throw new common_1.BadRequestException('Registro já feito');
+        const user = await this.userService.findUserById(userId);
+        const championshipExists = await this.championshipsService.findChampionshipById(createRegistrationDto.championshipId);
+        if (!championshipExists)
+            throw new exceptions_1.NotFoundException('Torneio', createRegistrationDto.championshipId);
         const registration = this.registrationsRepository.create({
+            userName: user.name,
             userId,
+            championshipName: championshipExists.name,
             championshipId: createRegistrationDto.championshipId
         });
         return this.registrationsRepository.save(registration);
@@ -38,13 +51,22 @@ let RegistrationsService = class RegistrationsService {
         return await this.registrationsRepository.find();
     }
     async findRegisterById(id) {
-        return await this.registrationsRepository.findOneBy({ id });
+        const registration = await this.registrationsRepository.findOneBy({ id });
+        if (!registration)
+            throw new exceptions_1.NotFoundException('Registro', id);
+        return registration;
+    }
+    async deleteRegistration(id) {
+        const registration = await this.findRegisterById(id);
+        return this.registrationsRepository.remove(registration);
     }
 };
 exports.RegistrationsService = RegistrationsService;
 exports.RegistrationsService = RegistrationsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(registration_entity_1.Registration)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        user_service_1.UserService,
+        championships_service_1.ChampionshipsService])
 ], RegistrationsService);
 //# sourceMappingURL=registrations.service.js.map

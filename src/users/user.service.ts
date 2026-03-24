@@ -7,7 +7,6 @@
   import { User } from './entities/user.entity';
   import * as bcrypt from 'bcrypt'
   import { NotFoundException } from 'src/common/exceptions';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles } from 'src/decorators/roles.decorator';
 import { UserRoles } from 'src/common/enums/user-roles.enum';
 

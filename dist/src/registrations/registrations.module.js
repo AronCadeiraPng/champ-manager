@@ -12,14 +12,26 @@ const registrations_service_1 = require("./registrations.service");
 const registrations_controller_1 = require("./registrations.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const registration_entity_1 = require("./entities/registration.entity");
+const championships_module_1 = require("../championships/championships.module");
+const championship_entity_1 = require("../championships/entities/championship.entity");
+const user_module_1 = require("../users/user.module");
+const user_entity_1 = require("../users/entities/user.entity");
+const user_service_1 = require("../users/user.service");
 let RegistrationsModule = class RegistrationsModule {
 };
 exports.RegistrationsModule = RegistrationsModule;
 exports.RegistrationsModule = RegistrationsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([registration_entity_1.Registration])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([
+                registration_entity_1.Registration,
+                championship_entity_1.Championship,
+                user_entity_1.User
+            ]),
+            championships_module_1.ChampionshipsModule,
+            user_module_1.UserModule
+        ],
         controllers: [registrations_controller_1.RegistrationsController],
-        providers: [registrations_service_1.RegistrationsService],
+        providers: [registrations_service_1.RegistrationsService, user_service_1.UserService],
     })
 ], RegistrationsModule);
 //# sourceMappingURL=registrations.module.js.map

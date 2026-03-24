@@ -5,5 +5,6 @@ export declare class RegistrationsController {
     private readonly registrationsService;
     constructor(registrationsService: RegistrationsService);
     register(createRegistrationDto: CreateRegistrationDto, req: any): Promise<Registration>;
+    delete(id: string): Promise<Registration>;
     getAllRegistrations(): Promise<Registration[]>;
 }

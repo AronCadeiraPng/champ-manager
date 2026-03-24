@@ -8,5 +8,6 @@ import { Championship } from './entities/championship.entity';
   imports: [TypeOrmModule.forFeature([Championship])],
   controllers: [ChampionshipsController],
   providers: [Championship, ChampionshipsService],
+  exports: [ChampionshipsService]
 })
 export class ChampionshipsModule {}
