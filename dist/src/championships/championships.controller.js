@@ -23,11 +23,13 @@ const user_roles_enum_1 = require("../common/enums/user-roles.enum");
 const roles_guard_1 = require("../common/guards/roles.guard");
 const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 const update_championship_dto_1 = require("./dto/update-championship.dto");
+const registration_entity_1 = require("../registrations/entities/registration.entity");
 let ChampionshipsController = class ChampionshipsController {
     championshipsService;
     constructor(championshipsService) {
         this.championshipsService = championshipsService;
     }
+    ;
     async createChampionship(createChampionshipDto) {
         return this.championshipsService.createChampionship(createChampionshipDto);
     }
@@ -36,6 +38,9 @@ let ChampionshipsController = class ChampionshipsController {
     }
     async updateChampionship(id, updateChampionshipDto) {
         return this.championshipsService.updateChampionship(id, updateChampionshipDto);
+    }
+    async findAllRegistrations(id) {
+        return this.championshipsService.findAllRegistrations(id);
     }
     async findChampionshipById(id) {
         return this.championshipsService.findChampionshipById(id);
@@ -77,6 +82,17 @@ __decorate([
     __metadata("design:paramtypes", [String, update_championship_dto_1.UpdateChampionshipDto]),
     __metadata("design:returntype", Promise)
 ], ChampionshipsController.prototype, "updateChampionship", null);
+__decorate([
+    (0, common_1.Get)(':id/registrations'),
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna as inscrições de um torneio' }),
+    (0, swagger_1.ApiParam)({ name: 'id', description: 'UUID do torneio', format: 'uuid' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Inscrições retornadas', type: registration_entity_1.Registration }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Torneio não encontrado' }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ChampionshipsController.prototype, "findAllRegistrations", null);
 __decorate([
     (0, common_1.Get)('id=:id'),
     (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),

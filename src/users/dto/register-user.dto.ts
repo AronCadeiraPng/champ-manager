@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { GenderEnum } from "src/common/enums/gender-enum";
 
 export class RegisterUserDto {
     @ApiProperty({
@@ -10,6 +11,14 @@ export class RegisterUserDto {
     @IsString()
     @IsNotEmpty()
     name: string;
+
+    @ApiProperty({
+      example: 'Gabriel',
+      description: 'Nome do usuário',
+    })
+    @IsString()
+    @IsNotEmpty()
+    gender: GenderEnum;
 
     @ApiProperty({
       example: 'Gabriel@gmail.com',

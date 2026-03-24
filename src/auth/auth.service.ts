@@ -17,16 +17,13 @@ export class AuthService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
+///=========================LOGIN=========================///
   async loginUser(email: string, password: string) {
     const user = await this.userService.findUserByEmail(email);
-    if (!user) {
-      throw new NotFoundException('Usuário', email, 'email');
-    }
+    if (!user) { throw new NotFoundException('Usuário', email, 'email') }
 
     const isMatch = await compare(password, user.password);
-    if (!isMatch) {
-      throw new ConflictException('Credenciais incorretas');
-    }
+    if (!isMatch) { throw new ConflictException('Credenciais incorretas') }
 
     const payload = {
       sub: user.id,
@@ -35,21 +32,24 @@ export class AuthService {
       role: user.role
     };
 
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    return { access_token: this.jwtService.sign(payload) };
   }
 
+///=========================UPDATE=========================///
   async updateUser(id: string, updateUserDto: UpdateUserDto, requesterId: string) {
     const user = await this.userService.findUserById(id);
-    if(user.id !== requesterId) throw new ConflictException('Usuário não corresponde');
+
+    if (user.id !== requesterId) throw new ConflictException('Usuário não corresponde');
     Object.assign(user, updateUserDto);
+    
     return this.usersRepository.save(user)
   }
 
+///=========================DELETE=========================///
   async deleteUser(id: string) {
     const user = await this.userService.findUserById(id);
-    if(!user) throw new ConflictException('Erro ao deletar usuário');
+
+    if (!user) throw new ConflictException('Erro ao deletar usuário');
     return this.usersRepository.remove(user)
   }
 }

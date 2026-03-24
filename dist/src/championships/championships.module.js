@@ -12,12 +12,13 @@ const championships_service_1 = require("./championships.service");
 const championships_controller_1 = require("./championships.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const championship_entity_1 = require("./entities/championship.entity");
+const registration_entity_1 = require("../registrations/entities/registration.entity");
 let ChampionshipsModule = class ChampionshipsModule {
 };
 exports.ChampionshipsModule = ChampionshipsModule;
 exports.ChampionshipsModule = ChampionshipsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship, registration_entity_1.Registration])],
         controllers: [championships_controller_1.ChampionshipsController],
         providers: [championship_entity_1.Championship, championships_service_1.ChampionshipsService],
         exports: [championships_service_1.ChampionshipsService]

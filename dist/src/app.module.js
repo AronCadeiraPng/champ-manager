@@ -17,6 +17,7 @@ const auth_module_1 = require("./auth/auth.module");
 const championships_module_1 = require("./championships/championships.module");
 const config_1 = require("@nestjs/config");
 const registrations_module_1 = require("./registrations/registrations.module");
+const teams_module_1 = require("./teams/teams.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -30,6 +31,7 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             championships_module_1.ChampionshipsModule,
             registrations_module_1.RegistrationsModule,
+            teams_module_1.TeamsModule,
         ],
         controllers: [],
         providers: [app_service_1.AppService],

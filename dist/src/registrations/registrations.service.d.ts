@@ -8,7 +8,7 @@ export declare class RegistrationsService {
     private readonly userService;
     private readonly championshipsService;
     constructor(registrationsRepository: Repository<Registration>, userService: UserService, championshipsService: ChampionshipsService);
-    register(createRegistrationDto: CreateRegistrationDto, userId: string): Promise<Registration>;
+    register(createRegistrationDto: CreateRegistrationDto, userIdDto: string): Promise<Registration>;
     allRegisters(): Promise<Registration[]>;
     findRegisterById(id: string): Promise<Registration>;
     deleteRegistration(id: string): Promise<Registration>;

@@ -20,6 +20,7 @@ const typeorm_2 = require("typeorm");
 const exceptions_1 = require("../common/exceptions");
 const championships_service_1 = require("../championships/championships.service");
 const user_service_1 = require("../users/user.service");
+const bad_request_exception_1 = require("../common/exceptions/bad-request.exception");
 let RegistrationsService = class RegistrationsService {
     registrationsRepository;
     userService;
@@ -29,20 +30,27 @@ let RegistrationsService = class RegistrationsService {
         this.userService = userService;
         this.championshipsService = championshipsService;
     }
-    async register(createRegistrationDto, userId) {
+    async register(createRegistrationDto, userIdDto) {
+        const user = await this.userService.findUserById(userIdDto);
+        const championship = await this.championshipsService.findChampionshipById(createRegistrationDto.championshipId);
         const alreadyRegistered = await this.registrationsRepository.findOne({
-            where: { userId, championshipId: createRegistrationDto.championshipId }
+            where: {
+                userId: userIdDto,
+            }
         });
         if (alreadyRegistered)
-            throw new common_1.BadRequestException('Registro já feito');
-        const user = await this.userService.findUserById(userId);
-        const championshipExists = await this.championshipsService.findChampionshipById(createRegistrationDto.championshipId);
-        if (!championshipExists)
+            throw new bad_request_exception_1.BadRequestException('Registro já feito', 400);
+        const nowDate = new Date();
+        if (user.gender !== championship.gender)
+            throw new bad_request_exception_1.BadRequestException('Gênero não correspondente ao do torneio', 400);
+        if (championship.registrationEnd < nowDate)
+            throw new bad_request_exception_1.BadRequestException('Período de inscrição encerrado', 400);
+        if (!championship)
             throw new exceptions_1.NotFoundException('Torneio', createRegistrationDto.championshipId);
         const registration = this.registrationsRepository.create({
             userName: user.name,
-            userId,
-            championshipName: championshipExists.name,
+            userId: userIdDto,
+            championshipName: championship.name,
             championshipId: createRegistrationDto.championshipId
         });
         return this.registrationsRepository.save(registration);

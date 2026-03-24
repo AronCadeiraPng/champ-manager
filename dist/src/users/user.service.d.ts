@@ -8,7 +8,6 @@ export declare class UserService {
     registerUser(registerUserDto: RegisterUserDto): Promise<User>;
     loginIn(loginUser: LoginUserDto): Promise<User>;
     findAllUsers(): Promise<User[]>;
-    findUserByName(name: string): Promise<User | null>;
     findUserById(id: string): Promise<User>;
     findUserByEmail(email: string): Promise<User | null>;
     findUserByCpf(cpf: string): Promise<User | null>;

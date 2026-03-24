@@ -45,9 +45,7 @@ let AuthService = class AuthService {
             email: user.email,
             role: user.role
         };
-        return {
-            access_token: this.jwtService.sign(payload),
-        };
+        return { access_token: this.jwtService.sign(payload) };
     }
     async updateUser(id, updateUserDto, requesterId) {
         const user = await this.userService.findUserById(id);

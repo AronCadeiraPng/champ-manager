@@ -21,6 +21,8 @@ class CreateChampionshipDto {
     sport;
     gender;
     modality;
+    registrationStart;
+    registrationEnd;
     status;
 }
 exports.CreateChampionshipDto = CreateChampionshipDto;
@@ -60,6 +62,22 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateChampionshipDto.prototype, "modality", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: '05/10/2026',
+        description: 'Data de início das inscrições'
+    }),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], CreateChampionshipDto.prototype, "registrationStart", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: '10/05/2026',
+        description: 'Data de término das inscrições'
+    }),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], CreateChampionshipDto.prototype, "registrationEnd", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'in-progress',

@@ -20,5 +20,6 @@ import { UserService } from 'src/users/user.service';
   ],
   controllers: [RegistrationsController],
   providers: [RegistrationsService, UserService],
+  exports: [RegistrationsModule]
 })
 export class RegistrationsModule {}

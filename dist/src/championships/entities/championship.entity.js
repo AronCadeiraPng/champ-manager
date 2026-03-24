@@ -23,6 +23,8 @@ let Championship = class Championship {
     sport;
     gender;
     modality;
+    registrationStart;
+    registrationEnd;
     status;
     registrations;
     createdAt;
@@ -50,6 +52,14 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: modality_enum_1.ModalityEnum }),
     __metadata("design:type", String)
 ], Championship.prototype, "modality", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'timestamptz', default: new Date() }),
+    __metadata("design:type", Date)
+], Championship.prototype, "registrationStart", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'timestamptz' }),
+    __metadata("design:type", Date)
+], Championship.prototype, "registrationEnd", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: status_enum_1.StatusEnum, default: status_enum_1.StatusEnum.INPROGRESS }),
     __metadata("design:type", String)

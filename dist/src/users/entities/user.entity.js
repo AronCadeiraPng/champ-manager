@@ -12,8 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
+const gender_enum_1 = require("../../common/enums/gender-enum");
 const user_roles_enum_1 = require("../../common/enums/user-roles.enum");
 const registration_entity_1 = require("../../registrations/entities/registration.entity");
+const team_entity_1 = require("../../teams/entities/team.entity");
 const typeorm_1 = require("typeorm");
 let User = class User {
     id;
@@ -21,7 +23,9 @@ let User = class User {
     email;
     cpf;
     password;
+    team;
     role;
+    gender;
     registrations;
     createdAt;
     updatedAt;
@@ -52,9 +56,17 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    (0, typeorm_1.ManyToOne)(() => team_entity_1.Team, (team) => team.users),
+    __metadata("design:type", team_entity_1.Team)
+], User.prototype, "team", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: user_roles_enum_1.UserRoles, default: user_roles_enum_1.UserRoles.USER }),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'enum', enum: gender_enum_1.GenderEnum }),
+    __metadata("design:type", String)
+], User.prototype, "gender", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => registration_entity_1.Registration, (registration) => registration.user),
     __metadata("design:type", Array)

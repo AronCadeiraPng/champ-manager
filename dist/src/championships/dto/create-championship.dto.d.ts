@@ -7,5 +7,7 @@ export declare class CreateChampionshipDto {
     sport: SportsEnum;
     gender: GenderEnum;
     modality: ModalityEnum;
+    registrationStart: string;
+    registrationEnd: string;
     status: StatusEnum;
 }

@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString } from "class-validator";
+import { Type } from "class-transformer";
+import { IsDate, IsDateString, IsNotEmpty, IsString } from "class-validator";
 import { SportsEnum } from "src/common/enums/championship-esports.enum";
 import { GenderEnum } from "src/common/enums/gender-enum";
 import { ModalityEnum } from "src/common/enums/modality-enum";
@@ -36,6 +37,20 @@ export class CreateChampionshipDto {
     @IsString()
     @IsNotEmpty()
     modality: ModalityEnum;
+
+    @ApiProperty({
+        example: '05/10/2026',
+        description: 'Data de início das inscrições'
+    })
+    @IsDateString()
+    registrationStart: string;   
+
+    @ApiProperty({
+        example: '10/05/2026',
+        description: 'Data de término das inscrições'
+    })
+    @IsDateString()
+    registrationEnd: string;
 
     @ApiProperty({
         example: 'in-progress',

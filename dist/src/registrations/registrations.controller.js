@@ -64,10 +64,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)('all'),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os registros' }),
-    (0, swagger_1.ApiResponse)({
-        status: 201,
-        type: registration_entity_1.Registration,
-    }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: registration_entity_1.Registration }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

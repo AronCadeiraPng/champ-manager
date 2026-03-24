@@ -32,6 +32,7 @@ exports.RegistrationsModule = RegistrationsModule = __decorate([
         ],
         controllers: [registrations_controller_1.RegistrationsController],
         providers: [registrations_service_1.RegistrationsService, user_service_1.UserService],
+        exports: [RegistrationsModule]
     })
 ], RegistrationsModule);
 //# sourceMappingURL=registrations.module.js.map

@@ -55,6 +55,8 @@ const bcrypt = __importStar(require("bcrypt"));
 const exceptions_1 = require("../common/exceptions");
 const roles_decorator_1 = require("../decorators/roles.decorator");
 const user_roles_enum_1 = require("../common/enums/user-roles.enum");
+const bad_request_exception_1 = require("../common/exceptions/bad-request.exception");
+const INVALID_CREDENTIALS = 'Credenciais inválidas';
 let UserService = class UserService {
     usersRepository;
     constructor(usersRepository) {
@@ -64,9 +66,9 @@ let UserService = class UserService {
         const emailExists = await this.findUserByEmail(registerUserDto.email);
         const CpfExists = await this.findUserByCpf(registerUserDto.cpf);
         if (emailExists)
-            throw new common_1.BadRequestException('Usuário com este email já existe!');
+            throw new bad_request_exception_1.BadRequestException('Usuário com este email já existe!', 400);
         if (CpfExists)
-            throw new common_1.BadRequestException('Usuário com este cpf já cadastrado!');
+            throw new bad_request_exception_1.BadRequestException('Usuário com este cpf já cadastrado!', 400);
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(registerUserDto.password, salt);
         const user = this.usersRepository.create({
@@ -83,33 +85,41 @@ let UserService = class UserService {
             ],
         });
         if (!user) {
-            throw new exceptions_1.NotFoundException('Usuário não encontrado');
+            throw new exceptions_1.NotFoundException(INVALID_CREDENTIALS);
         }
         const isPasswordValid = await (0, bcrypt_1.compare)(loginUser.password, user.password);
         if (!isPasswordValid) {
-            throw new common_1.BadRequestException('Credenciais incorretas');
+            throw new bad_request_exception_1.BadRequestException(INVALID_CREDENTIALS, 400);
         }
         return user;
     }
     async findAllUsers() {
-        return await this.usersRepository.find();
-    }
-    async findUserByName(name) {
-        return await this.usersRepository.findOneBy({ name });
+        return await this.usersRepository.find({
+            select: ['id', 'gender', 'name', 'email', 'createdAt', 'role']
+        });
     }
     async findUserById(id) {
-        const user = await this.usersRepository.findOneBy({ id });
+        const user = await this.usersRepository.findOne({
+            where: { id: id },
+            select: ['id', 'gender', 'name', 'email', 'createdAt', 'role']
+        });
         if (!user) {
-            throw new exceptions_1.NotFoundException('Usuário', id);
+            throw new exceptions_1.NotFoundException(`Usuário: ${id}`);
         }
         ;
         return user;
     }
     async findUserByEmail(email) {
-        return await this.usersRepository.findOneBy({ email });
+        return await this.usersRepository.findOne({
+            where: { email: email },
+            select: ['id', 'password', 'gender', 'name', 'email', 'createdAt', 'role']
+        });
     }
     async findUserByCpf(cpf) {
-        return await this.usersRepository.findOneBy({ cpf });
+        return await this.usersRepository.findOne({
+            where: { cpf: cpf },
+            select: ['id', 'gender', 'name', 'email', 'createdAt', 'role']
+        });
     }
 };
 exports.UserService = UserService;

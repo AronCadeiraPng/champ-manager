@@ -10,6 +10,8 @@ export declare class Championship {
     sport: SportsEnum;
     gender: GenderEnum;
     modality: ModalityEnum;
+    registrationStart: Date;
+    registrationEnd: Date;
     status: StatusEnum;
     registrations: Registration[];
     createdAt: Timestamp;

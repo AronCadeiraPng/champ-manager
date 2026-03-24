@@ -13,8 +13,10 @@ exports.RegisterUserDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
+const gender_enum_1 = require("../../common/enums/gender-enum");
 class RegisterUserDto {
     name;
+    gender;
     email;
     cpf;
     password;
@@ -29,6 +31,15 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'Gabriel',
+        description: 'Nome do usuário',
+    }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], RegisterUserDto.prototype, "gender", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Gabriel@gmail.com',

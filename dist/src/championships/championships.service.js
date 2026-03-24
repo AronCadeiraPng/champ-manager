@@ -18,10 +18,14 @@ const typeorm_1 = require("@nestjs/typeorm");
 const championship_entity_1 = require("./entities/championship.entity");
 const typeorm_2 = require("typeorm");
 const bad_request_exception_1 = require("../common/exceptions/bad-request.exception");
+const registration_entity_1 = require("../registrations/entities/registration.entity");
+const exceptions_1 = require("../common/exceptions");
 let ChampionshipsService = class ChampionshipsService {
     championshipsRepository;
-    constructor(championshipsRepository) {
+    registrationsRepository;
+    constructor(championshipsRepository, registrationsRepository) {
         this.championshipsRepository = championshipsRepository;
+        this.registrationsRepository = registrationsRepository;
     }
     async createChampionship(createChampionshipDto) {
         const championship = this.championshipsRepository.create(createChampionshipDto);
@@ -37,12 +41,18 @@ let ChampionshipsService = class ChampionshipsService {
     }
     async deleteChampionship(id) {
         const championship = await this.findChampionshipById(id);
-        if (!championship)
-            throw new common_1.NotFoundException('Torneio', id);
         return this.championshipsRepository.remove(championship);
     }
     async findAllChampionships() {
         return await this.championshipsRepository.find();
+    }
+    async findAllRegistrations(id) {
+        const championship = await this.findChampionshipById(id);
+        return this.registrationsRepository.find({
+            where: {
+                championshipId: championship.id
+            }
+        });
     }
     async findChampionshipByName(name) {
         return await this.championshipsRepository.findOneBy({ name });
@@ -50,7 +60,7 @@ let ChampionshipsService = class ChampionshipsService {
     async findChampionshipById(id) {
         const championship = await this.championshipsRepository.findOneBy({ id });
         if (!championship)
-            throw new common_1.NotFoundException('Torneio não encontrado', id);
+            throw new exceptions_1.NotFoundException('Torneio', id);
         return championship;
     }
 };
@@ -58,6 +68,8 @@ exports.ChampionshipsService = ChampionshipsService;
 exports.ChampionshipsService = ChampionshipsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(championship_entity_1.Championship)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(registration_entity_1.Registration)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], ChampionshipsService);
 //# sourceMappingURL=championships.service.js.map

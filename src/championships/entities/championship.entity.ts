@@ -31,6 +31,12 @@ export class Championship {
     @Column({ type: 'enum', enum: ModalityEnum })
     modality: ModalityEnum;
 
+    @Column({ type: 'timestamptz', default: new Date() })
+    registrationStart: Date;
+
+    @Column({ type: 'timestamptz' })
+    registrationEnd: Date;
+
     @Column({ type: 'enum', enum: StatusEnum, default: StatusEnum.INPROGRESS})
     status: StatusEnum;
 

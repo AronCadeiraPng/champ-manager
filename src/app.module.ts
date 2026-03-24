@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { ChampionshipsModule } from './championships/championships.module';
 import { ConfigModule } from '@nestjs/config';
 import { RegistrationsModule } from './registrations/registrations.module';
+import { TeamsModule } from './teams/teams.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RegistrationsModule } from './registrations/registrations.module';
     AuthModule,
     ChampionshipsModule,
     RegistrationsModule,
+    TeamsModule,
   ],
   controllers: [],
   providers: [AppService],

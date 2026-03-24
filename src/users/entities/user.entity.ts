@@ -1,13 +1,16 @@
 import { Transform } from "class-transformer";
 import { IsString, Length } from "class-validator";
+import { GenderEnum } from "src/common/enums/gender-enum";
 import { UserRoles } from "src/common/enums/user-roles.enum";
 import { Registration } from "src/registrations/entities/registration.entity";
+import { Team } from "src/teams/entities/team.entity";
 import { 
     Column, 
     CreateDateColumn, 
     DeleteDateColumn,
     Entity,
     Index,
+    ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
     Timestamp,
@@ -35,8 +38,14 @@ export class User {
     @Column({type: 'varchar', length: 255})
     password: string;
 
+    @ManyToOne(() => Team, (team) => team.users)
+    team: Team;
+
     @Column({type: 'enum', enum: UserRoles, default: UserRoles.USER})
     role: UserRoles;
+
+    @Column({ type: 'enum', enum: GenderEnum })
+    gender: GenderEnum;
 
     @OneToMany(() => Registration, (registration) => registration.user)
     registrations?: Registration[]
