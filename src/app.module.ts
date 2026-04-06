@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
-import { UserModule } from './users/user.module';
+import { UserModule } from './users/infrastructure/user.module';
 import { DataModule } from 'source/data-source';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
+import { User } from './users/models/entity/user.entity';
 import { AuthModule } from './auth/auth.module';
-import { ChampionshipsModule } from './championships/championships.module';
 import { ConfigModule } from '@nestjs/config';
-import { RegistrationsModule } from './registrations/registrations.module';
-import { TeamsModule } from './teams/teams.module';
+import { SportsModule } from './sports/infrastructure/sports.module';
+import { UserRegisterService } from './users/use-cases/register-user/user-register.service';
+import { ChampionshipSoloModule } from './championships-solo/infrastructure/championships-solo.module';
+import { RegistrationSoloModule } from './registrations-solo/infrastructure/registrations.module';
 
 @Module({
   imports: [
@@ -17,11 +18,15 @@ import { TeamsModule } from './teams/teams.module';
     UserModule,
     TypeOrmModule.forFeature([User]),
     AuthModule,
-    ChampionshipsModule,
-    RegistrationsModule,
-    TeamsModule,
+    ChampionshipSoloModule,
+    RegistrationSoloModule,
+    SportsModule,
   ],
   controllers: [],
-  providers: [AppService],
+  providers: [
+    AppService,
+    UserRegisterService,
+    User
+  ],
 })
 export class AppModule {}

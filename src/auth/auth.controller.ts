@@ -2,9 +2,9 @@ import { Controller, Post, Body, Patch, UseGuards, ParseUUIDPipe, Param, Request
 import { AuthService } from './auth.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from 'src/users/entities/user.entity';
+import { User } from 'src/users/models/entity/user.entity';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { UpdateUserDto } from 'src/users/dto/update-user.dto';
+import { UpdateUserDto } from 'src/users/models/dtos/update-user.dto';
 import { Roles } from 'src/decorators/roles.decorator';
 import { UserRoles } from 'src/common/enums/user-roles.enum';
 import { RolesGuard } from 'src/common/guards/roles.guard';

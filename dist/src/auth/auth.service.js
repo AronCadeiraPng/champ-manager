@@ -14,24 +14,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-const user_service_1 = require("../users/user.service");
 const jwt_1 = require("@nestjs/jwt");
 const bcrypt_1 = require("bcrypt");
 const exceptions_1 = require("../common/exceptions");
-const user_entity_1 = require("../users/entities/user.entity");
+const user_entity_1 = require("../users/models/entity/user.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
+const find_user_service_1 = require("../users/use-cases/find-user/find-user.service");
 let AuthService = class AuthService {
-    userService;
+    userFindService;
     jwtService;
     usersRepository;
-    constructor(userService, jwtService, usersRepository) {
-        this.userService = userService;
+    constructor(userFindService, jwtService, usersRepository) {
+        this.userFindService = userFindService;
         this.jwtService = jwtService;
         this.usersRepository = usersRepository;
     }
     async loginUser(email, password) {
-        const user = await this.userService.findUserByEmail(email);
+        const user = await this.userFindService.findUserByEmail(email);
         if (!user) {
             throw new exceptions_1.NotFoundException('Usuário', email, 'email');
         }
@@ -48,14 +48,14 @@ let AuthService = class AuthService {
         return { access_token: this.jwtService.sign(payload) };
     }
     async updateUser(id, updateUserDto, requesterId) {
-        const user = await this.userService.findUserById(id);
+        const user = await this.userFindService.findUserById(id);
         if (user.id !== requesterId)
             throw new exceptions_1.ConflictException('Usuário não corresponde');
         Object.assign(user, updateUserDto);
         return this.usersRepository.save(user);
     }
     async deleteUser(id) {
-        const user = await this.userService.findUserById(id);
+        const user = await this.userFindService.findUserById(id);
         if (!user)
             throw new exceptions_1.ConflictException('Erro ao deletar usuário');
         return this.usersRepository.remove(user);
@@ -65,7 +65,7 @@ exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(2, (0, typeorm_2.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [user_service_1.UserService,
+    __metadata("design:paramtypes", [find_user_service_1.UserFindService,
         jwt_1.JwtService,
         typeorm_1.Repository])
 ], AuthService);

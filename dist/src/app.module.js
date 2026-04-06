@@ -9,15 +9,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
-const user_module_1 = require("./users/user.module");
+const user_module_1 = require("./users/infrastructure/user.module");
 const data_source_1 = require("../source/data-source");
 const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("./users/entities/user.entity");
+const user_entity_1 = require("./users/models/entity/user.entity");
 const auth_module_1 = require("./auth/auth.module");
-const championships_module_1 = require("./championships/championships.module");
 const config_1 = require("@nestjs/config");
-const registrations_module_1 = require("./registrations/registrations.module");
-const teams_module_1 = require("./teams/teams.module");
+const sports_module_1 = require("./sports/infrastructure/sports.module");
+const user_register_service_1 = require("./users/use-cases/register-user/user-register.service");
+const championships_solo_module_1 = require("./championships-solo/infrastructure/championships-solo.module");
+const registrations_module_1 = require("./registrations-solo/infrastructure/registrations.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -29,12 +30,16 @@ exports.AppModule = AppModule = __decorate([
             user_module_1.UserModule,
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]),
             auth_module_1.AuthModule,
-            championships_module_1.ChampionshipsModule,
-            registrations_module_1.RegistrationsModule,
-            teams_module_1.TeamsModule,
+            championships_solo_module_1.ChampionshipSoloModule,
+            registrations_module_1.RegistrationSoloModule,
+            sports_module_1.SportsModule,
         ],
         controllers: [],
-        providers: [app_service_1.AppService],
+        providers: [
+            app_service_1.AppService,
+            user_register_service_1.UserRegisterService,
+            user_entity_1.User
+        ],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

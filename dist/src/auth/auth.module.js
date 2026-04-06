@@ -11,10 +11,10 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
-const user_module_1 = require("../users/user.module");
+const user_module_1 = require("../users/infrastructure/user.module");
 const jwt_strategy_1 = require("./strategies/jwt.strategy");
 const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("../users/entities/user.entity");
+const user_entity_1 = require("../users/models/entity/user.entity");
 const config_1 = require("@nestjs/config");
 let AuthModule = class AuthModule {
 };
