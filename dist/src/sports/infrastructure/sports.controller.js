@@ -52,6 +52,11 @@ let SportsController = class SportsController {
 exports.SportsController = SportsController;
 __decorate([
     (0, common_1.Post)('create'),
+    (0, swagger_1.ApiOperation)({ summary: 'Cria um novo esporte' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.OK,
+        type: user_entity_1.User
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_sport_dto_1.CreateSportDto]),

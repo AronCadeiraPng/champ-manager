@@ -20,6 +20,11 @@ export class SportsController {
 
 
   @Post('create')
+  @ApiOperation({ summary: 'Cria um novo esporte' })
+    @ApiResponse({
+      status: HttpStatus.OK,
+      type: User
+    })
   async create(
     @Body() createSportDto: CreateSportDto
   ): Promise<Sport>
