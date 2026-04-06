@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 let Sport = class Sport {
     id;
     name;
+    deleted;
     championship;
 };
 exports.Sport = Sport;
@@ -23,9 +24,13 @@ __decorate([
     __metadata("design:type", String)
 ], Sport.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true, name: 'name' }),
+    (0, typeorm_1.Column)({ type: 'varchar', unique: true, name: 'name' }),
     __metadata("design:type", String)
 ], Sport.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'boolean', name: 'deleted', nullable: true }),
+    __metadata("design:type", Boolean)
+], Sport.prototype, "deleted", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => championship_solo_entity_1.ChampionshipSolo, (championship) => championship.sport),
     __metadata("design:type", championship_solo_entity_1.ChampionshipSolo)

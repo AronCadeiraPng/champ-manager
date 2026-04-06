@@ -13,8 +13,8 @@ export class RegisterUserDto {
     name: string;
 
     @ApiProperty({
-      example: 'Gabriel',
-      description: 'Nome do usuário',
+      example: 'masculine',
+      description: 'Gênero do usuário',
     })
     @IsString()
     @IsNotEmpty()
@@ -39,7 +39,7 @@ export class RegisterUserDto {
     cpf: string;
 
     @ApiProperty({
-      example: 'Senha123',
+      example: 'senha123',
       description: 'Senha do usuário',
     })
     @IsString()

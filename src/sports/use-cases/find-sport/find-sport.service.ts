@@ -29,7 +29,7 @@ export class SportFindService {
             }
         })
 
-        if(!sport) throw new BadRequestException('Espoirte', 400);
+        if(!sport) throw new BadRequestException('Esporte', 400);
 
         return sport;
     }

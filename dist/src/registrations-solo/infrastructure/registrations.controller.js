@@ -35,14 +35,14 @@ let RegistrationsSoloController = class RegistrationsSoloController {
     async register(createRegistrationDto) {
         return await this.registrationCreateService.register(createRegistrationDto);
     }
-    async delete(id) {
-        return await this.registrationDeleteService.deleteRegistrationSolo(id);
-    }
     async getAllRegistrations() {
         return await this.registrationFindService.allRegisters();
     }
     async getRegistrationById(id) {
         return await this.registrationFindService.findRegisterById(id);
+    }
+    async delete(id) {
+        return await this.registrationDeleteService.deleteRegistrationSolo(id);
     }
 };
 exports.RegistrationsSoloController = RegistrationsSoloController;
@@ -55,7 +55,29 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RegistrationsSoloController.prototype, "register", null);
 __decorate([
-    (0, common_1.Delete)('delete/:id'),
+    (0, common_1.Get)('all'),
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os registros' }),
+    (0, swagger_1.ApiResponse)({
+        status: 201, type: registration_entity_1.RegistrationSolo
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], RegistrationsSoloController.prototype, "getAllRegistrations", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna um registro por id' }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        type: registration_entity_1.RegistrationSolo
+    }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RegistrationsSoloController.prototype, "getRegistrationById", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
     (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
     (0, swagger_1.ApiOperation)({ summary: 'Deletar um registro' }),
     (0, swagger_1.ApiResponse)({
@@ -69,23 +91,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], RegistrationsSoloController.prototype, "delete", null);
-__decorate([
-    (0, common_1.Get)('all'),
-    (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os registros' }),
-    (0, swagger_1.ApiResponse)({ status: 201, type: registration_entity_1.RegistrationSolo }),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], RegistrationsSoloController.prototype, "getAllRegistrations", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    (0, swagger_1.ApiOperation)({ summary: 'Retorna um registro por id' }),
-    (0, swagger_1.ApiResponse)({ status: 201, type: registration_entity_1.RegistrationSolo }),
-    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], RegistrationsSoloController.prototype, "getRegistrationById", null);
 exports.RegistrationsSoloController = RegistrationsSoloController = __decorate([
     (0, common_1.Controller)('registrations/solo'),
     __metadata("design:paramtypes", [find_registration_service_1.RegistrationSoloFindService,

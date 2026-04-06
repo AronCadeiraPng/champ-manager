@@ -18,51 +18,54 @@ export class RegistrationsSoloController {
   ) { }
 
 
-  ///=========================NOVA REGISTRATION=========================///
   @UseGuards(JwtAuthGuard)
   @Post('new')
   async register(
     @Body() createRegistrationDto: CreateRegistrationSoloDto
-  )
+  ): Promise<RegistrationSolo>
   {
     return await this.registrationCreateService.register(createRegistrationDto)
   }
 
 
-  ///=========================CANCELA A REGISTRATION=========================///
-  @Delete('delete/:id')
-  @Roles(UserRoles.ADMIN)
-  @ApiOperation({ summary: 'Deletar um registro' })
-  @ApiResponse({
-    status: 201,
-    description: 'Registro deletado com sucesso',
-    type: RegistrationSolo,
-  })
-  @UseGuards(JwtAuthGuard)
-  async delete(
-    @Param('id', ParseUUIDPipe) id: string
-  )
-  {
-    return await this.registrationDeleteService.deleteRegistrationSolo(id)
-  }
-
-
-  ///=========================RETORNA TODAS AS REGISTRATIONS=========================///
   @Get('all')
   @ApiOperation({ summary: 'Retorna todos os registros' })
-  @ApiResponse({ status: 201, type: RegistrationSolo })
-  async getAllRegistrations() 
+  @ApiResponse({
+    status: 201, type: RegistrationSolo
+  })
+  async getAllRegistrations(): Promise<RegistrationSolo[]>
   {
     return await this.registrationFindService.allRegisters();
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Retorna um registro por id' })
-  @ApiResponse({ status: 201, type: RegistrationSolo })
+  @ApiResponse({
+    status: 201,
+    type: RegistrationSolo
+  })
   async getRegistrationById(
     @Param('id', ParseUUIDPipe) id: string
-  )
+  ): Promise<RegistrationSolo>
   {
     return await this.registrationFindService.findRegisterById(id)
   }
+
+
+  @Delete(':id')
+  @Roles(UserRoles.ADMIN)
+  @ApiOperation({ summary: 'Deletar um registro' })
+  @ApiResponse({ 
+    status: 201, 
+    description: 'Registro deletado com sucesso',
+    type: RegistrationSolo,
+  })
+  @UseGuards(JwtAuthGuard)
+  async delete(
+    @Param('id', ParseUUIDPipe) id: string
+  ): Promise<RegistrationSolo>
+  {
+    return await this.registrationDeleteService.deleteRegistrationSolo(id)
+  }
 }
+

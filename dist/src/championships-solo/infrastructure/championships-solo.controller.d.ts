@@ -12,8 +12,8 @@ export declare class ChampionshipsController {
     private readonly championshipUpdateService;
     constructor(championshipCreateService: ChampionshipSoloCreateService, championshipFindService: ChampionshipSoloFindService, championshipDeleteService: ChampionshipSoloDeleteService, championshipUpdateService: ChampionshipSoloUpdateService);
     createChampionship(createChampionshipDto: CreateChampionshipSoloDto): Promise<ChampionshipSolo>;
+    getAllChampionships(): Promise<ChampionshipSolo[]>;
     deleteChampionship(id: string): Promise<ChampionshipSolo>;
     updateChampionship(id: string, updateChampionshipDto: UpdateChampionshipSoloDto): Promise<ChampionshipSolo>;
-    getAllChampionships(): Promise<ChampionshipSolo[]>;
     findChampionshipById(id: string): Promise<ChampionshipSolo>;
 }

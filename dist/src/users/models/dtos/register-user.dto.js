@@ -33,8 +33,8 @@ __decorate([
 ], RegisterUserDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'Gabriel',
-        description: 'Nome do usuário',
+        example: 'masculine',
+        description: 'Gênero do usuário',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -62,7 +62,7 @@ __decorate([
 ], RegisterUserDto.prototype, "cpf", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'Senha123',
+        example: 'senha123',
         description: 'Senha do usuário',
     }),
     (0, class_validator_1.IsString)(),

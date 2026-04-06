@@ -9,7 +9,7 @@ export declare class RegistrationsSoloController {
     private readonly registrationDeleteService;
     constructor(registrationFindService: RegistrationSoloFindService, registrationCreateService: RegistrationSoloCreateService, registrationDeleteService: RegistrationSoloDeleteService);
     register(createRegistrationDto: CreateRegistrationSoloDto): Promise<RegistrationSolo>;
-    delete(id: string): Promise<RegistrationSolo>;
     getAllRegistrations(): Promise<RegistrationSolo[]>;
     getRegistrationById(id: string): Promise<RegistrationSolo>;
+    delete(id: string): Promise<RegistrationSolo>;
 }

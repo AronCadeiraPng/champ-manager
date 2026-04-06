@@ -17,7 +17,7 @@ export class AuthService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
-///=========================LOGIN=========================///
+
   async loginUser(email: string, password: string) {
     const user = await this.userFindService.findUserByEmail(email);
     if (!user) { throw new NotFoundException('Usuário', email, 'email') }
@@ -35,7 +35,7 @@ export class AuthService {
     return { access_token: this.jwtService.sign(payload) };
   }
 
-///=========================UPDATE=========================///
+
   async updateUser(id: string, updateUserDto: UpdateUserDto, requesterId: string) {
     const user = await this.userFindService.findUserById(id);
 
@@ -45,7 +45,7 @@ export class AuthService {
     return this.usersRepository.save(user)
   }
 
-///=========================DELETE=========================///
+
   async deleteUser(id: string) {
     const user = await this.userFindService.findUserById(id);
 

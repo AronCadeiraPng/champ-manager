@@ -15,7 +15,7 @@ export class AuthController {
   constructor(private authService: AuthService) { }
 
 
-  ///=========================LOGIN DO USUÁRIO E RETORNO DO TOKEN=========================///
+
   @Post('login')
   @ApiOperation({ summary: 'Login do usuário' })
   @ApiBody({ type: LoginUserDto })
@@ -30,8 +30,8 @@ export class AuthController {
   }
 
 
-  ///=========================ATUALIZA UM USUÁRIO=========================///
-  @Patch('update/:id')
+
+  @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update do usuário' })
@@ -48,8 +48,8 @@ export class AuthController {
   }
 
 
-  ///=========================DELETA UM USUÁRIO=========================///
-  @Delete('delete/:id')
+
+  @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth()
   @Roles(UserRoles.ADMIN)

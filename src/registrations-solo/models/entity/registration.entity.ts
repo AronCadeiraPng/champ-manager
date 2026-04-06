@@ -8,10 +8,10 @@ export class RegistrationSolo {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ name: 'user-id' })
+    @Column({type: 'varchar', name: 'user-id' })
     userId: string;
 
-    @Column({ name: 'championship-id' })
+    @Column({type: 'varchar', name: 'championship-id' })
     championshipId: string;
 
     @CreateDateColumn({ type: 'timestamptz' })

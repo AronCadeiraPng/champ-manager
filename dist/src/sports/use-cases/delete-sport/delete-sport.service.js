@@ -12,47 +12,25 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SportFindService = void 0;
+exports.SportDeleteService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const exceptions_1 = require("../../../common/exceptions");
-const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
 const sport_entity_1 = require("../../models/entity/sport.entity");
 const typeorm_2 = require("typeorm");
-let SportFindService = class SportFindService {
+let SportDeleteService = class SportDeleteService {
     sportRepository;
     constructor(sportRepository) {
         this.sportRepository = sportRepository;
     }
-    async findSportByName(name) {
-        const sport = await this.sportRepository.findOne({
-            where: {
-                name: name
-            }
-        });
-        return sport;
-    }
-    async findSportById(id) {
-        const sport = await this.sportRepository.findOne({
-            where: {
-                id: id
-            }
-        });
-        if (!sport)
-            throw new bad_request_exception_1.BadRequestException('Esporte', 400);
-        return sport;
-    }
-    async findAllSport() {
-        const sports = await this.sportRepository.find({});
-        if (!sports)
-            throw new exceptions_1.NotFoundException('Nenhum torneio encontrado!');
-        return sports;
+    async delete(id) {
+        await this.sportRepository.update(id, { deleted: true });
+        return this.sportRepository.findOneBy({ id });
     }
 };
-exports.SportFindService = SportFindService;
-exports.SportFindService = SportFindService = __decorate([
+exports.SportDeleteService = SportDeleteService;
+exports.SportDeleteService = SportDeleteService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(sport_entity_1.Sport)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], SportFindService);
-//# sourceMappingURL=find-sport.service.js.map
+], SportDeleteService);
+//# sourceMappingURL=delete-sport.service.js.map

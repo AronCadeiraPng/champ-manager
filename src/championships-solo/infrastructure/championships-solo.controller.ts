@@ -53,50 +53,62 @@ export class ChampionshipsController {
   }
 
 
-  ///=========================DELETE=========================///
-  @Delete('delete/:id')
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Get('all')
+  @ApiOperation({ summary: 'Lista todos os torneios' })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de torneios',
+    type: [ChampionshipSolo]
+  })
+  async getAllChampionships(): Promise<ChampionshipSolo[]>
+  {
+    return this.championshipFindService.findAllChampionshipsSolo();
+  }
+
+
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Delete(':id')
+  @ApiOperation({
+    summary: 'Deleta um torneio por id',
+    description: 'Apenas administradores podem deletar torneios',
+  })
   async deleteChampionship(
     @Param('id', ParseUUIDPipe) id: string
-  )
+  ): Promise<ChampionshipSolo>
   {
     return this.championshipDeleteService.deleteChampionship(id)
   }
 
 
-  ///=========================UPDATE=========================///
-  @Patch('update/:id')
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Patch(':id')
+  @ApiOperation({ summary: 'Atualiza um torneio pelo id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Torneio atualizado!'
+  })
   async updateChampionship(
     @Param('id', ParseUUIDPipe) id: string, 
     @Body() updateChampionshipDto: UpdateChampionshipSoloDto
-  )
+  ): Promise<ChampionshipSolo>
   {
     return this.championshipUpdateService.updateChampionship(id, updateChampionshipDto)
   }
 
-  ///=========================RETORNA TODOS OS TORNEIOS=========================///
-  @Get('all')
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
-  @ApiOperation({ summary: 'Lista todos os torneios' })
-  @ApiResponse({ status: 200, description: 'Lista de torneios', type: [ChampionshipSolo] })
-  @ApiResponse({ status: 401, description: 'Token inválido ou ausente' })
-  @ApiResponse({ status: 403, description: 'Sem permissão para listar torneios' })
-  async getAllChampionships() 
-  {
-    return this.championshipFindService.findAllChampionshipsSolo();
-  }
 
-  ///=========================RETORNA UM TORNEIO POR ID=========================///
-  @Get(':id')
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
-  @ApiOperation({ summary: 'Busca um torneio pelo ID' })
+  @Get(':id')
+  @ApiOperation({ summary: 'Busca um torneio pelo id' })
   @ApiParam({ name: 'id', description: 'UUID do torneio', format: 'uuid' })
-  @ApiResponse({ status: 200, description: 'Torneio encontrado', type: ChampionshipSolo })
-  @ApiResponse({ status: 401, description: 'Token inválido ou ausente' })
-  @ApiResponse({ status: 403, description: 'Sem permissão para visualizar este torneio' })
-  @ApiResponse({ status: 404, description: 'Torneio não encontrado' })
+  @ApiResponse({
+    status: 200,
+    description: 'Torneio encontrado',
+    type: ChampionshipSolo
+  })
   async findChampionshipById(
     @Param('id', ParseUUIDPipe) id: string
-  )
+  ): Promise<ChampionshipSolo>
   {
     return this.championshipFindService.findChampionshipSoloById(id);
   }

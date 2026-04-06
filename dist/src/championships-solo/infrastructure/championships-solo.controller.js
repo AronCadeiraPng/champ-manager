@@ -41,14 +41,14 @@ let ChampionshipsController = class ChampionshipsController {
     async createChampionship(createChampionshipDto) {
         return await this.championshipCreateService.createChampionship(createChampionshipDto);
     }
+    async getAllChampionships() {
+        return this.championshipFindService.findAllChampionshipsSolo();
+    }
     async deleteChampionship(id) {
         return this.championshipDeleteService.deleteChampionship(id);
     }
     async updateChampionship(id, updateChampionshipDto) {
         return this.championshipUpdateService.updateChampionship(id, updateChampionshipDto);
-    }
-    async getAllChampionships() {
-        return this.championshipFindService.findAllChampionshipsSolo();
     }
     async findChampionshipById(id) {
         return this.championshipFindService.findChampionshipSoloById(id);
@@ -73,14 +73,38 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ChampionshipsController.prototype, "createChampionship", null);
 __decorate([
-    (0, common_1.Delete)('delete/:id'),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, common_1.Get)('all'),
+    (0, swagger_1.ApiOperation)({ summary: 'Lista todos os torneios' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de torneios',
+        type: [championship_solo_entity_1.ChampionshipSolo]
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ChampionshipsController.prototype, "getAllChampionships", null);
+__decorate([
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Deleta um torneio por id',
+        description: 'Apenas administradores podem deletar torneios',
+    }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ChampionshipsController.prototype, "deleteChampionship", null);
 __decorate([
-    (0, common_1.Patch)('update/:id'),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, common_1.Patch)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Atualiza um torneio pelo id' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Torneio atualizado!'
+    }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -88,25 +112,15 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ChampionshipsController.prototype, "updateChampionship", null);
 __decorate([
-    (0, common_1.Get)('all'),
     (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
-    (0, swagger_1.ApiOperation)({ summary: 'Lista todos os torneios' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Lista de torneios', type: [championship_solo_entity_1.ChampionshipSolo] }),
-    (0, swagger_1.ApiResponse)({ status: 401, description: 'Token inválido ou ausente' }),
-    (0, swagger_1.ApiResponse)({ status: 403, description: 'Sem permissão para listar torneios' }),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], ChampionshipsController.prototype, "getAllChampionships", null);
-__decorate([
     (0, common_1.Get)(':id'),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
-    (0, swagger_1.ApiOperation)({ summary: 'Busca um torneio pelo ID' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Busca um torneio pelo id' }),
     (0, swagger_1.ApiParam)({ name: 'id', description: 'UUID do torneio', format: 'uuid' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Torneio encontrado', type: championship_solo_entity_1.ChampionshipSolo }),
-    (0, swagger_1.ApiResponse)({ status: 401, description: 'Token inválido ou ausente' }),
-    (0, swagger_1.ApiResponse)({ status: 403, description: 'Sem permissão para visualizar este torneio' }),
-    (0, swagger_1.ApiResponse)({ status: 404, description: 'Torneio não encontrado' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Torneio encontrado',
+        type: championship_solo_entity_1.ChampionshipSolo
+    }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

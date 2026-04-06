@@ -2,5 +2,6 @@ import { ChampionshipSolo } from "src/championships-solo/models/entity/champions
 export declare class Sport {
     id: string;
     name: string;
+    deleted?: boolean;
     championship: ChampionshipSolo;
 }

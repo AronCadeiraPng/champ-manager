@@ -17,39 +17,38 @@ export class UserController {
   ) { }
 
 
-  ///=========================REGISTRAR UM NOVO USUÁRIO=========================///
   @Post('register')
   @ApiOperation({ summary: 'Registra um novo usuário' })
   @ApiBody({ type: RegisterUserDto })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Usuário criado com sucesso', type: User })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Usuário criado com sucesso!',
+    type: User
+  })
   async create(
     @Body() registerUserDto: RegisterUserDto
-  ) 
+  ): Promise<User>
   {
     return await this.userRegisterService.registerUser(registerUserDto);
   }
-  ///=========================RETORNA TODOS OS USUÁRIOS=========================///
+
+
   @Get('all')
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @ApiOperation({ summary: 'Retorna todos os usuários' })
-  @ApiResponse({ status: HttpStatus.OK, type: User })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Permissão negada' })
-  async findAllUsers() 
+  async findAllUsers(): Promise<User[]>
   {
     return await this.userFindService.findAllUsers()
   }
 
 
-  ///=========================RETORNA USUÁRIO POR ID=========================///
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
-  @ApiOperation({ summary: 'Retorna todos os usuários' })
-  @ApiResponse({ status: HttpStatus.OK, type: User })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Permissão negada' })
+  @ApiOperation({ summary: 'Retorna um usuário pelo id' })
   async findUserById(
     @Param('id', ParseUUIDPipe) id: string
-  )
+  ): Promise<User>
   {
     return await this.userFindService.findUserById(id);
   }

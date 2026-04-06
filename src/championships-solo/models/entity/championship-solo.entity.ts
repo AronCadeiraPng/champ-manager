@@ -57,5 +57,5 @@ export class ChampionshipSolo {
     sport: Sport;
 
     @OneToOne(() => RegistrationSolo)
-    registration: RegistrationSolo
+    registration: RegistrationSolo;
 }

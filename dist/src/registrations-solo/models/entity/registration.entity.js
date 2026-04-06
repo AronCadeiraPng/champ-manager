@@ -27,11 +27,11 @@ __decorate([
     __metadata("design:type", String)
 ], RegistrationSolo.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'user-id' }),
+    (0, typeorm_1.Column)({ type: 'varchar', name: 'user-id' }),
     __metadata("design:type", String)
 ], RegistrationSolo.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'championship-id' }),
+    (0, typeorm_1.Column)({ type: 'varchar', name: 'championship-id' }),
     __metadata("design:type", String)
 ], RegistrationSolo.prototype, "championshipId", void 0);
 __decorate([
