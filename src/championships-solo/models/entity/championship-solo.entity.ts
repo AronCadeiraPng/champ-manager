@@ -1,6 +1,6 @@
-import { GenderEnum } from "src/common/enums/gender-enum";
-import { ModalityEnum } from "src/common/enums/modality-enum";
-import { StatusEnum } from "src/common/enums/status.enum";
+import { GenderEnum } from "src/common/enums/gender.enum";
+import { ModalityEnum } from "src/common/enums/modality.enum";
+import { StatusEnum } from "src/common/enums/championship-status.enum";
 import { RegistrationSolo } from "src/registrations-solo/models/entity/registration.entity";
 import { Sport } from "src/sports/models/entity/sport.entity";
 import { 
@@ -15,6 +15,7 @@ import {
     UpdateDateColumn 
 } from "typeorm";
 import { Timestamp } from "typeorm";
+import { Player } from "src/players/models/entity/player.entity";
 
 @Entity('championships-solo')
 export class ChampionshipSolo {
@@ -52,10 +53,16 @@ export class ChampionshipSolo {
     @DeleteDateColumn({ type: 'timestamptz', name: 'deleted-at' })
     deletedAt: Timestamp;
 
+    @OneToMany(() => Player, (player) => player.championship)
+    players: Player[]; 
+
+    // @OneToMany(() => Match, (match) => match.championship)
+    // matches: Match;
+
     @OneToOne(() => Sport)
     @JoinColumn({ name: 'sport' })
     sport: Sport;
 
-    @OneToOne(() => RegistrationSolo)
-    registration: RegistrationSolo;
+    @OneToMany(() => RegistrationSolo, (registrations) => registrations.championship)
+    registrations: RegistrationSolo[];
 }

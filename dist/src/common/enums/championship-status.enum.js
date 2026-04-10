@@ -9,4 +9,4 @@ var StatusEnum;
     StatusEnum["FINISHED"] = "finished";
     StatusEnum["INPROGRESS"] = "in-progress";
 })(StatusEnum || (exports.StatusEnum = StatusEnum = {}));
-//# sourceMappingURL=status.enum.js.map
+//# sourceMappingURL=championship-status.enum.js.map

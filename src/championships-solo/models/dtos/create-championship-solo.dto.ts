@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsDateString, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { GenderEnum } from "src/common/enums/gender-enum";
-import { ModalityEnum } from "src/common/enums/modality-enum";
-import { StatusEnum } from "src/common/enums/status.enum";
+import { GenderEnum } from "src/common/enums/gender.enum";
+import { ModalityEnum } from "src/common/enums/modality.enum";
+import { StatusEnum } from "src/common/enums/championship-status.enum";
 
 export class CreateChampionshipSoloDto {
     @ApiProperty({

@@ -37,7 +37,10 @@ exports.RegistrationSoloModule = RegistrationSoloModule = __decorate([
             delete_registration_service_1.RegistrationSoloDeleteService,
             find_registration_service_1.RegistrationSoloFindService
         ],
-        exports: [RegistrationSoloModule]
+        exports: [
+            RegistrationSoloModule,
+            find_registration_service_1.RegistrationSoloFindService
+        ]
     })
 ], RegistrationSoloModule);
 //# sourceMappingURL=registrations.module.js.map

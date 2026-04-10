@@ -10,13 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChampionshipSolo = void 0;
-const gender_enum_1 = require("../../../common/enums/gender-enum");
-const modality_enum_1 = require("../../../common/enums/modality-enum");
-const status_enum_1 = require("../../../common/enums/status.enum");
+const gender_enum_1 = require("../../../common/enums/gender.enum");
+const modality_enum_1 = require("../../../common/enums/modality.enum");
+const championship_status_enum_1 = require("../../../common/enums/championship-status.enum");
 const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
 const sport_entity_1 = require("../../../sports/models/entity/sport.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("typeorm");
+const player_entity_1 = require("../../../players/models/entity/player.entity");
 let ChampionshipSolo = class ChampionshipSolo {
     id;
     name;
@@ -29,8 +30,9 @@ let ChampionshipSolo = class ChampionshipSolo {
     createdAt;
     updatedAt;
     deletedAt;
+    players;
     sport;
-    registration;
+    registrations;
 };
 exports.ChampionshipSolo = ChampionshipSolo;
 __decorate([
@@ -58,7 +60,7 @@ __decorate([
     __metadata("design:type", Date)
 ], ChampionshipSolo.prototype, "registrationEnd", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: status_enum_1.StatusEnum, name: 'status' }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: championship_status_enum_1.StatusEnum, name: 'status' }),
     __metadata("design:type", String)
 ], ChampionshipSolo.prototype, "status", void 0);
 __decorate([
@@ -78,14 +80,18 @@ __decorate([
     __metadata("design:type", typeorm_2.Timestamp)
 ], ChampionshipSolo.prototype, "deletedAt", void 0);
 __decorate([
+    (0, typeorm_1.OneToMany)(() => player_entity_1.Player, (player) => player.championship),
+    __metadata("design:type", Array)
+], ChampionshipSolo.prototype, "players", void 0);
+__decorate([
     (0, typeorm_1.OneToOne)(() => sport_entity_1.Sport),
     (0, typeorm_1.JoinColumn)({ name: 'sport' }),
     __metadata("design:type", sport_entity_1.Sport)
 ], ChampionshipSolo.prototype, "sport", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => registration_entity_1.RegistrationSolo),
-    __metadata("design:type", registration_entity_1.RegistrationSolo)
-], ChampionshipSolo.prototype, "registration", void 0);
+    (0, typeorm_1.OneToMany)(() => registration_entity_1.RegistrationSolo, (registrations) => registrations.championship),
+    __metadata("design:type", Array)
+], ChampionshipSolo.prototype, "registrations", void 0);
 exports.ChampionshipSolo = ChampionshipSolo = __decorate([
     (0, typeorm_1.Entity)('championships-solo')
 ], ChampionshipSolo);

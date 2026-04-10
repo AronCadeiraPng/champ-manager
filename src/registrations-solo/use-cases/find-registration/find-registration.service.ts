@@ -15,6 +15,12 @@ export class RegistrationSoloFindService {
       })
     }
 
+    async findRegistrationsByChampionship(championshipId: string) {
+      return this.registrationsRepository.find({where: {
+        championshipId: championshipId
+      }})
+    }
+
     async findRegisterById(id: string) {
       const registration = await this.registrationsRepository.findOneBy({id});
       if(!registration) throw new NotFoundException('Registro',id);

@@ -1,4 +1,4 @@
-import { GenderEnum } from "src/common/enums/gender-enum";
+import { GenderEnum } from "src/common/enums/gender.enum";
 export declare class RegisterUserDto {
     name: string;
     gender: GenderEnum;

@@ -1,4 +1,4 @@
-import { GenderEnum } from "src/common/enums/gender-enum";
+import { GenderEnum } from "src/common/enums/gender.enum";
 import { UserRoles } from "src/common/enums/user-roles.enum";
 import { RegistrationSolo } from "src/registrations-solo/models/entity/registration.entity";
 import { Timestamp } from "typeorm";

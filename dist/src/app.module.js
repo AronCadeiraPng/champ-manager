@@ -19,6 +19,7 @@ const sports_module_1 = require("./sports/infrastructure/sports.module");
 const user_register_service_1 = require("./users/use-cases/register-user/user-register.service");
 const championships_solo_module_1 = require("./championships-solo/infrastructure/championships-solo.module");
 const registrations_module_1 = require("./registrations-solo/infrastructure/registrations.module");
+const players_module_1 = require("./players/infrastructure/players.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -33,6 +34,7 @@ exports.AppModule = AppModule = __decorate([
             championships_solo_module_1.ChampionshipSoloModule,
             registrations_module_1.RegistrationSoloModule,
             sports_module_1.SportsModule,
+            players_module_1.PlayersModule,
         ],
         controllers: [],
         providers: [

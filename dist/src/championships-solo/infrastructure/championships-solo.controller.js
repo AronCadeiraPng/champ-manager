@@ -26,16 +26,19 @@ const update_championship_solo_service_1 = require("../use-cases/update-champion
 const championship_solo_entity_1 = require("../models/entity/championship-solo.entity");
 const update_championship_solo_dto_1 = require("../models/dtos/update-championship-solo.dto");
 const create_championship_solo_dto_1 = require("../models/dtos/create-championship-solo.dto");
+const start_championship_service_1 = require("../use-cases/start-championship/start-championship.service");
 let ChampionshipsController = class ChampionshipsController {
     championshipCreateService;
     championshipFindService;
     championshipDeleteService;
     championshipUpdateService;
-    constructor(championshipCreateService, championshipFindService, championshipDeleteService, championshipUpdateService) {
+    championshipStartService;
+    constructor(championshipCreateService, championshipFindService, championshipDeleteService, championshipUpdateService, championshipStartService) {
         this.championshipCreateService = championshipCreateService;
         this.championshipFindService = championshipFindService;
         this.championshipDeleteService = championshipDeleteService;
         this.championshipUpdateService = championshipUpdateService;
+        this.championshipStartService = championshipStartService;
     }
     ;
     async createChampionship(createChampionshipDto) {
@@ -52,6 +55,9 @@ let ChampionshipsController = class ChampionshipsController {
     }
     async findChampionshipById(id) {
         return this.championshipFindService.findChampionshipSoloById(id);
+    }
+    async convertRegistrations(championshipId) {
+        return this.championshipStartService.start(championshipId);
     }
 };
 exports.ChampionshipsController = ChampionshipsController;
@@ -126,6 +132,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ChampionshipsController.prototype, "findChampionshipById", null);
+__decorate([
+    (0, common_1.Post)(':id/start'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ChampionshipsController.prototype, "convertRegistrations", null);
 exports.ChampionshipsController = ChampionshipsController = __decorate([
     (0, swagger_1.ApiTags)('Championships'),
     (0, swagger_1.ApiBearerAuth)(),
@@ -134,6 +147,7 @@ exports.ChampionshipsController = ChampionshipsController = __decorate([
     __metadata("design:paramtypes", [create_championship_solo_service_1.ChampionshipSoloCreateService,
         find_championship_solo_service_1.ChampionshipSoloFindService,
         delete_championship_solo_service_1.ChampionshipSoloDeleteService,
-        update_championship_solo_service_1.ChampionshipSoloUpdateService])
+        update_championship_solo_service_1.ChampionshipSoloUpdateService,
+        start_championship_service_1.ChampionshipStartService])
 ], ChampionshipsController);
 //# sourceMappingURL=championships-solo.controller.js.map

@@ -16,25 +16,36 @@ const delete_championship_solo_service_1 = require("../use-cases/delete-champion
 const find_championship_solo_service_1 = require("../use-cases/find-championship/find-championship-solo.service");
 const update_championship_solo_service_1 = require("../use-cases/update-championship/update-championship-solo.service");
 const registration_entity_1 = require("../../registrations-solo/models/entity/registration.entity");
+const start_championship_service_1 = require("../use-cases/start-championship/start-championship.service");
+const create_player_service_1 = require("../../players/use-cases/create-player/create-player.service");
+const players_module_1 = require("../../players/infrastructure/players.module");
+const find_registration_service_1 = require("../../registrations-solo/use-cases/find-registration/find-registration.service");
+const find_player_service_1 = require("../../players/use-cases/find-player/find-player.service");
 let ChampionshipSoloModule = class ChampionshipSoloModule {
 };
 exports.ChampionshipSoloModule = ChampionshipSoloModule;
 exports.ChampionshipSoloModule = ChampionshipSoloModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([championship_solo_entity_1.ChampionshipSolo, registration_entity_1.RegistrationSolo])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([championship_solo_entity_1.ChampionshipSolo, registration_entity_1.RegistrationSolo]), players_module_1.PlayersModule],
         controllers: [championships_solo_controller_1.ChampionshipsController],
         providers: [
             championship_solo_entity_1.ChampionshipSolo,
             create_championship_solo_service_1.ChampionshipSoloCreateService,
             delete_championship_solo_service_1.ChampionshipSoloDeleteService,
             find_championship_solo_service_1.ChampionshipSoloFindService,
-            update_championship_solo_service_1.ChampionshipSoloUpdateService
+            update_championship_solo_service_1.ChampionshipSoloUpdateService,
+            start_championship_service_1.ChampionshipStartService,
+            create_player_service_1.PlayerCreateService,
+            find_player_service_1.PlayerFindService,
+            players_module_1.PlayersModule,
+            find_registration_service_1.RegistrationSoloFindService
         ],
         exports: [
             create_championship_solo_service_1.ChampionshipSoloCreateService,
             delete_championship_solo_service_1.ChampionshipSoloDeleteService,
             find_championship_solo_service_1.ChampionshipSoloFindService,
-            update_championship_solo_service_1.ChampionshipSoloUpdateService
+            update_championship_solo_service_1.ChampionshipSoloUpdateService,
+            start_championship_service_1.ChampionshipStartService
         ]
     })
 ], ChampionshipSoloModule);

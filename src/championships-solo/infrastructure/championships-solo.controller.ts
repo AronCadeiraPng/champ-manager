@@ -18,6 +18,7 @@ import { ChampionshipSoloUpdateService } from '../use-cases/update-championship/
 import { ChampionshipSolo } from '../models/entity/championship-solo.entity';
 import { UpdateChampionshipSoloDto } from '../models/dtos/update-championship-solo.dto';
 import { CreateChampionshipSoloDto } from '../models/dtos/create-championship-solo.dto';
+import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
 
 @ApiTags('Championships')
 @ApiBearerAuth()
@@ -28,12 +29,12 @@ export class ChampionshipsController {
     private readonly championshipCreateService: ChampionshipSoloCreateService,
     private readonly championshipFindService: ChampionshipSoloFindService,
     private readonly championshipDeleteService: ChampionshipSoloDeleteService,
-    private readonly championshipUpdateService: ChampionshipSoloUpdateService
+    private readonly championshipUpdateService: ChampionshipSoloUpdateService,
+    private readonly championshipStartService: ChampionshipStartService
 
   ) {};
 
 
-  ///=========================CRIA UM NOVO TORNEIO=========================///
   @Post('create')
   @Roles(UserRoles.ADMIN)
   @ApiOperation({
@@ -111,5 +112,13 @@ export class ChampionshipsController {
   ): Promise<ChampionshipSolo>
   {
     return this.championshipFindService.findChampionshipSoloById(id);
+  }
+
+  @Post(':id/start')
+  async convertRegistrations(
+    @Param('id', ParseUUIDPipe) championshipId: string
+  )
+  {
+    return this.championshipStartService.start(championshipId);
   }
 }

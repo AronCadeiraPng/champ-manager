@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
-const gender_enum_1 = require("../../../common/enums/gender-enum");
+const gender_enum_1 = require("../../../common/enums/gender.enum");
 const user_roles_enum_1 = require("../../../common/enums/user-roles.enum");
 const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
 const typeorm_1 = require("typeorm");

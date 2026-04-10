@@ -10,6 +10,7 @@ import { SportsModule } from './sports/infrastructure/sports.module';
 import { UserRegisterService } from './users/use-cases/register-user/user-register.service';
 import { ChampionshipSoloModule } from './championships-solo/infrastructure/championships-solo.module';
 import { RegistrationSoloModule } from './registrations-solo/infrastructure/registrations.module';
+import { PlayersModule } from './players/infrastructure/players.module';
 
 @Module({
   imports: [
@@ -21,6 +22,8 @@ import { RegistrationSoloModule } from './registrations-solo/infrastructure/regi
     ChampionshipSoloModule,
     RegistrationSoloModule,
     SportsModule,
+    PlayersModule,
+    // MatchModule
   ],
   controllers: [],
   providers: [

@@ -6,4 +6,4 @@ var GenderEnum;
     GenderEnum["MASCULINE"] = "masculine";
     GenderEnum["FEMININE"] = "feminine";
 })(GenderEnum || (exports.GenderEnum = GenderEnum = {}));
-//# sourceMappingURL=gender-enum.js.map
+//# sourceMappingURL=gender.enum.js.map

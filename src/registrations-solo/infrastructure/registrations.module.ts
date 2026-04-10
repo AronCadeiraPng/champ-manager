@@ -25,6 +25,9 @@ import { RegistrationSoloFindService } from '../use-cases/find-registration/find
     RegistrationSoloDeleteService,
     RegistrationSoloFindService
   ],
-  exports: [RegistrationSoloModule]
+  exports: [
+    RegistrationSoloModule,
+    RegistrationSoloFindService
+  ]
 })
 export class RegistrationSoloModule {}

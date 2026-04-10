@@ -21,7 +21,7 @@ export class RegistrationSolo {
     @JoinColumn({ name: 'user-id' })
     user: User;
 
-    @ManyToOne(() => ChampionshipSolo, (championship) => championship.registration)
+    @ManyToOne(() => ChampionshipSolo, (championship) => championship.registrations)
     @JoinColumn({ name: 'championship-id' })
     championship: ChampionshipSolo
 }

@@ -26,6 +26,11 @@ let RegistrationSoloFindService = class RegistrationSoloFindService {
     async allRegisters() {
         return await this.registrationsRepository.find({});
     }
+    async findRegistrationsByChampionship(championshipId) {
+        return this.registrationsRepository.find({ where: {
+                championshipId: championshipId
+            } });
+    }
     async findRegisterById(id) {
         const registration = await this.registrationsRepository.findOneBy({ id });
         if (!registration)

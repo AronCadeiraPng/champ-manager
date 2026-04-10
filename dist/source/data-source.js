@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const dotenv_1 = require("dotenv");
 const championship_solo_entity_1 = require("../src/championships-solo/models/entity/championship-solo.entity");
+const player_entity_1 = require("../src/players/models/entity/player.entity");
 const registration_entity_1 = require("../src/registrations-solo/models/entity/registration.entity");
 const sport_entity_1 = require("../src/sports/models/entity/sport.entity");
 const user_entity_1 = require("../src/users/models/entity/user.entity");
@@ -28,7 +29,7 @@ exports.DataModule = DataModule = __decorate([
                 username: process.env.DB_USERNAME,
                 password: process.env.DB_PASSWORD,
                 database: process.env.DB_DATABASE,
-                entities: [user_entity_1.User, registration_entity_1.RegistrationSolo, championship_solo_entity_1.ChampionshipSolo, sport_entity_1.Sport],
+                entities: [user_entity_1.User, registration_entity_1.RegistrationSolo, championship_solo_entity_1.ChampionshipSolo, sport_entity_1.Sport, player_entity_1.Player],
                 synchronize: true,
             }),
         ],
