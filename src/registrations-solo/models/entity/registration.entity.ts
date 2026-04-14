@@ -1,6 +1,7 @@
-import { ChampionshipSolo } from "src/championships-solo/models/entity/championship-solo.entity";
-import { User } from "src/users/models/entity/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Timestamp, Unique } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Timestamp, Unique, UpdateDateColumn } from "typeorm";
+import { User } from "../../../users/models/entity/user.entity";
+import { Championship } from "src/championships/models/entity/championship.entity";
+import { Participant } from "src/participant/models/entity/participant.entity";
 
 @Entity('registrations-solo')
 @Unique(['userId', 'championshipId'])
@@ -14,14 +15,20 @@ export class RegistrationSolo {
     @Column({type: 'varchar', name: 'championship-id' })
     championshipId: string;
 
-    @CreateDateColumn({ type: 'timestamptz' })
-    registredAt: Timestamp;
-
     @ManyToOne(() => User, (user) => user.registrationsSolo)
     @JoinColumn({ name: 'user-id' })
     user: User;
 
-    @ManyToOne(() => ChampionshipSolo, (championship) => championship.registrations)
+    @ManyToOne(() => Championship, (championship) => championship.registrations)
     @JoinColumn({ name: 'championship-id' })
-    championship: ChampionshipSolo
+    championship: Championship;
+
+    @OneToOne(() => Participant, { nullable: true })
+    participant?: Participant;
+    
+    @CreateDateColumn({ name: 'registred-at', type: 'timestamptz' })
+    registredAt: Timestamp;
+
+    @UpdateDateColumn({ name: 'updated-at', type: 'timestamptz' })
+    updatedAt: Timestamp;
 }

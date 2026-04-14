@@ -12,22 +12,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
-const gender_enum_1 = require("../../../common/enums/gender.enum");
-const user_roles_enum_1 = require("../../../common/enums/user-roles.enum");
-const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
 const typeorm_1 = require("typeorm");
+const user_roles_enum_1 = require("../../../common/enums/user-roles.enum");
+const gender_enum_1 = require("../../../common/enums/gender.enum");
+const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
+const team_entity_1 = require("../../../teams/models/entity/team.entity");
 let User = class User {
     id;
     name;
     email;
     cpf;
     password;
+    teamId;
     role;
     gender;
     createdAt;
     updatedAt;
     deletedAt;
     registrationsSolo;
+    team;
 };
 exports.User = User;
 __decorate([
@@ -54,6 +57,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ name: 'team-id', nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "teamId", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: user_roles_enum_1.UserRoles, default: user_roles_enum_1.UserRoles.USER }),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
@@ -78,6 +85,10 @@ __decorate([
     (0, typeorm_1.JoinColumn)({ name: 'registrations' }),
     __metadata("design:type", registration_entity_1.RegistrationSolo)
 ], User.prototype, "registrationsSolo", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => team_entity_1.Team, (team) => team.members, { nullable: true }),
+    __metadata("design:type", team_entity_1.Team)
+], User.prototype, "team", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)('users'),
     (0, typeorm_1.Index)(['email'])

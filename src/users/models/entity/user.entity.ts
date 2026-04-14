@@ -1,8 +1,5 @@
 import { Transform } from "class-transformer";
 import { IsString, Length } from "class-validator";
-import { GenderEnum } from "src/common/enums/gender.enum";
-import { UserRoles } from "src/common/enums/user-roles.enum";
-import { RegistrationSolo } from "src/registrations-solo/models/entity/registration.entity";
 import { 
     Column, 
     CreateDateColumn, 
@@ -10,12 +7,15 @@ import {
     Entity,
     Index,
     JoinColumn,
-    ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
     Timestamp,
     UpdateDateColumn 
 } from "typeorm";
+import { UserRoles } from "../../../common/enums/user-roles.enum";
+import { GenderEnum } from "../../../common/enums/gender.enum";
+import { RegistrationSolo } from "../../../registrations-solo/models/entity/registration.entity";
+import { Team } from "../../../teams/models/entity/team.entity";
 
 @Entity('users')
 @Index(['email'])
@@ -38,6 +38,9 @@ export class User {
     @Column({ type: 'varchar', length: 255})
     password: string;
 
+    @Column({ name: 'team-id', nullable: true })
+    teamId: string;
+
     @Column({ type: 'enum', enum: UserRoles, default: UserRoles.USER })
     role: UserRoles;
 
@@ -55,5 +58,8 @@ export class User {
 
     @OneToMany(() => RegistrationSolo, (registration) => registration.user)
     @JoinColumn({ name: 'registrations' })
-    registrationsSolo: RegistrationSolo
+    registrationsSolo?: RegistrationSolo;
+
+    @OneToMany(() => Team, (team) => team.members, { nullable: true })
+    team?: Team;
 }

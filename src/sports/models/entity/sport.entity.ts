@@ -1,5 +1,6 @@
-import { ChampionshipSolo } from "src/championships-solo/models/entity/championship-solo.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Championship } from "src/championships/models/entity/championship.entity";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Timestamp } from "typeorm";
 
 @Entity()
 export class Sport {
@@ -12,6 +13,12 @@ export class Sport {
     @Column({ type: 'boolean', name: 'deleted', nullable: true })
     deleted?: boolean;
 
-    @OneToMany(() => ChampionshipSolo, (championship) => championship.sport)
-    championship: ChampionshipSolo
+    @OneToMany(() => Championship, (championship) => championship.sport)
+    championship: Championship;
+
+    @CreateDateColumn({ name: 'created-at', type: 'timestamptz' })
+        createdAt: Timestamp;
+    
+    @UpdateDateColumn({ name: 'updated-at', type: 'timestamptz' })
+    updatedAt: Timestamp;
 }

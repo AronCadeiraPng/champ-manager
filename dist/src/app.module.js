@@ -17,9 +17,14 @@ const auth_module_1 = require("./auth/auth.module");
 const config_1 = require("@nestjs/config");
 const sports_module_1 = require("./sports/infrastructure/sports.module");
 const user_register_service_1 = require("./users/use-cases/register-user/user-register.service");
-const championships_solo_module_1 = require("./championships-solo/infrastructure/championships-solo.module");
 const registrations_module_1 = require("./registrations-solo/infrastructure/registrations.module");
 const players_module_1 = require("./players/infrastructure/players.module");
+const registration_team_entity_1 = require("./registrations-team/models/entity/registration-team.entity");
+const teams_module_1 = require("./teams/infrastructure/teams.module");
+const members_module_1 = require("./members/infrastructure/members.module");
+const registrations_team_module_1 = require("./registrations-team/infrastructure/registrations-team.module");
+const championship_entity_1 = require("./championships/models/entity/championship.entity");
+const participant_module_1 = require("./participant/infrastructure/participant.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -31,10 +36,15 @@ exports.AppModule = AppModule = __decorate([
             user_module_1.UserModule,
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]),
             auth_module_1.AuthModule,
-            championships_solo_module_1.ChampionshipSoloModule,
+            championship_entity_1.Championship,
+            registrations_team_module_1.RegistrationsTeamModule,
             registrations_module_1.RegistrationSoloModule,
             sports_module_1.SportsModule,
             players_module_1.PlayersModule,
+            registration_team_entity_1.RegistrationTeam,
+            teams_module_1.TeamsModule,
+            members_module_1.MembersModule,
+            participant_module_1.ParticipantModule
         ],
         controllers: [],
         providers: [

@@ -10,16 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegistrationSolo = void 0;
-const championship_solo_entity_1 = require("../../../championships-solo/models/entity/championship-solo.entity");
-const user_entity_1 = require("../../../users/models/entity/user.entity");
 const typeorm_1 = require("typeorm");
+const user_entity_1 = require("../../../users/models/entity/user.entity");
+const championship_entity_1 = require("../../../championships/models/entity/championship.entity");
+const participant_entity_1 = require("../../../participant/models/entity/participant.entity");
 let RegistrationSolo = class RegistrationSolo {
     id;
     userId;
     championshipId;
-    registredAt;
     user;
     championship;
+    participant;
+    registredAt;
+    updatedAt;
 };
 exports.RegistrationSolo = RegistrationSolo;
 __decorate([
@@ -35,19 +38,27 @@ __decorate([
     __metadata("design:type", String)
 ], RegistrationSolo.prototype, "championshipId", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz' }),
-    __metadata("design:type", typeorm_1.Timestamp)
-], RegistrationSolo.prototype, "registredAt", void 0);
-__decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.registrationsSolo),
     (0, typeorm_1.JoinColumn)({ name: 'user-id' }),
     __metadata("design:type", user_entity_1.User)
 ], RegistrationSolo.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => championship_solo_entity_1.ChampionshipSolo, (championship) => championship.registrations),
+    (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.registrations),
     (0, typeorm_1.JoinColumn)({ name: 'championship-id' }),
-    __metadata("design:type", championship_solo_entity_1.ChampionshipSolo)
+    __metadata("design:type", championship_entity_1.Championship)
 ], RegistrationSolo.prototype, "championship", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => participant_entity_1.Participant, { nullable: true }),
+    __metadata("design:type", participant_entity_1.Participant)
+], RegistrationSolo.prototype, "participant", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)({ name: 'registred-at', type: 'timestamptz' }),
+    __metadata("design:type", typeorm_1.Timestamp)
+], RegistrationSolo.prototype, "registredAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated-at', type: 'timestamptz' }),
+    __metadata("design:type", typeorm_1.Timestamp)
+], RegistrationSolo.prototype, "updatedAt", void 0);
 exports.RegistrationSolo = RegistrationSolo = __decorate([
     (0, typeorm_1.Entity)('registrations-solo'),
     (0, typeorm_1.Unique)(['userId', 'championshipId'])

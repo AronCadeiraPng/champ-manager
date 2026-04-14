@@ -21,7 +21,7 @@ let SportsModule = class SportsModule {
 exports.SportsModule = SportsModule;
 exports.SportsModule = SportsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([sport_entity_1.Sport]), registrations_module_1.RegistrationSoloModule,],
+        imports: [typeorm_1.TypeOrmModule.forFeature([sport_entity_1.Sport]), registrations_module_1.RegistrationSoloModule],
         controllers: [sports_controller_1.SportsController],
         providers: [
             find_sport_service_1.SportFindService,
@@ -29,6 +29,10 @@ exports.SportsModule = SportsModule = __decorate([
             delete_sport_service_1.SportDeleteService,
             update_sport_service_1.SportUpdateService
         ],
+        exports: [
+            SportsModule,
+            find_sport_service_1.SportFindService
+        ]
     })
 ], SportsModule);
 //# sourceMappingURL=sports.module.js.map

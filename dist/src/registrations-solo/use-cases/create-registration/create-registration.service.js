@@ -18,8 +18,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
 const find_user_service_1 = require("../../../users/use-cases/find-user/find-user.service");
-const find_championship_solo_service_1 = require("../../../championships-solo/use-cases/find-championship/find-championship-solo.service");
 const registration_entity_1 = require("../../models/entity/registration.entity");
+const find_championship_service_1 = require("../../../championships/use-cases/find-championship/find-championship.service");
 let RegistrationSoloCreateService = class RegistrationSoloCreateService {
     registrationSoloRepository;
     userFindService;
@@ -31,7 +31,7 @@ let RegistrationSoloCreateService = class RegistrationSoloCreateService {
     }
     async register(createRegistrationDto) {
         const user = await this.userFindService.findUserById(createRegistrationDto.userId);
-        const championship = await this.championshipFindService.findChampionshipSoloById(createRegistrationDto.championshipId);
+        const championship = await this.championshipFindService.findChampionshipById(createRegistrationDto.championshipId);
         const alreadyRegistered = await this.registrationSoloRepository.findOne({
             where: {
                 user: { id: user.id },
@@ -58,6 +58,6 @@ exports.RegistrationSoloCreateService = RegistrationSoloCreateService = __decora
     __param(0, (0, typeorm_1.InjectRepository)(registration_entity_1.RegistrationSolo)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         find_user_service_1.UserFindService,
-        find_championship_solo_service_1.ChampionshipSoloFindService])
+        find_championship_service_1.ChampionshipFindService])
 ], RegistrationSoloCreateService);
 //# sourceMappingURL=create-registration.service.js.map

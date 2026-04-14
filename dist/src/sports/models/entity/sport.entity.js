@@ -10,13 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sport = void 0;
-const championship_solo_entity_1 = require("../../../championships-solo/models/entity/championship-solo.entity");
+const championship_entity_1 = require("../../../championships/models/entity/championship.entity");
 const typeorm_1 = require("typeorm");
+const typeorm_2 = require("typeorm");
 let Sport = class Sport {
     id;
     name;
     deleted;
     championship;
+    createdAt;
+    updatedAt;
 };
 exports.Sport = Sport;
 __decorate([
@@ -32,9 +35,17 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Sport.prototype, "deleted", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => championship_solo_entity_1.ChampionshipSolo, (championship) => championship.sport),
-    __metadata("design:type", championship_solo_entity_1.ChampionshipSolo)
+    (0, typeorm_1.OneToMany)(() => championship_entity_1.Championship, (championship) => championship.sport),
+    __metadata("design:type", championship_entity_1.Championship)
 ], Sport.prototype, "championship", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)({ name: 'created-at', type: 'timestamptz' }),
+    __metadata("design:type", typeorm_2.Timestamp)
+], Sport.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated-at', type: 'timestamptz' }),
+    __metadata("design:type", typeorm_2.Timestamp)
+], Sport.prototype, "updatedAt", void 0);
 exports.Sport = Sport = __decorate([
     (0, typeorm_1.Entity)()
 ], Sport);

@@ -9,7 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Sport } from '../models/entity/sport.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Sport]), RegistrationSoloModule,],
+  imports: [TypeOrmModule.forFeature([Sport]), RegistrationSoloModule],
   controllers: [SportsController],
   providers: [
     SportFindService,
@@ -17,5 +17,9 @@ import { Sport } from '../models/entity/sport.entity';
     SportDeleteService,
     SportUpdateService
   ],
+  exports: [
+    SportsModule,
+    SportFindService
+  ]
 })
 export class SportsModule {}

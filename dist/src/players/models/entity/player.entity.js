@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Player = void 0;
-const championship_solo_entity_1 = require("../../../championships-solo/models/entity/championship-solo.entity");
-const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("typeorm");
+const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
+const championship_entity_1 = require("../../../championships/models/entity/championship.entity");
 let Player = class Player {
     id;
     registrationId;
@@ -23,6 +23,7 @@ let Player = class Player {
     championship;
     registration;
     createdAt;
+    updatedAt;
 };
 exports.Player = Player;
 __decorate([
@@ -46,9 +47,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Player.prototype, "points", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => championship_solo_entity_1.ChampionshipSolo, (championship) => championship.players),
+    (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.players),
     (0, typeorm_1.JoinColumn)({ name: 'championship-id' }),
-    __metadata("design:type", championship_solo_entity_1.ChampionshipSolo)
+    __metadata("design:type", championship_entity_1.Championship)
 ], Player.prototype, "championship", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => registration_entity_1.RegistrationSolo),
@@ -59,6 +60,10 @@ __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz', name: 'created-at' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Player.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated-at', type: 'timestamptz' }),
+    __metadata("design:type", typeorm_2.Timestamp)
+], Player.prototype, "updatedAt", void 0);
 exports.Player = Player = __decorate([
     (0, typeorm_1.Entity)('players')
 ], Player);

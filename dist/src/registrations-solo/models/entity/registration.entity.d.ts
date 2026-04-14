@@ -1,11 +1,14 @@
-import { ChampionshipSolo } from "src/championships-solo/models/entity/championship-solo.entity";
-import { User } from "src/users/models/entity/user.entity";
 import { Timestamp } from "typeorm";
+import { User } from "../../../users/models/entity/user.entity";
+import { Championship } from "src/championships/models/entity/championship.entity";
+import { Participant } from "src/participant/models/entity/participant.entity";
 export declare class RegistrationSolo {
     id: string;
     userId: string;
     championshipId: string;
-    registredAt: Timestamp;
     user: User;
-    championship: ChampionshipSolo;
+    championship: Championship;
+    participant?: Participant;
+    registredAt: Timestamp;
+    updatedAt: Timestamp;
 }
