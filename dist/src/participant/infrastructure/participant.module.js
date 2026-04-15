@@ -15,6 +15,7 @@ const registrations_module_1 = require("../../registrations-solo/infrastructure/
 const find_registration_service_1 = require("../../registrations-solo/use-cases/find-registration/find-registration.service");
 const create_participant_service_1 = require("../use-cases/create-participant/create-participant.service");
 const registration_entity_1 = require("../../registrations-solo/models/entity/registration.entity");
+const find_participants_service_1 = require("../use-cases/find-participants/find-participants.service");
 let ParticipantModule = class ParticipantModule {
 };
 exports.ParticipantModule = ParticipantModule;
@@ -25,6 +26,7 @@ exports.ParticipantModule = ParticipantModule = __decorate([
         providers: [
             registrations_module_1.RegistrationSoloModule,
             create_participant_service_1.ParticipantCreateService,
+            find_participants_service_1.ParticipantFindService,
             find_registration_service_1.RegistrationSoloFindService
         ],
         exports: [

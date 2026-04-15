@@ -9,7 +9,6 @@ import { ConfigModule } from '@nestjs/config';
 import { SportsModule } from './sports/infrastructure/sports.module';
 import { UserRegisterService } from './users/use-cases/register-user/user-register.service';
 import { RegistrationSoloModule } from './registrations-solo/infrastructure/registrations.module';
-import { PlayersModule } from './players/infrastructure/players.module';
 import { RegistrationTeam } from './registrations-team/models/entity/registration-team.entity';
 import { TeamsModule } from './teams/infrastructure/teams.module';
 import { MembersModule } from './members/infrastructure/members.module';
@@ -28,7 +27,6 @@ import { ParticipantModule } from './participant/infrastructure/participant.modu
     RegistrationsTeamModule,
     RegistrationSoloModule,
     SportsModule,
-    PlayersModule,
     RegistrationTeam,
     TeamsModule,
     MembersModule,

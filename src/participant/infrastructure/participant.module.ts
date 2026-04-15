@@ -6,6 +6,7 @@ import { RegistrationSoloModule } from 'src/registrations-solo/infrastructure/re
 import { RegistrationSoloFindService } from 'src/registrations-solo/use-cases/find-registration/find-registration.service';
 import { ParticipantCreateService } from '../use-cases/create-participant/create-participant.service';
 import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
+import { ParticipantFindService } from '../use-cases/find-participants/find-participants.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Participant, RegistrationSolo]), RegistrationSoloModule],
@@ -13,6 +14,7 @@ import { RegistrationSolo } from 'src/registrations-solo/models/entity/registrat
   providers: [
     RegistrationSoloModule,
     ParticipantCreateService,
+    ParticipantFindService,
     RegistrationSoloFindService
   ],
   exports: [

@@ -23,7 +23,7 @@ export class RegistrationSolo {
     @JoinColumn({ name: 'championship-id' })
     championship: Championship;
 
-    @OneToOne(() => Participant, { nullable: true })
+    @OneToOne(() => Participant, (participant) => participant.registrationSolo, { nullable: true })
     participant?: Participant;
     
     @CreateDateColumn({ name: 'registred-at', type: 'timestamptz' })

@@ -11,8 +11,7 @@ export class RegistrationSoloFindService {
   ) {}
 
     async allRegisters(): Promise<RegistrationSolo[]> {
-      return await this.registrationsRepository.find({
-      })
+      return await this.registrationsRepository.find({})
     }
 
     async findRegistrationsByChampionship(championshipId: string) {

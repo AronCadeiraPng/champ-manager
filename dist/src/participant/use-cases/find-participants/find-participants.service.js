@@ -12,25 +12,47 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ParticipantCreateService = void 0;
+exports.ParticipantFindService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const participant_entity_1 = require("../../models/entity/participant.entity");
 const typeorm_2 = require("typeorm");
-let ParticipantCreateService = class ParticipantCreateService {
+let ParticipantFindService = class ParticipantFindService {
     participantRepository;
     constructor(participantRepository) {
         this.participantRepository = participantRepository;
     }
-    async createParticipant(createParticipantDto) {
-        const participant = this.participantRepository.create(createParticipantDto);
-        return await this.participantRepository.save(participant);
+    async findParticipantById(id) {
+        const participant = await this.participantRepository.findOne({
+            where: {
+                id: id
+            }
+        });
+        if (!participant)
+            throw new common_1.BadRequestException('Participante', id);
+        return participant;
+    }
+    async findParticipantsByChampionship(championshipId) {
+        const participants = await this.participantRepository.find({
+            where: {
+                registrationSolo: {
+                    championshipId: championshipId
+                }
+            },
+            relations: {
+                registrationSolo: true
+            }
+        });
+        return participants;
+    }
+    async findAllParticipants() {
+        return await this.participantRepository.find();
     }
 };
-exports.ParticipantCreateService = ParticipantCreateService;
-exports.ParticipantCreateService = ParticipantCreateService = __decorate([
+exports.ParticipantFindService = ParticipantFindService;
+exports.ParticipantFindService = ParticipantFindService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(participant_entity_1.Participant)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], ParticipantCreateService);
-//# sourceMappingURL=create-participant.service.js.map
+], ParticipantFindService);
+//# sourceMappingURL=find-participants.service.js.map

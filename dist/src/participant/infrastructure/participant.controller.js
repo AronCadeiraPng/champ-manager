@@ -8,15 +8,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParticipantController = void 0;
 const common_1 = require("@nestjs/common");
+const find_participants_service_1 = require("../use-cases/find-participants/find-participants.service");
 let ParticipantController = class ParticipantController {
-    constructor() { }
+    participantFindService;
+    constructor(participantFindService) {
+        this.participantFindService = participantFindService;
+    }
+    async findAllParticipants() {
+        return this.participantFindService.findAllParticipants();
+    }
+    async findParticipantsByChampionship(championshipId) {
+        return this.participantFindService.findParticipantsByChampionship(championshipId);
+    }
 };
 exports.ParticipantController = ParticipantController;
+__decorate([
+    (0, common_1.Get)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ParticipantController.prototype, "findAllParticipants", null);
+__decorate([
+    (0, common_1.Get)('championship/:id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ParticipantController.prototype, "findParticipantsByChampionship", null);
 exports.ParticipantController = ParticipantController = __decorate([
-    (0, common_1.Controller)('participant'),
-    __metadata("design:paramtypes", [])
+    (0, common_1.Controller)('participants'),
+    __metadata("design:paramtypes", [find_participants_service_1.ParticipantFindService])
 ], ParticipantController);
 //# sourceMappingURL=participant.controller.js.map

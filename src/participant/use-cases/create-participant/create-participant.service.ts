@@ -10,9 +10,9 @@ export class ParticipantCreateService {
         @InjectRepository(Participant) private readonly participantRepository: Repository<Participant>
     ) {}
 
-    async createParticipant(createParticipant: CreateParticipantDto): Promise<Participant> {
-        const participant = this.participantRepository.create(createParticipant);
+    async createParticipant(createParticipantDto: CreateParticipantDto): Promise<Participant> {
+        const participant = this.participantRepository.create(createParticipantDto);
 
-        return await this.participantRepository.save(participant)
+        return await this.participantRepository.save(participant);
     }
 }

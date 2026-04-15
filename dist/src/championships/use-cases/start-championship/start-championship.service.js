@@ -11,32 +11,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChampionshipStartService = void 0;
 const common_1 = require("@nestjs/common");
-const create_player_service_1 = require("../../../players/use-cases/create-player/create-player.service");
+const create_participant_service_1 = require("../../../participant/use-cases/create-participant/create-participant.service");
 const find_registration_service_1 = require("../../../registrations-solo/use-cases/find-registration/find-registration.service");
 let ChampionshipStartService = class ChampionshipStartService {
-    playerCreateService;
+    participantCreateService;
     registrationFindService;
-    constructor(playerCreateService, registrationFindService) {
-        this.playerCreateService = playerCreateService;
+    constructor(participantCreateService, registrationFindService) {
+        this.participantCreateService = participantCreateService;
         this.registrationFindService = registrationFindService;
     }
     async start(championshipId) {
         const registrations = await this.registrationFindService.findRegistrationsByChampionship(championshipId);
-        const players = await Promise.all(registrations.map(async (registration) => {
-            const playerDto = {
-                registrationId: registration.id,
-                championshipId: registration.championshipId
+        const participants = await Promise.all(registrations.map(async (registration) => {
+            const participantDto = {
+                registrationUserId: registration.id,
             };
-            const player = await this.playerCreateService.create(playerDto);
-            return player;
+            const participant = await this.participantCreateService.createParticipant(participantDto);
+            return participant;
         }));
-        return players;
+        return participants;
     }
 };
 exports.ChampionshipStartService = ChampionshipStartService;
 exports.ChampionshipStartService = ChampionshipStartService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [create_player_service_1.PlayerCreateService,
+    __metadata("design:paramtypes", [create_participant_service_1.ParticipantCreateService,
         find_registration_service_1.RegistrationSoloFindService])
 ], ChampionshipStartService);
 //# sourceMappingURL=start-championship.service.js.map

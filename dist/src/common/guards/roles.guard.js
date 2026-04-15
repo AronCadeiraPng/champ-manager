@@ -28,7 +28,7 @@ let RolesGuard = class RolesGuard {
             return true;
         const { user } = context.switchToHttp().getRequest();
         if (!requiredRoles.includes(user.role)) {
-            throw new exceptions_1.ForbiddenException('acesso a este recurso');
+            throw new exceptions_1.ForbiddenException('acessar a este recurso');
         }
         return true;
     }

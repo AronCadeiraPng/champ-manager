@@ -19,6 +19,9 @@ import { ChampionshipDeleteService } from '../use-cases/delete-championship/dele
 import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
 import { Championship } from '../models/entity/championship.entity';
 import { UpdateChampionshipDto } from '../models/dtos/update-championship.dto';
+import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
+import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity';
+import { RegistrationSoloFindService } from 'src/registrations-solo/use-cases/find-registration/find-registration.service';
 
 @ApiTags('Championships')
 @ApiBearerAuth()
@@ -30,7 +33,8 @@ export class ChampionshipsController {
     private readonly championshipFindService: ChampionshipFindService,
     private readonly championshipDeleteService: ChampionshipDeleteService,
     private readonly championshipUpdateService: ChampionshipUpdateService,
-    private readonly championshipStartService: ChampionshipStartService
+    private readonly championshipStartService: ChampionshipStartService,
+    private readonly registrationSoloFindService: RegistrationSoloFindService
 
   ) {};
 
@@ -67,6 +71,20 @@ export class ChampionshipsController {
     return this.championshipFindService.findAllChampionships();
   }
 
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Get(':id/registrations')
+  @ApiOperation({ summary: 'Lista todos os torneios' })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de torneios',
+    type: [Championship]
+  })
+  async getAllRegistrationsByChampionship(
+    @Param('id', ParseUUIDPipe) championshipId: string
+  ): Promise<RegistrationSolo[] | RegistrationTeam[]>
+  {
+    return this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
+  }
 
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @Delete(':id')

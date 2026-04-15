@@ -14,7 +14,6 @@ import { Timestamp } from "typeorm";
 import { GenderEnum } from "../../../common/enums/gender.enum";
 import { ModalityEnum } from "../../../common/enums/modality.enum";
 import { StatusEnum } from "../../../common/enums/championship-status.enum";
-import { Player } from "../../../players/models/entity/player.entity";
 import { Sport } from "../../../sports/models/entity/sport.entity";
 import { RegistrationSolo } from "../../../registrations-solo/models/entity/registration.entity";
 
@@ -54,12 +53,6 @@ export class Championship {
 
     @DeleteDateColumn({ type: 'timestamptz', name: 'deleted-at' })
     deletedAt: Timestamp;
-
-    @OneToMany(() => Player, (player) => player.championship)
-    players: Player[]; 
-
-    // @OneToMany(() => Match, (match) => match.championship)
-    // matches: Match;
 
     @OneToOne(() => Sport)
     @JoinColumn({ name: 'sport' })

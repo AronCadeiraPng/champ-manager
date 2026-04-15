@@ -15,7 +15,6 @@ const typeorm_2 = require("typeorm");
 const gender_enum_1 = require("../../../common/enums/gender.enum");
 const modality_enum_1 = require("../../../common/enums/modality.enum");
 const championship_status_enum_1 = require("../../../common/enums/championship-status.enum");
-const player_entity_1 = require("../../../players/models/entity/player.entity");
 const sport_entity_1 = require("../../../sports/models/entity/sport.entity");
 const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
 let Championship = class Championship {
@@ -30,7 +29,6 @@ let Championship = class Championship {
     createdAt;
     updatedAt;
     deletedAt;
-    players;
     sport;
     registrations;
 };
@@ -79,10 +77,6 @@ __decorate([
     (0, typeorm_1.DeleteDateColumn)({ type: 'timestamptz', name: 'deleted-at' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Championship.prototype, "deletedAt", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => player_entity_1.Player, (player) => player.championship),
-    __metadata("design:type", Array)
-], Championship.prototype, "players", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => sport_entity_1.Sport),
     (0, typeorm_1.JoinColumn)({ name: 'sport' }),

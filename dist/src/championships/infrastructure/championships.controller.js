@@ -27,18 +27,21 @@ const delete_championship_solo_service_1 = require("../use-cases/delete-champion
 const update_championship_service_1 = require("../use-cases/update-championship/update-championship.service");
 const championship_entity_1 = require("../models/entity/championship.entity");
 const update_championship_dto_1 = require("../models/dtos/update-championship.dto");
+const find_registration_service_1 = require("../../registrations-solo/use-cases/find-registration/find-registration.service");
 let ChampionshipsController = class ChampionshipsController {
     championshipCreateService;
     championshipFindService;
     championshipDeleteService;
     championshipUpdateService;
     championshipStartService;
-    constructor(championshipCreateService, championshipFindService, championshipDeleteService, championshipUpdateService, championshipStartService) {
+    registrationSoloFindService;
+    constructor(championshipCreateService, championshipFindService, championshipDeleteService, championshipUpdateService, championshipStartService, registrationSoloFindService) {
         this.championshipCreateService = championshipCreateService;
         this.championshipFindService = championshipFindService;
         this.championshipDeleteService = championshipDeleteService;
         this.championshipUpdateService = championshipUpdateService;
         this.championshipStartService = championshipStartService;
+        this.registrationSoloFindService = registrationSoloFindService;
     }
     ;
     async createChampionship(createChampionshipDto) {
@@ -46,6 +49,9 @@ let ChampionshipsController = class ChampionshipsController {
     }
     async getAllChampionships() {
         return this.championshipFindService.findAllChampionships();
+    }
+    async getAllRegistrationsByChampionship(championshipId) {
+        return this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
     }
     async deleteChampionship(id) {
         return this.championshipDeleteService.deleteChampionship(id);
@@ -91,6 +97,20 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ChampionshipsController.prototype, "getAllChampionships", null);
+__decorate([
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, common_1.Get)(':id/registrations'),
+    (0, swagger_1.ApiOperation)({ summary: 'Lista todos os torneios' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de torneios',
+        type: [championship_entity_1.Championship]
+    }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ChampionshipsController.prototype, "getAllRegistrationsByChampionship", null);
 __decorate([
     (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
     (0, common_1.Delete)(':id'),
@@ -148,6 +168,7 @@ exports.ChampionshipsController = ChampionshipsController = __decorate([
         find_championship_service_1.ChampionshipFindService,
         delete_championship_solo_service_1.ChampionshipDeleteService,
         update_championship_service_1.ChampionshipUpdateService,
-        start_championship_service_1.ChampionshipStartService])
+        start_championship_service_1.ChampionshipStartService,
+        find_registration_service_1.RegistrationSoloFindService])
 ], ChampionshipsController);
 //# sourceMappingURL=championships.controller.js.map

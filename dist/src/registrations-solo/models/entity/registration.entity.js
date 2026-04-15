@@ -48,7 +48,7 @@ __decorate([
     __metadata("design:type", championship_entity_1.Championship)
 ], RegistrationSolo.prototype, "championship", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => participant_entity_1.Participant, { nullable: true }),
+    (0, typeorm_1.OneToOne)(() => participant_entity_1.Participant, (participant) => participant.registrationSolo, { nullable: true }),
     __metadata("design:type", participant_entity_1.Participant)
 ], RegistrationSolo.prototype, "participant", void 0);
 __decorate([

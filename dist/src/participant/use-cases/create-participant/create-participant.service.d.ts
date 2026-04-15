@@ -4,5 +4,5 @@ import { Repository } from "typeorm";
 export declare class ParticipantCreateService {
     private readonly participantRepository;
     constructor(participantRepository: Repository<Participant>);
-    createParticipant(createParticipant: CreateParticipantDto): Promise<Participant>;
+    createParticipant(createParticipantDto: CreateParticipantDto): Promise<Participant>;
 }

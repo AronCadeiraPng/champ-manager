@@ -15,9 +15,9 @@ const registration_team_entity_1 = require("../../../registrations-team/models/e
 const typeorm_1 = require("typeorm");
 let Participant = class Participant {
     id;
-    userId;
-    registrationSoloId;
+    registrationUserId;
     registrationTeamId;
+    points;
     registrationSolo;
     registrationTeam;
 };
@@ -27,20 +27,20 @@ __decorate([
     __metadata("design:type", String)
 ], Participant.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'user-id' }),
+    (0, typeorm_1.Column)({ name: 'registration-user-id', nullable: true }),
     __metadata("design:type", String)
-], Participant.prototype, "userId", void 0);
+], Participant.prototype, "registrationUserId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'registration-solo-id' }),
-    __metadata("design:type", String)
-], Participant.prototype, "registrationSoloId", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ name: 'registration-team-id' }),
+    (0, typeorm_1.Column)({ name: 'registration-team-id', nullable: true }),
     __metadata("design:type", String)
 ], Participant.prototype, "registrationTeamId", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ name: 'points', type: 'integer', nullable: true }),
+    __metadata("design:type", Number)
+], Participant.prototype, "points", void 0);
+__decorate([
     (0, typeorm_1.OneToOne)(() => registration_entity_1.RegistrationSolo, { nullable: true }),
-    (0, typeorm_1.JoinColumn)({ name: 'registration-solo-id' }),
+    (0, typeorm_1.JoinColumn)({ name: 'registration-user-id' }),
     __metadata("design:type", registration_entity_1.RegistrationSolo)
 ], Participant.prototype, "registrationSolo", void 0);
 __decorate([

@@ -18,7 +18,6 @@ const config_1 = require("@nestjs/config");
 const sports_module_1 = require("./sports/infrastructure/sports.module");
 const user_register_service_1 = require("./users/use-cases/register-user/user-register.service");
 const registrations_module_1 = require("./registrations-solo/infrastructure/registrations.module");
-const players_module_1 = require("./players/infrastructure/players.module");
 const registration_team_entity_1 = require("./registrations-team/models/entity/registration-team.entity");
 const teams_module_1 = require("./teams/infrastructure/teams.module");
 const members_module_1 = require("./members/infrastructure/members.module");
@@ -40,7 +39,6 @@ exports.AppModule = AppModule = __decorate([
             registrations_team_module_1.RegistrationsTeamModule,
             registrations_module_1.RegistrationSoloModule,
             sports_module_1.SportsModule,
-            players_module_1.PlayersModule,
             registration_team_entity_1.RegistrationTeam,
             teams_module_1.TeamsModule,
             members_module_1.MembersModule,

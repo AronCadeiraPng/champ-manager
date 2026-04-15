@@ -10,7 +10,7 @@ import { UserRoles } from 'src/common/enums/user-roles.enum';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 
 @ApiTags('Auth')
-@Controller('auth')
+@Controller('user/auth')
 export class AuthController {
   constructor(private authService: AuthService) { }
 

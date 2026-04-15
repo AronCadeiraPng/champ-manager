@@ -2,9 +2,9 @@ import { RegistrationSolo } from "src/registrations-solo/models/entity/registrat
 import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
 export declare class Participant {
     id: string;
-    userId: string;
-    registrationSoloId: string;
-    registrationTeamId: string;
+    registrationUserId?: string;
+    registrationTeamId?: string;
+    points?: number;
     registrationSolo?: RegistrationSolo;
     registrationTeam?: RegistrationTeam;
 }

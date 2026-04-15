@@ -10,10 +10,7 @@ exports.ChampionshipModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const registration_entity_1 = require("../../registrations-solo/models/entity/registration.entity");
-const create_player_service_1 = require("../../players/use-cases/create-player/create-player.service");
-const players_module_1 = require("../../players/infrastructure/players.module");
 const find_registration_service_1 = require("../../registrations-solo/use-cases/find-registration/find-registration.service");
-const find_player_service_1 = require("../../players/use-cases/find-player/find-player.service");
 const find_sport_service_1 = require("../../sports/use-cases/find-sport/find-sport.service");
 const sport_entity_1 = require("../../sports/models/entity/sport.entity");
 const championship_entity_1 = require("../models/entity/championship.entity");
@@ -23,12 +20,14 @@ const find_championship_service_1 = require("../use-cases/find-championship/find
 const update_championship_service_1 = require("../use-cases/update-championship/update-championship.service");
 const start_championship_service_1 = require("../use-cases/start-championship/start-championship.service");
 const create_championship_service_1 = require("../use-cases/create-championship/create-championship.service");
+const create_participant_service_1 = require("../../participant/use-cases/create-participant/create-participant.service");
+const participant_entity_1 = require("../../participant/models/entity/participant.entity");
 let ChampionshipModule = class ChampionshipModule {
 };
 exports.ChampionshipModule = ChampionshipModule;
 exports.ChampionshipModule = ChampionshipModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship, registration_entity_1.RegistrationSolo, sport_entity_1.Sport]), players_module_1.PlayersModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship, registration_entity_1.RegistrationSolo, sport_entity_1.Sport, participant_entity_1.Participant])],
         controllers: [championships_controller_1.ChampionshipsController],
         providers: [
             championship_entity_1.Championship,
@@ -37,11 +36,9 @@ exports.ChampionshipModule = ChampionshipModule = __decorate([
             find_championship_service_1.ChampionshipFindService,
             update_championship_service_1.ChampionshipUpdateService,
             start_championship_service_1.ChampionshipStartService,
-            create_player_service_1.PlayerCreateService,
-            find_player_service_1.PlayerFindService,
-            players_module_1.PlayersModule,
             find_registration_service_1.RegistrationSoloFindService,
-            find_sport_service_1.SportFindService
+            find_sport_service_1.SportFindService,
+            create_participant_service_1.ParticipantCreateService
         ],
         exports: [
             delete_championship_solo_service_1.ChampionshipDeleteService,

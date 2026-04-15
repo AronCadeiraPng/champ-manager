@@ -23,6 +23,7 @@ const roles_decorator_1 = require("../../decorators/roles.decorator");
 const user_roles_enum_1 = require("../../common/enums/user-roles.enum");
 const user_register_service_1 = require("../use-cases/register-user/user-register.service");
 const find_user_service_1 = require("../use-cases/find-user/find-user.service");
+const roles_guard_1 = require("../../common/guards/roles.guard");
 let UserController = class UserController {
     userFindService;
     userRegisterService;
@@ -57,6 +58,8 @@ __decorate([
 ], UserController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)('all'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
     (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os usuários' }),
     __metadata("design:type", Function),
@@ -65,7 +68,7 @@ __decorate([
 ], UserController.prototype, "findAllUsers", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna um usuário pelo id' }),
     __param(0, (0, common_1.Param)('id', common_2.ParseUUIDPipe)),

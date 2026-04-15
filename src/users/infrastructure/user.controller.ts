@@ -8,6 +8,7 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { UserRoles } from 'src/common/enums/user-roles.enum';
 import { UserRegisterService } from '../use-cases/register-user/user-register.service';
 import { UserFindService } from '../use-cases/find-user/find-user.service';
+import { RolesGuard } from 'src/common/guards/roles.guard';
 
 @Controller('user')
 export class UserController {
@@ -34,6 +35,8 @@ export class UserController {
 
 
   @Get('all')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @ApiOperation({ summary: 'Retorna todos os usuários' })
   async findAllUsers(): Promise<User[]>
@@ -43,7 +46,7 @@ export class UserController {
 
 
   @Get(':id')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @ApiOperation({ summary: 'Retorna um usuário pelo id' })
   async findUserById(
