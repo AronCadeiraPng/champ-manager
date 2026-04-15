@@ -15,10 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParticipantController = void 0;
 const common_1 = require("@nestjs/common");
 const find_participants_service_1 = require("../use-cases/find-participants/find-participants.service");
+const create_participant_service_1 = require("../use-cases/create-participant/create-participant.service");
+const create_participant_dto_1 = require("../models/dtos/create-participant.dto");
 let ParticipantController = class ParticipantController {
     participantFindService;
-    constructor(participantFindService) {
+    participantCreateService;
+    constructor(participantFindService, participantCreateService) {
         this.participantFindService = participantFindService;
+        this.participantCreateService = participantCreateService;
+    }
+    async createParticipant(championshipId, createParticipantDto) {
+        return this.participantCreateService.createParticipant(championshipId, createParticipantDto);
     }
     async findAllParticipants() {
         return this.participantFindService.findAllParticipants();
@@ -28,6 +35,14 @@ let ParticipantController = class ParticipantController {
     }
 };
 exports.ParticipantController = ParticipantController;
+__decorate([
+    (0, common_1.Post)(':id/create'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, create_participant_dto_1.CreateParticipantDto]),
+    __metadata("design:returntype", Promise)
+], ParticipantController.prototype, "createParticipant", null);
 __decorate([
     (0, common_1.Get)('all'),
     __metadata("design:type", Function),
@@ -43,6 +58,7 @@ __decorate([
 ], ParticipantController.prototype, "findParticipantsByChampionship", null);
 exports.ParticipantController = ParticipantController = __decorate([
     (0, common_1.Controller)('participants'),
-    __metadata("design:paramtypes", [find_participants_service_1.ParticipantFindService])
+    __metadata("design:paramtypes", [find_participants_service_1.ParticipantFindService,
+        create_participant_service_1.ParticipantCreateService])
 ], ParticipantController);
 //# sourceMappingURL=participant.controller.js.map

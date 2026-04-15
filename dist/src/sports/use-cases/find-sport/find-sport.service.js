@@ -16,7 +16,6 @@ exports.SportFindService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const exceptions_1 = require("../../../common/exceptions");
-const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
 const sport_entity_1 = require("../../models/entity/sport.entity");
 const typeorm_2 = require("typeorm");
 let SportFindService = class SportFindService {
@@ -39,7 +38,7 @@ let SportFindService = class SportFindService {
             }
         });
         if (!sport)
-            throw new bad_request_exception_1.BadRequestException('Esporte', 400);
+            throw new exceptions_1.NotFoundException('Esporte', id);
         return sport;
     }
     async findAllSport() {

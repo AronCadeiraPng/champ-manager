@@ -57,7 +57,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'team-id', nullable: true }),
+    (0, typeorm_1.Column)({ name: 'team_id', nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "teamId", void 0);
 __decorate([
@@ -69,15 +69,15 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "gender", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz' }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_1.Timestamp)
 ], User.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamptz' }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_1.Timestamp)
 ], User.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.DeleteDateColumn)({ type: 'timestamptz' }),
+    (0, typeorm_1.DeleteDateColumn)({ name: 'deleted_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_1.Timestamp)
 ], User.prototype, "deletedAt", void 0);
 __decorate([

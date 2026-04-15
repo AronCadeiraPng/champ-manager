@@ -12,29 +12,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TeamDeleteService = void 0;
+exports.MemberDeleteService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const delete_member_service_1 = require("../../../members/use-cases/delete-member/delete-member.service");
-const team_entity_1 = require("../../models/entity/team.entity");
+const member_entity_1 = require("../../models/entity/member.entity");
 const typeorm_2 = require("typeorm");
-let TeamDeleteService = class TeamDeleteService {
-    teamRepository;
-    memberDeleteService;
-    constructor(teamRepository, memberDeleteService) {
-        this.teamRepository = teamRepository;
-        this.memberDeleteService = memberDeleteService;
+let MemberDeleteService = class MemberDeleteService {
+    memberRepository;
+    constructor(memberRepository) {
+        this.memberRepository = memberRepository;
     }
-    async deleteAllTeams() {
-        await this.memberDeleteService.deleteAllMembers();
-        return await this.teamRepository.clear();
+    async deleteAllMembers() {
+        return this.memberRepository.clear();
     }
 };
-exports.TeamDeleteService = TeamDeleteService;
-exports.TeamDeleteService = TeamDeleteService = __decorate([
+exports.MemberDeleteService = MemberDeleteService;
+exports.MemberDeleteService = MemberDeleteService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(team_entity_1.Team)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        delete_member_service_1.MemberDeleteService])
-], TeamDeleteService);
-//# sourceMappingURL=delete-team.service.js.map
+    __param(0, (0, typeorm_1.InjectRepository)(member_entity_1.Member)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
+], MemberDeleteService);
+//# sourceMappingURL=delete-member.service.js.map

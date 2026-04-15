@@ -1,10 +1,8 @@
-import { IsOptional, IsString, IsUUID } from "class-validator";
+import { IsArray, IsOptional, IsString, IsUUID } from "class-validator";
 
 export class CreateTeamDto {
-    @IsString()
-    @IsUUID()
-    @IsOptional()
-    membersId?: string[];
+    @IsArray()
+    membersId: string[];
 
     @IsString()
     @IsOptional()

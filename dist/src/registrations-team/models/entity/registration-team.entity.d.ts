@@ -5,6 +5,7 @@ import { Championship } from "src/championships/models/entity/championship.entit
 export declare class RegistrationTeam {
     id: string;
     championshipId: string;
+    teamId?: string;
     team: Team[];
     participant?: Participant;
     championship: Championship;

@@ -16,18 +16,21 @@ const find_registration_service_1 = require("../../registrations-solo/use-cases/
 const create_participant_service_1 = require("../use-cases/create-participant/create-participant.service");
 const registration_entity_1 = require("../../registrations-solo/models/entity/registration.entity");
 const find_participants_service_1 = require("../use-cases/find-participants/find-participants.service");
+const championship_entity_1 = require("../../championships/models/entity/championship.entity");
+const find_championship_service_1 = require("../../championships/use-cases/find-championship/find-championship.service");
 let ParticipantModule = class ParticipantModule {
 };
 exports.ParticipantModule = ParticipantModule;
 exports.ParticipantModule = ParticipantModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([participant_entity_1.Participant, registration_entity_1.RegistrationSolo]), registrations_module_1.RegistrationSoloModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([participant_entity_1.Participant, registration_entity_1.RegistrationSolo, championship_entity_1.Championship]), registrations_module_1.RegistrationSoloModule],
         controllers: [participant_controller_1.ParticipantController],
         providers: [
             registrations_module_1.RegistrationSoloModule,
             create_participant_service_1.ParticipantCreateService,
             find_participants_service_1.ParticipantFindService,
-            find_registration_service_1.RegistrationSoloFindService
+            find_registration_service_1.RegistrationSoloFindService,
+            find_championship_service_1.ChampionshipFindService
         ],
         exports: [
             ParticipantModule,

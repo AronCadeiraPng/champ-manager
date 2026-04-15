@@ -16,6 +16,9 @@ const members_module_1 = require("../../members/infrastructure/members.module");
 const create_member_service_1 = require("../../members/use-cases/create-member/create-member.service");
 const member_entity_1 = require("../../members/models/entity/member.entity");
 const find_member_service_1 = require("../../members/use-cases/find-member/find-member.service");
+const find_team_service_1 = require("../use-cases/find-team/find-team.service");
+const delete_team_service_1 = require("../use-cases/delete-team/delete-team.service");
+const delete_member_service_1 = require("../../members/use-cases/delete-member/delete-member.service");
 let TeamsModule = class TeamsModule {
 };
 exports.TeamsModule = TeamsModule;
@@ -25,8 +28,11 @@ exports.TeamsModule = TeamsModule = __decorate([
         controllers: [teams_controller_1.TeamsController],
         providers: [
             create_team_service_1.TeamCreateService,
+            find_team_service_1.TeamFindService,
+            delete_team_service_1.TeamDeleteService,
             create_member_service_1.MemberCreateService,
-            find_member_service_1.MemberFindService
+            find_member_service_1.MemberFindService,
+            delete_member_service_1.MemberDeleteService
         ],
         exports: [
             TeamsModule,

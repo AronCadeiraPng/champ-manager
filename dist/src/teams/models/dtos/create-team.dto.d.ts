@@ -1,4 +1,4 @@
 export declare class CreateTeamDto {
-    membersId?: string[];
+    membersId: string[];
     registrationId?: string;
 }

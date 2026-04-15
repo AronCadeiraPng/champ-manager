@@ -9,26 +9,26 @@ export class RegistrationSolo {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({type: 'varchar', name: 'user-id' })
+    @Column({type: 'varchar', name: 'user_id' })
     userId: string;
 
-    @Column({type: 'varchar', name: 'championship-id' })
+    @Column({type: 'varchar', name: 'championship_id' })
     championshipId: string;
 
     @ManyToOne(() => User, (user) => user.registrationsSolo)
-    @JoinColumn({ name: 'user-id' })
+    @JoinColumn({ name: 'user_id' })
     user: User;
 
     @ManyToOne(() => Championship, (championship) => championship.registrations)
-    @JoinColumn({ name: 'championship-id' })
+    @JoinColumn({ name: 'championship_id' })
     championship: Championship;
 
     @OneToOne(() => Participant, (participant) => participant.registrationSolo, { nullable: true })
     participant?: Participant;
     
-    @CreateDateColumn({ name: 'registred-at', type: 'timestamptz' })
+    @CreateDateColumn({ name: 'registred_at', type: 'timestamptz' })
     registredAt: Timestamp;
 
-    @UpdateDateColumn({ name: 'updated-at', type: 'timestamptz' })
+    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
     updatedAt: Timestamp;
 }

@@ -18,24 +18,29 @@ const typeorm_1 = require("@nestjs/typeorm");
 const find_championship_service_1 = require("../../../championships/use-cases/find-championship/find-championship.service");
 const registration_team_entity_1 = require("../../models/entity/registration-team.entity");
 const create_team_service_1 = require("../../../teams/use-cases/create-team/create-team.service");
+const find_user_service_1 = require("../../../users/use-cases/find-user/find-user.service");
 const typeorm_2 = require("typeorm");
 let RegistrationsTeamCreateService = class RegistrationsTeamCreateService {
     registrationTeamRepository;
     teamCreateService;
     championshipFindService;
-    constructor(registrationTeamRepository, teamCreateService, championshipFindService) {
+    userFindService;
+    constructor(registrationTeamRepository, teamCreateService, championshipFindService, userFindService) {
         this.registrationTeamRepository = registrationTeamRepository;
         this.teamCreateService = teamCreateService;
         this.championshipFindService = championshipFindService;
+        this.userFindService = userFindService;
     }
     async create(championshipId, createTeamDto) {
+        const members = createTeamDto.membersId;
+        await Promise.all(members.map((memberId) => this.userFindService.findUserById(memberId)));
         const team = await this.teamCreateService.create(createTeamDto);
         const championship = await this.championshipFindService.findChampionshipById(championshipId);
         const registration = this.registrationTeamRepository.create({
             championshipId: championship.id
         });
         team.registrationId = registration.id;
-        return registration;
+        return this.registrationTeamRepository.save(registration);
     }
 };
 exports.RegistrationsTeamCreateService = RegistrationsTeamCreateService;
@@ -44,6 +49,7 @@ exports.RegistrationsTeamCreateService = RegistrationsTeamCreateService = __deco
     __param(0, (0, typeorm_1.InjectRepository)(registration_team_entity_1.RegistrationTeam)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         create_team_service_1.TeamCreateService,
-        find_championship_service_1.ChampionshipFindService])
+        find_championship_service_1.ChampionshipFindService,
+        find_user_service_1.UserFindService])
 ], RegistrationsTeamCreateService);
 //# sourceMappingURL=create-registration-team.service.js.map

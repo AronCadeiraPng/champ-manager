@@ -15,14 +15,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParticipantCreateService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const find_championship_service_1 = require("../../../championships/use-cases/find-championship/find-championship.service");
+const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
 const participant_entity_1 = require("../../models/entity/participant.entity");
 const typeorm_2 = require("typeorm");
 let ParticipantCreateService = class ParticipantCreateService {
     participantRepository;
-    constructor(participantRepository) {
+    championshipFindService;
+    constructor(participantRepository, championshipFindService) {
         this.participantRepository = participantRepository;
+        this.championshipFindService = championshipFindService;
     }
-    async createParticipant(createParticipantDto) {
+    async createParticipant(championshipId, createParticipantDto) {
+        const championship = await this.championshipFindService.findChampionshipById(championshipId);
+        if (championship.modality == 'team-game' && createParticipantDto.registrationUserId == null)
+            throw new bad_request_exception_1.BadRequestException('Torneio apenas para times', 400);
+        if (championship.modality == 'solo-game' && createParticipantDto.registrationTeamId !== null)
+            throw new bad_request_exception_1.BadRequestException('Torneio apenas para um jogador', 400);
+        const participantExists = await this.participantRepository.findOne({
+            where: {
+                registrationUserId: createParticipantDto.registrationUserId,
+                registrationTeamId: createParticipantDto.registrationTeamId
+            }
+        });
+        if (participantExists)
+            throw new bad_request_exception_1.BadRequestException('Participante já registrado', 400);
         const participant = this.participantRepository.create(createParticipantDto);
         return await this.participantRepository.save(participant);
     }
@@ -31,6 +48,7 @@ exports.ParticipantCreateService = ParticipantCreateService;
 exports.ParticipantCreateService = ParticipantCreateService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(participant_entity_1.Participant)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        find_championship_service_1.ChampionshipFindService])
 ], ParticipantCreateService);
 //# sourceMappingURL=create-participant.service.js.map

@@ -5,6 +5,7 @@ import {
     DeleteDateColumn, 
     Entity, 
     JoinColumn, 
+    ManyToOne, 
     OneToMany, 
     OneToOne, 
     PrimaryGeneratedColumn, 
@@ -33,10 +34,10 @@ export class Championship {
     @Column({ type: 'enum', enum: ModalityEnum, default: ModalityEnum.SOLO, name: 'modality'})
     modality: ModalityEnum;
 
-    @Column({ type: 'timestamptz', default: new Date(), name: 'registration-start'})
+    @Column({ type: 'timestamptz', default: new Date(), name: 'registration_start'})
     registrationStart: Date;
     
-    @Column({ type: 'timestamptz' , name: 'registration-end' })
+    @Column({ type: 'timestamptz' , name: 'registration_end' })
     registrationEnd: Date;
 
     @Column({ type: 'enum', enum: StatusEnum, name: 'status' })
@@ -45,16 +46,16 @@ export class Championship {
     @Column({ name: 'sport' })
     sportId?: string;
 
-    @CreateDateColumn({ type: 'timestamptz', name: 'created-at' })
+    @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
     createdAt: Timestamp;
 
-    @UpdateDateColumn({ type: 'timestamptz', name: 'updated-at' })
+    @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
     updatedAt: Timestamp;
 
-    @DeleteDateColumn({ type: 'timestamptz', name: 'deleted-at' })
+    @DeleteDateColumn({ type: 'timestamptz', name: 'deleted_at' })
     deletedAt: Timestamp;
 
-    @OneToOne(() => Sport)
+    @ManyToOne(() => Sport)
     @JoinColumn({ name: 'sport' })
     sport: Sport;
 

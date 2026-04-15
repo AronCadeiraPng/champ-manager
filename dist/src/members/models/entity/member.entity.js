@@ -18,7 +18,6 @@ let Member = class Member {
     id;
     teamId;
     userId;
-    isLeader;
     user;
     team;
     createdAt;
@@ -30,33 +29,29 @@ __decorate([
     __metadata("design:type", String)
 ], Member.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', name: 'team-id' }),
+    (0, typeorm_1.Column)({ type: 'varchar', name: 'team_id', nullable: true }),
     __metadata("design:type", String)
 ], Member.prototype, "teamId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', name: 'user-id' }),
+    (0, typeorm_1.Column)({ type: 'varchar', name: 'user_id', nullable: true }),
     __metadata("design:type", String)
 ], Member.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'boolean', default: false }),
-    __metadata("design:type", Boolean)
-], Member.prototype, "isLeader", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.team),
-    (0, typeorm_1.JoinColumn)({ name: 'user-id' }),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.team, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({ name: 'user_id' }),
     __metadata("design:type", user_entity_1.User)
 ], Member.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => team_entity_1.Team, (team) => team.members),
-    (0, typeorm_1.JoinColumn)({ name: 'team-id' }),
+    (0, typeorm_1.ManyToOne)(() => team_entity_1.Team, (team) => team.members, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({ name: 'team_id' }),
     __metadata("design:type", team_entity_1.Team)
 ], Member.prototype, "team", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'created-at', type: 'timestamptz' }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Member.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: 'updated-at', type: 'timestamptz' }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Member.prototype, "updatedAt", void 0);
 exports.Member = Member = __decorate([

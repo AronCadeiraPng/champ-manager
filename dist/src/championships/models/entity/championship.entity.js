@@ -50,11 +50,11 @@ __decorate([
     __metadata("design:type", String)
 ], Championship.prototype, "modality", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'timestamptz', default: new Date(), name: 'registration-start' }),
+    (0, typeorm_1.Column)({ type: 'timestamptz', default: new Date(), name: 'registration_start' }),
     __metadata("design:type", Date)
 ], Championship.prototype, "registrationStart", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'timestamptz', name: 'registration-end' }),
+    (0, typeorm_1.Column)({ type: 'timestamptz', name: 'registration_end' }),
     __metadata("design:type", Date)
 ], Championship.prototype, "registrationEnd", void 0);
 __decorate([
@@ -66,19 +66,19 @@ __decorate([
     __metadata("design:type", String)
 ], Championship.prototype, "sportId", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz', name: 'created-at' }),
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz', name: 'created_at' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Championship.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamptz', name: 'updated-at' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamptz', name: 'updated_at' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Championship.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.DeleteDateColumn)({ type: 'timestamptz', name: 'deleted-at' }),
+    (0, typeorm_1.DeleteDateColumn)({ type: 'timestamptz', name: 'deleted_at' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Championship.prototype, "deletedAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => sport_entity_1.Sport),
+    (0, typeorm_1.ManyToOne)(() => sport_entity_1.Sport),
     (0, typeorm_1.JoinColumn)({ name: 'sport' }),
     __metadata("design:type", sport_entity_1.Sport)
 ], Championship.prototype, "sport", void 0);

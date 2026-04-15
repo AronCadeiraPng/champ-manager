@@ -30,21 +30,21 @@ __decorate([
     __metadata("design:type", String)
 ], RegistrationSolo.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', name: 'user-id' }),
+    (0, typeorm_1.Column)({ type: 'varchar', name: 'user_id' }),
     __metadata("design:type", String)
 ], RegistrationSolo.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', name: 'championship-id' }),
+    (0, typeorm_1.Column)({ type: 'varchar', name: 'championship_id' }),
     __metadata("design:type", String)
 ], RegistrationSolo.prototype, "championshipId", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.registrationsSolo),
-    (0, typeorm_1.JoinColumn)({ name: 'user-id' }),
+    (0, typeorm_1.JoinColumn)({ name: 'user_id' }),
     __metadata("design:type", user_entity_1.User)
 ], RegistrationSolo.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.registrations),
-    (0, typeorm_1.JoinColumn)({ name: 'championship-id' }),
+    (0, typeorm_1.JoinColumn)({ name: 'championship_id' }),
     __metadata("design:type", championship_entity_1.Championship)
 ], RegistrationSolo.prototype, "championship", void 0);
 __decorate([
@@ -52,11 +52,11 @@ __decorate([
     __metadata("design:type", participant_entity_1.Participant)
 ], RegistrationSolo.prototype, "participant", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'registred-at', type: 'timestamptz' }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'registred_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_1.Timestamp)
 ], RegistrationSolo.prototype, "registredAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: 'updated-at', type: 'timestamptz' }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_1.Timestamp)
 ], RegistrationSolo.prototype, "updatedAt", void 0);
 exports.RegistrationSolo = RegistrationSolo = __decorate([

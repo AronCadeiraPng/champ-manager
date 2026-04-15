@@ -27,11 +27,11 @@ __decorate([
     __metadata("design:type", String)
 ], Participant.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'registration-user-id', nullable: true }),
+    (0, typeorm_1.Column)({ name: 'registration-user_id', type: 'varchar', nullable: true }),
     __metadata("design:type", String)
 ], Participant.prototype, "registrationUserId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'registration-team-id', nullable: true }),
+    (0, typeorm_1.Column)({ name: 'registration-team_id', type: 'varchar', nullable: true }),
     __metadata("design:type", String)
 ], Participant.prototype, "registrationTeamId", void 0);
 __decorate([
@@ -40,12 +40,12 @@ __decorate([
 ], Participant.prototype, "points", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => registration_entity_1.RegistrationSolo, { nullable: true }),
-    (0, typeorm_1.JoinColumn)({ name: 'registration-user-id' }),
+    (0, typeorm_1.JoinColumn)({ name: 'registration_user_id' }),
     __metadata("design:type", registration_entity_1.RegistrationSolo)
 ], Participant.prototype, "registrationSolo", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => registration_team_entity_1.RegistrationTeam, { nullable: true }),
-    (0, typeorm_1.JoinColumn)({ name: 'registration-team-id' }),
+    (0, typeorm_1.JoinColumn)({ name: 'registration_team_id' }),
     __metadata("design:type", registration_team_entity_1.RegistrationTeam)
 ], Participant.prototype, "registrationTeam", void 0);
 exports.Participant = Participant = __decorate([

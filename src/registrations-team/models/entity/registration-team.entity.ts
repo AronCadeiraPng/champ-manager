@@ -9,18 +9,21 @@ export class RegistrationTeam {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ name: 'championship-id' })
+    @Column({ name: 'championship_id' })
     championshipId: string;
 
+    @Column({ name: 'team_id', nullable: true })
+    teamId?: string;
+
     @OneToMany(() => Team, (team) => team.registration)
-    @JoinColumn({ name: 'team-id' })
+    @JoinColumn({ name: 'team_id' })
     team: Team[];
 
     @OneToOne(() => Participant, { nullable: true })
     participant?: Participant;
 
     @ManyToOne(() => Championship, (championship) => championship.registrations)
-    @JoinColumn({ name: 'championship-id' })
+    @JoinColumn({ name: 'championship_id' })
     championship: Championship;
 
     @CreateDateColumn({ name: 'created-at', type: 'timestamptz' })

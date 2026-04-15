@@ -18,6 +18,7 @@ const championship_entity_1 = require("../../../championships/models/entity/cham
 let RegistrationTeam = class RegistrationTeam {
     id;
     championshipId;
+    teamId;
     team;
     participant;
     championship;
@@ -30,12 +31,16 @@ __decorate([
     __metadata("design:type", String)
 ], RegistrationTeam.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'championship-id' }),
+    (0, typeorm_1.Column)({ name: 'championship_id' }),
     __metadata("design:type", String)
 ], RegistrationTeam.prototype, "championshipId", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ name: 'team_id', nullable: true }),
+    __metadata("design:type", String)
+], RegistrationTeam.prototype, "teamId", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => team_entity_1.Team, (team) => team.registration),
-    (0, typeorm_1.JoinColumn)({ name: 'team-id' }),
+    (0, typeorm_1.JoinColumn)({ name: 'team_id' }),
     __metadata("design:type", Array)
 ], RegistrationTeam.prototype, "team", void 0);
 __decorate([
@@ -44,7 +49,7 @@ __decorate([
 ], RegistrationTeam.prototype, "participant", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.registrations),
-    (0, typeorm_1.JoinColumn)({ name: 'championship-id' }),
+    (0, typeorm_1.JoinColumn)({ name: 'championship_id' }),
     __metadata("design:type", championship_entity_1.Championship)
 ], RegistrationTeam.prototype, "championship", void 0);
 __decorate([

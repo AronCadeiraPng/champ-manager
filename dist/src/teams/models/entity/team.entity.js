@@ -34,28 +34,28 @@ __decorate([
     __metadata("design:type", String)
 ], Team.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'championship-id' }),
+    (0, typeorm_1.Column)({ name: 'championship_id', nullable: true }),
     __metadata("design:type", String)
 ], Team.prototype, "championshipId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'registration-id', nullable: true }),
+    (0, typeorm_1.Column)({ name: 'registration_id', nullable: true }),
     __metadata("design:type", String)
 ], Team.prototype, "registrationId", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => member_entity_1.Member, (member) => member.team, { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => member_entity_1.Member, (member) => member.team, { nullable: true, onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
 ], Team.prototype, "members", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => registration_team_entity_1.RegistrationTeam, (registration) => registration.team),
-    (0, typeorm_1.JoinColumn)({ name: 'registration-id' }),
+    (0, typeorm_1.JoinColumn)({ name: 'registration_id' }),
     __metadata("design:type", registration_team_entity_1.RegistrationTeam)
 ], Team.prototype, "registration", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'created-at', type: 'timestamptz' }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Team.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: 'updated-at', type: 'timestamptz' }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Team.prototype, "updatedAt", void 0);
 exports.Team = Team = __decorate([

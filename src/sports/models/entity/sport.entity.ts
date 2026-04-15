@@ -16,9 +16,9 @@ export class Sport {
     @OneToMany(() => Championship, (championship) => championship.sport)
     championship: Championship;
 
-    @CreateDateColumn({ name: 'created-at', type: 'timestamptz' })
-        createdAt: Timestamp;
+    @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+    createdAt: Timestamp;
     
-    @UpdateDateColumn({ name: 'updated-at', type: 'timestamptz' })
+    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
     updatedAt: Timestamp;
 }

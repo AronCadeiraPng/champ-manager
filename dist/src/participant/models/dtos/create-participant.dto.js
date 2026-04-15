@@ -18,10 +18,12 @@ class CreateParticipantDto {
 exports.CreateParticipantDto = CreateParticipantDto;
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateParticipantDto.prototype, "registrationTeamId", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateParticipantDto.prototype, "registrationUserId", void 0);
 //# sourceMappingURL=create-participant.dto.js.map

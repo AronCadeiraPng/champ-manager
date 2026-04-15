@@ -39,11 +39,11 @@ __decorate([
     __metadata("design:type", championship_entity_1.Championship)
 ], Sport.prototype, "championship", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'created-at', type: 'timestamptz' }),
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Sport.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: 'updated-at', type: 'timestamptz' }),
+    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', type: 'timestamptz' }),
     __metadata("design:type", typeorm_2.Timestamp)
 ], Sport.prototype, "updatedAt", void 0);
 exports.Sport = Sport = __decorate([

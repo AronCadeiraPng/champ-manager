@@ -13,6 +13,7 @@ const find_member_service_1 = require("../use-cases/find-member/find-member.serv
 const create_member_service_1 = require("../use-cases/create-member/create-member.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const member_entity_1 = require("../models/entity/member.entity");
+const delete_member_service_1 = require("../use-cases/delete-member/delete-member.service");
 let MembersModule = class MembersModule {
 };
 exports.MembersModule = MembersModule;
@@ -22,12 +23,14 @@ exports.MembersModule = MembersModule = __decorate([
         controllers: [members_controller_1.MembersController],
         providers: [
             find_member_service_1.MemberFindService,
-            create_member_service_1.MemberCreateService
+            create_member_service_1.MemberCreateService,
+            delete_member_service_1.MemberDeleteService
         ],
         exports: [
             MembersModule,
             create_member_service_1.MemberCreateService,
-            find_member_service_1.MemberFindService
+            find_member_service_1.MemberFindService,
+            delete_member_service_1.MemberDeleteService
         ]
     })
 ], MembersModule);

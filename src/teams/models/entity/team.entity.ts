@@ -11,22 +11,22 @@ export class Team {
     @Column({ type: 'varchar', name: 'name', nullable: true })
     name?: string;
 
-    @Column({ name: 'championship-id' })
-    championshipId: string;
+    @Column({ name: 'championship_id', nullable: true })
+    championshipId?: string;
 
-    @Column({ name: 'registration-id', nullable: true })
+    @Column({ name: 'registration_id', nullable: true })
     registrationId?: string;
 
-    @OneToMany(() => Member, (member) => member.team, { nullable: true })
+    @OneToMany(() => Member, (member) => member.team, { nullable: true, onDelete: 'CASCADE' })
     members?: Member[];
 
     @ManyToOne(() => RegistrationTeam, (registration) => registration.team)
-    @JoinColumn({ name: 'registration-id' })
+    @JoinColumn({ name: 'registration_id' })
     registration: RegistrationTeam;
 
-    @CreateDateColumn({ name: 'created-at', type: 'timestamptz' })
+    @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
     createdAt: Timestamp;
 
-    @UpdateDateColumn({ name: 'updated-at', type: 'timestamptz' })
+    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
     updatedAt: Timestamp;
 }

@@ -5,5 +5,6 @@ var ModalityEnum;
 (function (ModalityEnum) {
     ModalityEnum["SOLO"] = "solo-game";
     ModalityEnum["DUO"] = "duo-game";
+    ModalityEnum["TEAM"] = "team-game";
 })(ModalityEnum || (exports.ModalityEnum = ModalityEnum = {}));
 //# sourceMappingURL=modality.enum.js.map

@@ -22,12 +22,14 @@ const member_entity_1 = require("../../members/models/entity/member.entity");
 const members_module_1 = require("../../members/infrastructure/members.module");
 const championship_entity_1 = require("../../championships/models/entity/championship.entity");
 const find_championship_service_1 = require("../../championships/use-cases/find-championship/find-championship.service");
+const find_user_service_1 = require("../../users/use-cases/find-user/find-user.service");
+const user_entity_1 = require("../../users/models/entity/user.entity");
 let RegistrationsTeamModule = class RegistrationsTeamModule {
 };
 exports.RegistrationsTeamModule = RegistrationsTeamModule;
 exports.RegistrationsTeamModule = RegistrationsTeamModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([registration_team_entity_1.RegistrationTeam, team_entity_1.Team, member_entity_1.Member, championship_entity_1.Championship]), members_module_1.MembersModule, teams_module_1.TeamsModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([registration_team_entity_1.RegistrationTeam, team_entity_1.Team, member_entity_1.Member, championship_entity_1.Championship, user_entity_1.User]), members_module_1.MembersModule, teams_module_1.TeamsModule],
         controllers: [registrations_team_controller_1.RegistrationsTeamController],
         providers: [
             find_championship_service_1.ChampionshipFindService,
@@ -37,6 +39,7 @@ exports.RegistrationsTeamModule = RegistrationsTeamModule = __decorate([
             create_member_service_1.MemberCreateService,
             find_member_service_1.MemberFindService,
             create_team_service_1.TeamCreateService,
+            find_user_service_1.UserFindService
         ],
         exports: [
             RegistrationsTeamModule,

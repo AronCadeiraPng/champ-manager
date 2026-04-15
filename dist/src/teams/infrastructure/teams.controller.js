@@ -16,12 +16,24 @@ exports.TeamsController = void 0;
 const common_1 = require("@nestjs/common");
 const create_team_dto_1 = require("../models/dtos/create-team.dto");
 const create_team_service_1 = require("../use-cases/create-team/create-team.service");
+const find_team_service_1 = require("../use-cases/find-team/find-team.service");
+const delete_team_service_1 = require("../use-cases/delete-team/delete-team.service");
 let TeamsController = class TeamsController {
     teamCreateService;
-    constructor(teamCreateService) {
+    teamFindService;
+    teamDeleteService;
+    constructor(teamCreateService, teamFindService, teamDeleteService) {
         this.teamCreateService = teamCreateService;
+        this.teamFindService = teamFindService;
+        this.teamDeleteService = teamDeleteService;
     }
     create(createTeamDto) {
+    }
+    async getAllTeams() {
+        return await this.teamFindService.findTeamByAll();
+    }
+    async deleteAllTeams() {
+        return await this.teamDeleteService.deleteAllTeams();
     }
 };
 exports.TeamsController = TeamsController;
@@ -32,8 +44,22 @@ __decorate([
     __metadata("design:paramtypes", [create_team_dto_1.CreateTeamDto]),
     __metadata("design:returntype", void 0)
 ], TeamsController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], TeamsController.prototype, "getAllTeams", null);
+__decorate([
+    (0, common_1.Delete)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], TeamsController.prototype, "deleteAllTeams", null);
 exports.TeamsController = TeamsController = __decorate([
     (0, common_1.Controller)('teams'),
-    __metadata("design:paramtypes", [create_team_service_1.TeamCreateService])
+    __metadata("design:paramtypes", [create_team_service_1.TeamCreateService,
+        find_team_service_1.TeamFindService,
+        delete_team_service_1.TeamDeleteService])
 ], TeamsController);
 //# sourceMappingURL=teams.controller.js.map

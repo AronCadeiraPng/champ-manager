@@ -4,7 +4,7 @@ import { RegistrationTeam } from "../../../registrations-team/models/entity/regi
 export declare class Team {
     id: string;
     name?: string;
-    championshipId: string;
+    championshipId?: string;
     registrationId?: string;
     members?: Member[];
     registration: RegistrationTeam;

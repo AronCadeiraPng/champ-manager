@@ -7,15 +7,18 @@ import { RegistrationSoloFindService } from 'src/registrations-solo/use-cases/fi
 import { ParticipantCreateService } from '../use-cases/create-participant/create-participant.service';
 import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
 import { ParticipantFindService } from '../use-cases/find-participants/find-participants.service';
+import { Championship } from 'src/championships/models/entity/championship.entity';
+import { ChampionshipFindService } from 'src/championships/use-cases/find-championship/find-championship.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Participant, RegistrationSolo]), RegistrationSoloModule],
+  imports: [TypeOrmModule.forFeature([Participant, RegistrationSolo, Championship]), RegistrationSoloModule],
   controllers: [ParticipantController],
   providers: [
     RegistrationSoloModule,
     ParticipantCreateService,
     ParticipantFindService,
-    RegistrationSoloFindService
+    RegistrationSoloFindService,
+    ChampionshipFindService
   ],
   exports: [
     ParticipantModule,

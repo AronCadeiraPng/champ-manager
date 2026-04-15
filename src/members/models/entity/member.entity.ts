@@ -8,26 +8,23 @@ export class Member {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ type: 'varchar', name: 'team-id' })
+    @Column({ type: 'varchar', name: 'team_id', nullable: true })
     teamId?: string;
 
-    @Column({ type: 'varchar', name: 'user-id' })
-    userId: string;
+    @Column({ type: 'varchar', name: 'user_id', nullable: true})
+    userId?: string; 
 
-    @Column({ type: 'boolean', default: false })
-    isLeader: boolean;
+    @ManyToOne(() => User, (user) => user.team , { nullable: true })
+    @JoinColumn({ name: 'user_id' })
+    user?: User;
 
-    @ManyToOne(() => User, (user) => user.team)
-    @JoinColumn({ name: 'user-id' })
-    user: User;
-
-    @ManyToOne(() => Team, (team) => team.members)
-    @JoinColumn({ name: 'team-id' })
+    @ManyToOne(() => Team, (team) => team.members, { nullable: true })
+    @JoinColumn({ name: 'team_id' })
     team?: Team;
 
-    @CreateDateColumn({ name: 'created-at', type: 'timestamptz' })
+    @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
     createdAt: Timestamp;
     
-    @UpdateDateColumn({ name: 'updated-at', type: 'timestamptz' })
+    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
     updatedAt: Timestamp;
 }

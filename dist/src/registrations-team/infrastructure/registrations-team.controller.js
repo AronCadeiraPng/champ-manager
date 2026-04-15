@@ -16,16 +16,28 @@ exports.RegistrationsTeamController = void 0;
 const common_1 = require("@nestjs/common");
 const create_registration_team_service_1 = require("../use-cases/create-registration/create-registration-team.service");
 const create_team_dto_1 = require("../../teams/models/dtos/create-team.dto");
+const find_registration_service_1 = require("../use-cases/find-registration/find-registration.service");
 let RegistrationsTeamController = class RegistrationsTeamController {
     registrationCreateService;
-    constructor(registrationCreateService) {
+    registrationFindService;
+    constructor(registrationCreateService, registrationFindService) {
         this.registrationCreateService = registrationCreateService;
+        this.registrationFindService = registrationFindService;
+    }
+    async getAllRegistrationsTeam() {
+        return this.registrationFindService.allRegisters();
     }
     async createRegistration(championshipId, createTeamDto) {
         return await this.registrationCreateService.create(championshipId, createTeamDto);
     }
 };
 exports.RegistrationsTeamController = RegistrationsTeamController;
+__decorate([
+    (0, common_1.Get)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], RegistrationsTeamController.prototype, "getAllRegistrationsTeam", null);
 __decorate([
     (0, common_1.Post)('new/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
@@ -36,6 +48,7 @@ __decorate([
 ], RegistrationsTeamController.prototype, "createRegistration", null);
 exports.RegistrationsTeamController = RegistrationsTeamController = __decorate([
     (0, common_1.Controller)('registrations/team'),
-    __metadata("design:paramtypes", [create_registration_team_service_1.RegistrationsTeamCreateService])
+    __metadata("design:paramtypes", [create_registration_team_service_1.RegistrationsTeamCreateService,
+        find_registration_service_1.RegistrationTeamFindService])
 ], RegistrationsTeamController);
 //# sourceMappingURL=registrations-team.controller.js.map

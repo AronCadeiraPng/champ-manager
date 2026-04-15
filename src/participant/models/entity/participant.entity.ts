@@ -7,20 +7,20 @@ export class Participant {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ name: 'registration-user-id', nullable: true })
+    @Column({ name: 'registration-user_id', type: 'varchar', nullable: true })
     registrationUserId?: string;
 
-    @Column({ name: 'registration-team-id', nullable: true })
+    @Column({ name: 'registration-team_id', type: 'varchar', nullable: true })
     registrationTeamId?: string;
 
     @Column({ name: 'points', type: 'integer', nullable: true })
     points?: number;
 
     @OneToOne(() => RegistrationSolo, { nullable: true })
-    @JoinColumn({ name: 'registration-user-id' })
+    @JoinColumn({ name: 'registration_user_id' })
     registrationSolo?: RegistrationSolo;
 
     @OneToOne(() => RegistrationTeam, { nullable: true })
-    @JoinColumn({ name: 'registration-team-id' })
+    @JoinColumn({ name: 'registration_team_id' })
     registrationTeam?: RegistrationTeam;
 }

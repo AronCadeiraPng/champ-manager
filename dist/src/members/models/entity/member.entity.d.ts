@@ -4,9 +4,8 @@ import { Team } from "../../../teams/models/entity/team.entity";
 export declare class Member {
     id: string;
     teamId?: string;
-    userId: string;
-    isLeader: boolean;
-    user: User;
+    userId?: string;
+    user?: User;
     team?: Team;
     createdAt: Timestamp;
     updatedAt: Timestamp;

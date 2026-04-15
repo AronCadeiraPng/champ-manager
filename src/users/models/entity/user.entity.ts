@@ -38,7 +38,7 @@ export class User {
     @Column({ type: 'varchar', length: 255})
     password: string;
 
-    @Column({ name: 'team-id', nullable: true })
+    @Column({ name: 'team_id', nullable: true })
     teamId: string;
 
     @Column({ type: 'enum', enum: UserRoles, default: UserRoles.USER })
@@ -47,13 +47,13 @@ export class User {
     @Column({ type: 'enum', enum: GenderEnum })
     gender: GenderEnum;
 
-    @CreateDateColumn({ type: 'timestamptz' })
+    @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
     createdAt: Timestamp;
 
-    @UpdateDateColumn({ type: 'timestamptz' })
+    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
     updatedAt: Timestamp;
 
-    @DeleteDateColumn({ type: 'timestamptz' })
+    @DeleteDateColumn({ name: 'deleted_at', type: 'timestamptz' })
     deletedAt: Timestamp;
 
     @OneToMany(() => RegistrationSolo, (registration) => registration.user)

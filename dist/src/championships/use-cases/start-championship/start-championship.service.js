@@ -26,7 +26,7 @@ let ChampionshipStartService = class ChampionshipStartService {
             const participantDto = {
                 registrationUserId: registration.id,
             };
-            const participant = await this.participantCreateService.createParticipant(participantDto);
+            const participant = await this.participantCreateService.createParticipant(championshipId, participantDto);
             return participant;
         }));
         return participants;
