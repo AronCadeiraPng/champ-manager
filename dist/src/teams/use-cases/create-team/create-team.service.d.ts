@@ -6,5 +6,5 @@ export declare class TeamCreateService {
     private readonly teamRepository;
     private readonly memberCreateService;
     constructor(teamRepository: Repository<Team>, memberCreateService: MemberCreateService);
-    create(createTeamDto: CreateTeamDto): Promise<Team>;
+    execute(createTeamDto: CreateTeamDto): Promise<Team>;
 }

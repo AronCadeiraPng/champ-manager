@@ -6,7 +6,7 @@ export declare class RegistrationTeam {
     id: string;
     championshipId: string;
     teamId?: string;
-    team: Team[];
+    team: Team;
     participant?: Participant;
     championship: Championship;
     createdAt: Timestamp;

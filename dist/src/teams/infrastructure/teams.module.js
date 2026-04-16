@@ -19,6 +19,7 @@ const find_member_service_1 = require("../../members/use-cases/find-member/find-
 const find_team_service_1 = require("../use-cases/find-team/find-team.service");
 const delete_team_service_1 = require("../use-cases/delete-team/delete-team.service");
 const delete_member_service_1 = require("../../members/use-cases/delete-member/delete-member.service");
+const update_team_service_1 = require("../use-cases/update-team/update-team.service");
 let TeamsModule = class TeamsModule {
 };
 exports.TeamsModule = TeamsModule;
@@ -32,11 +33,14 @@ exports.TeamsModule = TeamsModule = __decorate([
             delete_team_service_1.TeamDeleteService,
             create_member_service_1.MemberCreateService,
             find_member_service_1.MemberFindService,
+            update_team_service_1.TeamUpdateService,
             delete_member_service_1.MemberDeleteService
         ],
         exports: [
             TeamsModule,
             create_team_service_1.TeamCreateService,
+            find_team_service_1.TeamFindService,
+            update_team_service_1.TeamUpdateService
         ]
     })
 ], TeamsModule);

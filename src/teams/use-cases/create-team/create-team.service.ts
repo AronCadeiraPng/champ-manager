@@ -11,19 +11,18 @@ export class TeamCreateService {
     @InjectRepository(Team) private readonly teamRepository: Repository<Team>,
     private readonly memberCreateService: MemberCreateService
   ) {}
-  
-    async create(createTeamDto: CreateTeamDto) {
-    const team = this.teamRepository.create({
-      registrationId: createTeamDto.registrationId,
-    });
+
+  async execute(createTeamDto: CreateTeamDto) {
+    const team: Team = new Team();
+
     await this.teamRepository.save(team);
-  
+
     const members = await Promise.all(
       (createTeamDto.membersId ?? []).map((userId) =>
         this.memberCreateService.create({ userId, teamId: team.id })
       )
     );
-  
+
     team.members = members;
     return this.teamRepository.save(team);
   }

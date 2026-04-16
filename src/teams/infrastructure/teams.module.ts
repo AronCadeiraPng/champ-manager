@@ -10,6 +10,7 @@ import { MemberFindService } from 'src/members/use-cases/find-member/find-member
 import { TeamFindService } from '../use-cases/find-team/find-team.service';
 import { TeamDeleteService } from '../use-cases/delete-team/delete-team.service';
 import { MemberDeleteService } from 'src/members/use-cases/delete-member/delete-member.service';
+import { TeamUpdateService } from '../use-cases/update-team/update-team.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Team, Member]), TeamsModule, MembersModule],
@@ -20,11 +21,14 @@ import { MemberDeleteService } from 'src/members/use-cases/delete-member/delete-
     TeamDeleteService,
     MemberCreateService,
     MemberFindService,
+    TeamUpdateService,
     MemberDeleteService
   ],
   exports: [
     TeamsModule,
     TeamCreateService,
+    TeamFindService,
+    TeamUpdateService
   ]
 })
 export class TeamsModule {}

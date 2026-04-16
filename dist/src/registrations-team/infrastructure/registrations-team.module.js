@@ -24,6 +24,9 @@ const championship_entity_1 = require("../../championships/models/entity/champio
 const find_championship_service_1 = require("../../championships/use-cases/find-championship/find-championship.service");
 const find_user_service_1 = require("../../users/use-cases/find-user/find-user.service");
 const user_entity_1 = require("../../users/models/entity/user.entity");
+const find_team_service_1 = require("../../teams/use-cases/find-team/find-team.service");
+const update_team_service_1 = require("../../teams/use-cases/update-team/update-team.service");
+const delete_registration_service_1 = require("../use-cases/delete-registration/delete-registration.service");
 let RegistrationsTeamModule = class RegistrationsTeamModule {
 };
 exports.RegistrationsTeamModule = RegistrationsTeamModule;
@@ -36,9 +39,12 @@ exports.RegistrationsTeamModule = RegistrationsTeamModule = __decorate([
             create_team_service_1.TeamCreateService,
             find_registration_service_1.RegistrationTeamFindService,
             create_registration_team_service_1.RegistrationsTeamCreateService,
+            delete_registration_service_1.RegistrationTeamDeleteService,
             create_member_service_1.MemberCreateService,
             find_member_service_1.MemberFindService,
             create_team_service_1.TeamCreateService,
+            find_team_service_1.TeamFindService,
+            update_team_service_1.TeamUpdateService,
             find_user_service_1.UserFindService
         ],
         exports: [

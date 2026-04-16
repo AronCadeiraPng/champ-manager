@@ -12,32 +12,29 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TeamCreateService = void 0;
+exports.RegistrationTeamDeleteService = void 0;
 const common_1 = require("@nestjs/common");
-const team_entity_1 = require("../../models/entity/team.entity");
 const typeorm_1 = require("@nestjs/typeorm");
+const registration_team_entity_1 = require("../../models/entity/registration-team.entity");
 const typeorm_2 = require("typeorm");
-const create_member_service_1 = require("../../../members/use-cases/create-member/create-member.service");
-let TeamCreateService = class TeamCreateService {
-    teamRepository;
-    memberCreateService;
-    constructor(teamRepository, memberCreateService) {
-        this.teamRepository = teamRepository;
-        this.memberCreateService = memberCreateService;
+const find_registration_service_1 = require("../find-registration/find-registration.service");
+let RegistrationTeamDeleteService = class RegistrationTeamDeleteService {
+    registrationRepository;
+    registrationFindService;
+    constructor(registrationRepository, registrationFindService) {
+        this.registrationRepository = registrationRepository;
+        this.registrationFindService = registrationFindService;
     }
-    async execute(createTeamDto) {
-        const team = new team_entity_1.Team();
-        await this.teamRepository.save(team);
-        const members = await Promise.all((createTeamDto.membersId ?? []).map((userId) => this.memberCreateService.create({ userId, teamId: team.id })));
-        team.members = members;
-        return this.teamRepository.save(team);
+    async execute(registrationId) {
+        const registration = await this.registrationFindService.findRegisterById(registrationId);
+        return this.registrationRepository.remove(registration);
     }
 };
-exports.TeamCreateService = TeamCreateService;
-exports.TeamCreateService = TeamCreateService = __decorate([
+exports.RegistrationTeamDeleteService = RegistrationTeamDeleteService;
+exports.RegistrationTeamDeleteService = RegistrationTeamDeleteService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(team_entity_1.Team)),
+    __param(0, (0, typeorm_1.InjectRepository)(registration_team_entity_1.RegistrationTeam)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        create_member_service_1.MemberCreateService])
-], TeamCreateService);
-//# sourceMappingURL=create-team.service.js.map
+        find_registration_service_1.RegistrationTeamFindService])
+], RegistrationTeamDeleteService);
+//# sourceMappingURL=delete-registration.service.js.map

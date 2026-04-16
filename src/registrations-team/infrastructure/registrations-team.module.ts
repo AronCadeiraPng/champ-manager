@@ -15,6 +15,9 @@ import { Championship } from 'src/championships/models/entity/championship.entit
 import { ChampionshipFindService } from 'src/championships/use-cases/find-championship/find-championship.service';
 import { UserFindService } from 'src/users/use-cases/find-user/find-user.service';
 import { User } from 'src/users/models/entity/user.entity';
+import { TeamFindService } from 'src/teams/use-cases/find-team/find-team.service';
+import { TeamUpdateService } from 'src/teams/use-cases/update-team/update-team.service';
+import { RegistrationTeamDeleteService } from '../use-cases/delete-registration/delete-registration.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([RegistrationTeam, Team, Member, Championship, User]), MembersModule, TeamsModule],
@@ -24,9 +27,12 @@ import { User } from 'src/users/models/entity/user.entity';
     TeamCreateService,
     RegistrationTeamFindService,
     RegistrationsTeamCreateService,
+    RegistrationTeamDeleteService,
     MemberCreateService,
     MemberFindService,
     TeamCreateService,
+    TeamFindService,
+    TeamUpdateService,
     UserFindService
   ],
   exports: [

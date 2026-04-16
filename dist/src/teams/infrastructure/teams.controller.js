@@ -28,6 +28,7 @@ let TeamsController = class TeamsController {
         this.teamDeleteService = teamDeleteService;
     }
     create(createTeamDto) {
+        return this.teamCreateService.execute(createTeamDto);
     }
     async getAllTeams() {
         return await this.teamFindService.findTeamByAll();

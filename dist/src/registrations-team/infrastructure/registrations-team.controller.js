@@ -17,18 +17,24 @@ const common_1 = require("@nestjs/common");
 const create_registration_team_service_1 = require("../use-cases/create-registration/create-registration-team.service");
 const create_team_dto_1 = require("../../teams/models/dtos/create-team.dto");
 const find_registration_service_1 = require("../use-cases/find-registration/find-registration.service");
+const delete_registration_service_1 = require("../use-cases/delete-registration/delete-registration.service");
 let RegistrationsTeamController = class RegistrationsTeamController {
     registrationCreateService;
     registrationFindService;
-    constructor(registrationCreateService, registrationFindService) {
+    registrationDeleteService;
+    constructor(registrationCreateService, registrationFindService, registrationDeleteService) {
         this.registrationCreateService = registrationCreateService;
         this.registrationFindService = registrationFindService;
+        this.registrationDeleteService = registrationDeleteService;
     }
     async getAllRegistrationsTeam() {
         return this.registrationFindService.allRegisters();
     }
+    async deleteRegistration(id) {
+        return this.registrationDeleteService.execute(id);
+    }
     async createRegistration(championshipId, createTeamDto) {
-        return await this.registrationCreateService.create(championshipId, createTeamDto);
+        return await this.registrationCreateService.execute(championshipId, createTeamDto);
     }
 };
 exports.RegistrationsTeamController = RegistrationsTeamController;
@@ -38,6 +44,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RegistrationsTeamController.prototype, "getAllRegistrationsTeam", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RegistrationsTeamController.prototype, "deleteRegistration", null);
 __decorate([
     (0, common_1.Post)('new/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
@@ -49,6 +62,7 @@ __decorate([
 exports.RegistrationsTeamController = RegistrationsTeamController = __decorate([
     (0, common_1.Controller)('registrations/team'),
     __metadata("design:paramtypes", [create_registration_team_service_1.RegistrationsTeamCreateService,
-        find_registration_service_1.RegistrationTeamFindService])
+        find_registration_service_1.RegistrationTeamFindService,
+        delete_registration_service_1.RegistrationTeamDeleteService])
 ], RegistrationsTeamController);
 //# sourceMappingURL=registrations-team.controller.js.map

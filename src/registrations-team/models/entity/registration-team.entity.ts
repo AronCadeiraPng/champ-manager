@@ -15,9 +15,9 @@ export class RegistrationTeam {
     @Column({ name: 'team_id', nullable: true })
     teamId?: string;
 
-    @OneToMany(() => Team, (team) => team.registration)
+    @ManyToOne(() => Team, (team) => team.registration)
     @JoinColumn({ name: 'team_id' })
-    team: Team[];
+    team: Team;
 
     @OneToOne(() => Participant, { nullable: true })
     participant?: Participant;

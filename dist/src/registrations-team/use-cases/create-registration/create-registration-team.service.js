@@ -16,8 +16,10 @@ exports.RegistrationsTeamCreateService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const find_championship_service_1 = require("../../../championships/use-cases/find-championship/find-championship.service");
+const exceptions_1 = require("../../../common/exceptions");
 const registration_team_entity_1 = require("../../models/entity/registration-team.entity");
 const create_team_service_1 = require("../../../teams/use-cases/create-team/create-team.service");
+const update_team_service_1 = require("../../../teams/use-cases/update-team/update-team.service");
 const find_user_service_1 = require("../../../users/use-cases/find-user/find-user.service");
 const typeorm_2 = require("typeorm");
 let RegistrationsTeamCreateService = class RegistrationsTeamCreateService {
@@ -25,22 +27,37 @@ let RegistrationsTeamCreateService = class RegistrationsTeamCreateService {
     teamCreateService;
     championshipFindService;
     userFindService;
-    constructor(registrationTeamRepository, teamCreateService, championshipFindService, userFindService) {
+    teamUpdateService;
+    constructor(registrationTeamRepository, teamCreateService, championshipFindService, userFindService, teamUpdateService) {
         this.registrationTeamRepository = registrationTeamRepository;
         this.teamCreateService = teamCreateService;
         this.championshipFindService = championshipFindService;
         this.userFindService = userFindService;
+        this.teamUpdateService = teamUpdateService;
     }
-    async create(championshipId, createTeamDto) {
+    async execute(championshipId, createTeamDto) {
         const members = createTeamDto.membersId;
-        await Promise.all(members.map((memberId) => this.userFindService.findUserById(memberId)));
-        const team = await this.teamCreateService.create(createTeamDto);
+        await Promise.all(members.map(async (memberId) => {
+            this.userFindService.findUserById(memberId);
+            const teamMemberExists = await this.registrationTeamRepository.findOne({
+                where: {
+                    team: {
+                        members: {
+                            userId: memberId
+                        }
+                    }
+                }
+            });
+            if (teamMemberExists)
+                throw new exceptions_1.ConflictException(`Usuário de id: ${memberId} já registrado em outro time!`);
+        }));
+        const team = await this.teamCreateService.execute(createTeamDto);
         const championship = await this.championshipFindService.findChampionshipById(championshipId);
-        const registration = this.registrationTeamRepository.create({
-            championshipId: championship.id
-        });
-        team.registrationId = registration.id;
-        return this.registrationTeamRepository.save(registration);
+        const registration = new registration_team_entity_1.RegistrationTeam();
+        registration.championship = championship;
+        registration.team = team;
+        const registrationSaved = await this.registrationTeamRepository.save(registration);
+        return registrationSaved;
     }
 };
 exports.RegistrationsTeamCreateService = RegistrationsTeamCreateService;
@@ -50,6 +67,7 @@ exports.RegistrationsTeamCreateService = RegistrationsTeamCreateService = __deco
     __metadata("design:paramtypes", [typeorm_2.Repository,
         create_team_service_1.TeamCreateService,
         find_championship_service_1.ChampionshipFindService,
-        find_user_service_1.UserFindService])
+        find_user_service_1.UserFindService,
+        update_team_service_1.TeamUpdateService])
 ], RegistrationsTeamCreateService);
 //# sourceMappingURL=create-registration-team.service.js.map

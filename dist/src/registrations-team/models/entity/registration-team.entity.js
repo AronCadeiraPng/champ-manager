@@ -39,9 +39,9 @@ __decorate([
     __metadata("design:type", String)
 ], RegistrationTeam.prototype, "teamId", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => team_entity_1.Team, (team) => team.registration),
+    (0, typeorm_1.ManyToOne)(() => team_entity_1.Team, (team) => team.registration),
     (0, typeorm_1.JoinColumn)({ name: 'team_id' }),
-    __metadata("design:type", Array)
+    __metadata("design:type", team_entity_1.Team)
 ], RegistrationTeam.prototype, "team", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => participant_entity_1.Participant, { nullable: true }),

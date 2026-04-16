@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Team } from "src/teams/models/entity/team.entity";
 import { Repository } from "typeorm";
@@ -13,5 +13,17 @@ export class TeamFindService {
         const teams = await this.teamRepository.find();
 
         return teams;
+    }
+
+    async findTeamById(id: string): Promise<Team>{
+        const team = await this.teamRepository.findOne({
+            where: {
+                id: id
+            }
+        })
+
+        if(!team) throw new BadRequestException('Time', id);
+
+        return team;
     }
 }

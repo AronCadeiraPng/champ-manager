@@ -26,6 +26,16 @@ let TeamFindService = class TeamFindService {
         const teams = await this.teamRepository.find();
         return teams;
     }
+    async findTeamById(id) {
+        const team = await this.teamRepository.findOne({
+            where: {
+                id: id
+            }
+        });
+        if (!team)
+            throw new common_1.BadRequestException('Time', id);
+        return team;
+    }
 };
 exports.TeamFindService = TeamFindService;
 exports.TeamFindService = TeamFindService = __decorate([

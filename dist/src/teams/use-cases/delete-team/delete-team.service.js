@@ -18,12 +18,19 @@ const typeorm_1 = require("@nestjs/typeorm");
 const delete_member_service_1 = require("../../../members/use-cases/delete-member/delete-member.service");
 const team_entity_1 = require("../../models/entity/team.entity");
 const typeorm_2 = require("typeorm");
+const find_team_service_1 = require("../find-team/find-team.service");
 let TeamDeleteService = class TeamDeleteService {
     teamRepository;
+    teamFindService;
     memberDeleteService;
-    constructor(teamRepository, memberDeleteService) {
+    constructor(teamRepository, teamFindService, memberDeleteService) {
         this.teamRepository = teamRepository;
+        this.teamFindService = teamFindService;
         this.memberDeleteService = memberDeleteService;
+    }
+    async deleteTeamById(teamId) {
+        const team = await this.teamFindService.findTeamById(teamId);
+        return this.teamRepository.remove(team);
     }
     async deleteAllTeams() {
         await this.memberDeleteService.deleteAllMembers();
@@ -35,6 +42,7 @@ exports.TeamDeleteService = TeamDeleteService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(team_entity_1.Team)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        find_team_service_1.TeamFindService,
         delete_member_service_1.MemberDeleteService])
 ], TeamDeleteService);
 //# sourceMappingURL=delete-team.service.js.map

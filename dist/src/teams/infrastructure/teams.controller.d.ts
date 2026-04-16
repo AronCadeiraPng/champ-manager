@@ -8,7 +8,7 @@ export declare class TeamsController {
     private readonly teamFindService;
     private readonly teamDeleteService;
     constructor(teamCreateService: TeamCreateService, teamFindService: TeamFindService, teamDeleteService: TeamDeleteService);
-    create(createTeamDto: CreateTeamDto): void;
+    create(createTeamDto: CreateTeamDto): Promise<Team>;
     getAllTeams(): Promise<Team[]>;
     deleteAllTeams(): Promise<void>;
 }

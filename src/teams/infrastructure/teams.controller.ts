@@ -18,16 +18,18 @@ export class TeamsController {
     @Body() createTeamDto: CreateTeamDto
   )
   {
-    
+    return this.teamCreateService.execute(createTeamDto)
   }
 
   @Get('all')
-  async getAllTeams(): Promise<Team[]> {
+  async getAllTeams(): Promise<Team[]>
+  { 
     return await this.teamFindService.findTeamByAll()
   }
 
   @Delete('all')
-  async deleteAllTeams() {
+  async deleteAllTeams()
+  {
     return await this.teamDeleteService.deleteAllTeams()
   }
 }

@@ -12,32 +12,30 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TeamCreateService = void 0;
+exports.TeamUpdateService = void 0;
 const common_1 = require("@nestjs/common");
-const team_entity_1 = require("../../models/entity/team.entity");
 const typeorm_1 = require("@nestjs/typeorm");
+const team_entity_1 = require("../../models/entity/team.entity");
 const typeorm_2 = require("typeorm");
-const create_member_service_1 = require("../../../members/use-cases/create-member/create-member.service");
-let TeamCreateService = class TeamCreateService {
+const find_team_service_1 = require("../find-team/find-team.service");
+let TeamUpdateService = class TeamUpdateService {
     teamRepository;
-    memberCreateService;
-    constructor(teamRepository, memberCreateService) {
+    teamFindService;
+    constructor(teamRepository, teamFindService) {
         this.teamRepository = teamRepository;
-        this.memberCreateService = memberCreateService;
+        this.teamFindService = teamFindService;
     }
-    async execute(createTeamDto) {
-        const team = new team_entity_1.Team();
-        await this.teamRepository.save(team);
-        const members = await Promise.all((createTeamDto.membersId ?? []).map((userId) => this.memberCreateService.create({ userId, teamId: team.id })));
-        team.members = members;
-        return this.teamRepository.save(team);
+    async updateTeam(teamId, updateTeamDto) {
+        const team = await this.teamFindService.findTeamById(teamId);
+        Object.assign(team, updateTeamDto);
+        return this.teamRepository.update(teamId, updateTeamDto);
     }
 };
-exports.TeamCreateService = TeamCreateService;
-exports.TeamCreateService = TeamCreateService = __decorate([
+exports.TeamUpdateService = TeamUpdateService;
+exports.TeamUpdateService = TeamUpdateService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(team_entity_1.Team)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        create_member_service_1.MemberCreateService])
-], TeamCreateService);
-//# sourceMappingURL=create-team.service.js.map
+        find_team_service_1.TeamFindService])
+], TeamUpdateService);
+//# sourceMappingURL=update-team.service.js.map
