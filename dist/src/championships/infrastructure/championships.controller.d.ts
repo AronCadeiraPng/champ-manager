@@ -19,9 +19,9 @@ export declare class ChampionshipsController {
     constructor(championshipCreateService: ChampionshipCreateService, championshipFindService: ChampionshipFindService, championshipDeleteService: ChampionshipDeleteService, championshipUpdateService: ChampionshipUpdateService, championshipStartService: ChampionshipStartService, registrationSoloFindService: RegistrationSoloFindService);
     createChampionship(createChampionshipDto: CreateChampionshipDto): Promise<Championship>;
     getAllChampionships(): Promise<Championship[]>;
+    findChampionshipById(id: string): Promise<Championship>;
     getAllRegistrationsByChampionship(championshipId: string): Promise<RegistrationSolo[] | RegistrationTeam[]>;
     deleteChampionship(id: string): Promise<Championship>;
     updateChampionship(id: string, updateChampionshipDto: UpdateChampionshipDto): Promise<Championship>;
-    findChampionshipById(id: string): Promise<Championship>;
-    convertRegistrations(championshipId: string): Promise<import("../../participant/models/entity/participant.entity").Participant[]>;
+    convertRegistrations(championshipId: string): Promise<import("../../participant/models/entity/participant.entity").Participant[] | undefined>;
 }

@@ -22,11 +22,11 @@ let TeamFindService = class TeamFindService {
     constructor(teamRepository) {
         this.teamRepository = teamRepository;
     }
-    async findTeamByAll() {
+    async allTeams() {
         const teams = await this.teamRepository.find();
         return teams;
     }
-    async findTeamById(id) {
+    async ById(id) {
         const team = await this.teamRepository.findOne({
             where: {
                 id: id

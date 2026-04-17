@@ -6,6 +6,12 @@ import {
   ApiBody,
   ApiBearerAuth,
   ApiParam,
+  ApiCreatedResponse,
+  ApiBadRequestResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiNoContentResponse,
 } from '@nestjs/swagger';
 import { Roles } from 'src/decorators/roles.decorator';
 import { UserRoles } from 'src/common/enums/user-roles.enum';
@@ -22,10 +28,13 @@ import { UpdateChampionshipDto } from '../models/dtos/update-championship.dto';
 import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
 import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity';
 import { RegistrationSoloFindService } from 'src/registrations-solo/use-cases/find-registration/find-registration.service';
+import { AuthGuard } from '@nestjs/passport';
+import { RegistrationTeamListDto } from 'src/registrations-team/models/dtos/registrations-team-list.dto';
+import { RegistrationSoloListDto } from 'src/registrations-solo/models/dtos/registrations-solo-list.dto';
 
 @ApiTags('Championships')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @Controller('championships/')
 export class ChampionshipsController {
   constructor(
@@ -40,45 +49,58 @@ export class ChampionshipsController {
 
 
   @Post('create')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRoles.ADMIN)
-  @ApiOperation({
-    summary: 'Cria um novo torneio',
-    description: 'Apenas administradores podem criar torneios',
-  })
+  @ApiOperation({ summary: 'Cria um novo torneio', description: 'Apenas administradores podem criar torneios' })
   @ApiBody({ type: CreateChampionshipDto })
-  @ApiResponse({ status: 201, description: 'Torneio criado com sucesso', type: Championship })
-  @ApiResponse({ status: 400, description: 'Dados inválidos' })
-  @ApiResponse({ status: 401, description: 'Token inválido ou ausente' })
-  @ApiResponse({ status: 403, description: 'Sem permissão para criar torneios' })
+  @ApiCreatedResponse({ description: 'Torneio criado com sucesso', type: Championship })
+  @ApiBadRequestResponse({ description: 'Dados inválidos' })
+  @ApiUnauthorizedResponse({ description: 'Token inválido ou ausente' })
+  @ApiForbiddenResponse({ description: 'Sem permissão para criar torneios' })
   async createChampionship(
     @Body() createChampionshipDto: CreateChampionshipDto
   )
   {
     return await this.championshipCreateService.createChampionship(createChampionshipDto);
   }
-
-
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  
+  
   @Get('all')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @ApiOperation({ summary: 'Lista todos os torneios' })
-  @ApiResponse({
-    status: 200,
-    description: 'Lista de torneios',
-    type: [Championship]
-  })
+  @ApiOkResponse({ type: CreateChampionshipDto })
+  @ApiNoContentResponse({ description: 'Nenhum torneio encontrado' })
+  @ApiForbiddenResponse({ description: 'Permissão negada' })
   async getAllChampionships(): Promise<Championship[]>
   {
     return this.championshipFindService.findAllChampionships();
   }
 
+
+  @Get(':id')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @ApiOperation({ summary: 'Busca um torneio pelo id' })
+  @ApiParam({ name: 'id', description: 'UUID do torneio', format: 'uuid' })
+  @ApiOkResponse({ type: () => CreateChampionshipDto })
+  @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
+  @ApiForbiddenResponse({ description: 'Permissão negada' })
+  async findChampionshipById(
+    @Param('id', ParseUUIDPipe) id: string
+  ): Promise<Championship>
+  {
+    return this.championshipFindService.findChampionshipById(id);
+  }
+  
+
   @Get(':id/registrations')
-  @ApiOperation({ summary: 'Lista todos os torneios' })
-  @ApiResponse({
-    status: 200,
-    description: 'Lista de torneios',
-    type: [Championship]
-  })
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @ApiOperation({ summary: 'Lista as inscrições de um torneio', description: 'Pode listar tanto inscrições individuais quanto de times' })
+  @ApiOkResponse({ type: RegistrationSoloListDto ||  RegistrationTeamListDto})
+  @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
+  @ApiForbiddenResponse({ description: 'Permissão negada' })
   async getAllRegistrationsByChampionship(
     @Param('id', ParseUUIDPipe) championshipId: string
   ): Promise<RegistrationSolo[] | RegistrationTeam[]>
@@ -86,12 +108,14 @@ export class ChampionshipsController {
     return this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
   }
 
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+
   @Delete(':id')
-  @ApiOperation({
-    summary: 'Deleta um torneio por id',
-    description: 'Apenas administradores podem deletar torneios',
-  })
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @ApiOperation({ summary: 'Deleta um torneio por id', description: 'Apenas administradores podem deletar torneios' })
+  @ApiNoContentResponse({ description: 'Torneio deletado com sucesso' })
+  @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
+  @ApiForbiddenResponse({ description: 'Permissão negada' })
   async deleteChampionship(
     @Param('id', ParseUUIDPipe) id: string
   ): Promise<Championship>
@@ -100,13 +124,12 @@ export class ChampionshipsController {
   }
 
 
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @Patch(':id')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @ApiOperation({ summary: 'Atualiza um torneio pelo id' })
-  @ApiResponse({
-    status: 200,
-    description: 'Torneio atualizado!'
-  })
+  @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
+  @ApiForbiddenResponse({ description: 'Permissão negada' })
   async updateChampionship(
     @Param('id', ParseUUIDPipe) id: string, 
     @Body() updateChampionshipDto: UpdateChampionshipDto
@@ -116,23 +139,11 @@ export class ChampionshipsController {
   }
 
 
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
-  @Get(':id')
-  @ApiOperation({ summary: 'Busca um torneio pelo id' })
-  @ApiParam({ name: 'id', description: 'UUID do torneio', format: 'uuid' })
-  @ApiResponse({
-    status: 200,
-    description: 'Torneio encontrado',
-    type: Championship
-  })
-  async findChampionshipById(
-    @Param('id', ParseUUIDPipe) id: string
-  ): Promise<Championship>
-  {
-    return this.championshipFindService.findChampionshipById(id);
-  }
-
   @Post(':id/start')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @ApiOperation({ summary: 'Inicia um torneio pela fase de grupo' })
+  @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
+  @ApiForbiddenResponse({ description: 'Permissão negada' })
   async convertRegistrations(
     @Param('id', ParseUUIDPipe) championshipId: string
   )

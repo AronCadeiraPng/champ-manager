@@ -2,13 +2,17 @@ import { Controller, Get, Post, Body, Param, Delete, UseGuards, ParseUUIDPipe } 
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Roles } from 'src/decorators/roles.decorator';
 import { UserRoles } from 'src/common/enums/user-roles.enum';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiNoContentResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateRegistrationSoloDto } from '../models/dtos/create-registration.dto';
 import { RegistrationSoloFindService } from '../use-cases/find-registration/find-registration.service';
 import { RegistrationSoloCreateService } from '../use-cases/create-registration/create-registration.service';
 import { RegistrationSoloDeleteService } from '../use-cases/delete-registration/delete-registration.service';
 import { RegistrationSolo } from '../models/entity/registration.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { RegistrationSoloListDto } from '../models/dtos/registrations-solo-list.dto';
 
+@ApiTags('registrations-solo')
 @Controller('registrations/solo')
 export class RegistrationsSoloController {
   constructor(
@@ -18,8 +22,12 @@ export class RegistrationsSoloController {
   ) { }
 
 
-  @UseGuards(JwtAuthGuard)
   @Post('new')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRoles.ADMIN)
+  @ApiOperation({ summary: 'Cria um novo registro individual em um campeonato' })
+  @ApiOkResponse({ type: () => CreateRegistrationSoloDto })
+  @ApiBadRequestResponse({ description: 'Credenciais inválidas' })
   async register(
     @Body() createRegistrationDto: CreateRegistrationSoloDto
   ): Promise<RegistrationSolo>
@@ -30,9 +38,8 @@ export class RegistrationsSoloController {
 
   @Get('all')
   @ApiOperation({ summary: 'Retorna todos os registros' })
-  @ApiResponse({
-    status: 201, type: RegistrationSolo
-  })
+  @ApiOkResponse({ type: () => RegistrationSoloListDto })
+  @ApiNoContentResponse({ description: 'Nenhum registro encontrado' })
   async getAllRegistrations(): Promise<RegistrationSolo[]>
   {
     return await this.registrationFindService.allRegisters();
@@ -40,10 +47,8 @@ export class RegistrationsSoloController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Retorna um registro por id' })
-  @ApiResponse({
-    status: 201,
-    type: RegistrationSolo
-  })
+  @ApiOkResponse({ type: () => RegistrationSoloListDto })
+  @ApiBadRequestResponse({ description: 'Registro não encontrado' })
   async getRegistrationById(
     @Param('id', ParseUUIDPipe) id: string
   ): Promise<RegistrationSolo>
@@ -53,14 +58,11 @@ export class RegistrationsSoloController {
 
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRoles.ADMIN)
   @ApiOperation({ summary: 'Deletar um registro' })
-  @ApiResponse({ 
-    status: 201, 
-    description: 'Registro deletado com sucesso',
-    type: RegistrationSolo,
-  })
-  @UseGuards(JwtAuthGuard)
+  @ApiNoContentResponse({ description: 'Registro deletado com sucesso' })
+  @ApiBadRequestResponse({ description: 'Registro não encontrado' })
   async delete(
     @Param('id', ParseUUIDPipe) id: string
   ): Promise<RegistrationSolo>

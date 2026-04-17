@@ -45,6 +45,13 @@ let MemberFindService = class MemberFindService {
     async findAllMembers() {
         return await this.memberRepository.find();
     }
+    async findAllMembersByTeam(teamId) {
+        return await this.memberRepository.find({
+            where: {
+                teamId: teamId
+            }
+        });
+    }
 };
 exports.MemberFindService = MemberFindService;
 exports.MemberFindService = MemberFindService = __decorate([

@@ -22,7 +22,7 @@ export class RegistrationTeam {
     @OneToOne(() => Participant, { nullable: true })
     participant?: Participant;
 
-    @ManyToOne(() => Championship, (championship) => championship.registrations)
+    @ManyToOne(() => Championship, (championship) => championship.registrationsTeam)
     @JoinColumn({ name: 'championship_id' })
     championship: Championship;
 

@@ -18,6 +18,7 @@ const create_registration_team_service_1 = require("../use-cases/create-registra
 const create_team_dto_1 = require("../../teams/models/dtos/create-team.dto");
 const find_registration_service_1 = require("../use-cases/find-registration/find-registration.service");
 const delete_registration_service_1 = require("../use-cases/delete-registration/delete-registration.service");
+const swagger_1 = require("@nestjs/swagger");
 let RegistrationsTeamController = class RegistrationsTeamController {
     registrationCreateService;
     registrationFindService;
@@ -28,10 +29,10 @@ let RegistrationsTeamController = class RegistrationsTeamController {
         this.registrationDeleteService = registrationDeleteService;
     }
     async getAllRegistrationsTeam() {
-        return this.registrationFindService.allRegisters();
+        return await this.registrationFindService.allRegisters();
     }
     async deleteRegistration(id) {
-        return this.registrationDeleteService.execute(id);
+        return await this.registrationDeleteService.execute(id);
     }
     async createRegistration(championshipId, createTeamDto) {
         return await this.registrationCreateService.execute(championshipId, createTeamDto);
@@ -40,12 +41,16 @@ let RegistrationsTeamController = class RegistrationsTeamController {
 exports.RegistrationsTeamController = RegistrationsTeamController;
 __decorate([
     (0, common_1.Get)('all'),
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os registros de times' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Sucesso' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RegistrationsTeamController.prototype, "getAllRegistrationsTeam", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Deleta um registro de time pelo id' }),
+    (0, swagger_1.ApiResponse)({ status: 204, description: 'Deletado com sucesso!' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -53,6 +58,8 @@ __decorate([
 ], RegistrationsTeamController.prototype, "deleteRegistration", null);
 __decorate([
     (0, common_1.Post)('new/:id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Cria um registro de time', description: 'No header é passado o id do Campeonato' }),
+    (0, swagger_1.ApiCreatedResponse)({ description: 'Registrado com sucesso!' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundException } from 'src/common/exceptions';
+import { BadRequestException } from 'src/common/exceptions/bad-request.exception';
 import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity';
 import { Repository } from 'typeorm';
 
@@ -11,8 +12,12 @@ export class RegistrationTeamFindService {
   ) {}
 
     async allRegisters(): Promise<RegistrationTeam[]> {
-      return await this.registrationsRepository.find({
+      const registers = await this.registrationsRepository.find({
       })
+
+      if(registers.length < 1) throw new BadRequestException('Nenhum registro encontrado!', 200)
+
+      return registers;
     }
 
     async findRegistrationsByChampionship(championshipId: string) {

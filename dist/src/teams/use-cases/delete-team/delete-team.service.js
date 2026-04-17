@@ -28,11 +28,11 @@ let TeamDeleteService = class TeamDeleteService {
         this.teamFindService = teamFindService;
         this.memberDeleteService = memberDeleteService;
     }
-    async deleteTeamById(teamId) {
-        const team = await this.teamFindService.findTeamById(teamId);
+    async byId(teamId) {
+        const team = await this.teamFindService.ById(teamId);
         return this.teamRepository.remove(team);
     }
-    async deleteAllTeams() {
+    async allTeams() {
         await this.memberDeleteService.deleteAllMembers();
         return await this.teamRepository.clear();
     }

@@ -28,7 +28,7 @@ let TeamCreateService = class TeamCreateService {
     async execute(createTeamDto) {
         const team = new team_entity_1.Team();
         await this.teamRepository.save(team);
-        const members = await Promise.all((createTeamDto.membersId ?? []).map((userId) => this.memberCreateService.create({ userId, teamId: team.id })));
+        const members = await Promise.all((createTeamDto.membersId ?? []).map((userId) => this.memberCreateService.execute({ userId, teamId: team.id })));
         team.members = members;
         return this.teamRepository.save(team);
     }

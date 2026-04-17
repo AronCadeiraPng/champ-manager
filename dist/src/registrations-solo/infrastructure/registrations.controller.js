@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegistrationsSoloController = void 0;
 const common_1 = require("@nestjs/common");
-const jwt_auth_guard_1 = require("../../auth/guards/jwt-auth.guard");
 const roles_decorator_1 = require("../../decorators/roles.decorator");
 const user_roles_enum_1 = require("../../common/enums/user-roles.enum");
 const swagger_1 = require("@nestjs/swagger");
@@ -22,7 +21,9 @@ const create_registration_dto_1 = require("../models/dtos/create-registration.dt
 const find_registration_service_1 = require("../use-cases/find-registration/find-registration.service");
 const create_registration_service_1 = require("../use-cases/create-registration/create-registration.service");
 const delete_registration_service_1 = require("../use-cases/delete-registration/delete-registration.service");
-const registration_entity_1 = require("../models/entity/registration.entity");
+const passport_1 = require("@nestjs/passport");
+const roles_guard_1 = require("../../common/guards/roles.guard");
+const registrations_solo_list_dto_1 = require("../models/dtos/registrations-solo-list.dto");
 let RegistrationsSoloController = class RegistrationsSoloController {
     registrationFindService;
     registrationCreateService;
@@ -47,8 +48,12 @@ let RegistrationsSoloController = class RegistrationsSoloController {
 };
 exports.RegistrationsSoloController = RegistrationsSoloController;
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('new'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
+    (0, swagger_1.ApiOperation)({ summary: 'Cria um novo registro individual em um campeonato' }),
+    (0, swagger_1.ApiOkResponse)({ type: () => create_registration_dto_1.CreateRegistrationSoloDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Credenciais inválidas' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_registration_dto_1.CreateRegistrationSoloDto]),
@@ -57,9 +62,8 @@ __decorate([
 __decorate([
     (0, common_1.Get)('all'),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os registros' }),
-    (0, swagger_1.ApiResponse)({
-        status: 201, type: registration_entity_1.RegistrationSolo
-    }),
+    (0, swagger_1.ApiOkResponse)({ type: () => registrations_solo_list_dto_1.RegistrationSoloListDto }),
+    (0, swagger_1.ApiNoContentResponse)({ description: 'Nenhum registro encontrado' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -67,10 +71,8 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna um registro por id' }),
-    (0, swagger_1.ApiResponse)({
-        status: 201,
-        type: registration_entity_1.RegistrationSolo
-    }),
+    (0, swagger_1.ApiOkResponse)({ type: () => registrations_solo_list_dto_1.RegistrationSoloListDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Registro não encontrado' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -78,20 +80,18 @@ __decorate([
 ], RegistrationsSoloController.prototype, "getRegistrationById", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
     (0, swagger_1.ApiOperation)({ summary: 'Deletar um registro' }),
-    (0, swagger_1.ApiResponse)({
-        status: 201,
-        description: 'Registro deletado com sucesso',
-        type: registration_entity_1.RegistrationSolo,
-    }),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiNoContentResponse)({ description: 'Registro deletado com sucesso' }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Registro não encontrado' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], RegistrationsSoloController.prototype, "delete", null);
 exports.RegistrationsSoloController = RegistrationsSoloController = __decorate([
+    (0, swagger_1.ApiTags)('registrations-solo'),
     (0, common_1.Controller)('registrations/solo'),
     __metadata("design:paramtypes", [find_registration_service_1.RegistrationSoloFindService,
         create_registration_service_1.RegistrationSoloCreateService,

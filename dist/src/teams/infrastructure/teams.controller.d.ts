@@ -11,4 +11,5 @@ export declare class TeamsController {
     create(createTeamDto: CreateTeamDto): Promise<Team>;
     getAllTeams(): Promise<Team[]>;
     deleteAllTeams(): Promise<void>;
+    deleteTeamById(id: string): Promise<Team>;
 }

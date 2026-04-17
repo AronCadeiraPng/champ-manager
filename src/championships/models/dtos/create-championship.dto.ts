@@ -5,53 +5,36 @@ import { ModalityEnum } from "src/common/enums/modality.enum";
 import { StatusEnum } from "src/common/enums/championship-status.enum";
 
 export class CreateChampionshipDto {
-    @ApiProperty({
-        example: 'Sinuca Masculino 2026',
-        description: 'Nome do torneio'
-    })
+    @ApiProperty({ example: 'Sinuca Masculino 2026', description: 'Nome do torneio' })
     @IsString()
     @IsNotEmpty()
     name: string;
 
+    @ApiProperty({ example: 'ab29bfdf-5bbc-4a27-8cd1-fb6b03d5fc4s', description: 'id do esporte' })
     @IsString()
     @IsNotEmpty()
     sportId: string;
 
-    @ApiProperty({
-        example: 'masculine',
-        description: 'Gênero do torneio'
-    })
+    @ApiProperty({ example: 'masculine', description: 'Gênero do torneio' })
     @IsString()
     @IsNotEmpty()
     gender: GenderEnum;
 
-    @ApiProperty({
-        example: 'solo-game',
-        description: 'Modo do torneio (dupla ou sozinho)'
-    })
+    @ApiProperty({ example: 'solo-game', description: 'Modo do torneio (dupla ou sozinho)' })
     @IsString()
     @IsNotEmpty()
     modality: ModalityEnum;
 
     @IsOptional()
-    @ApiProperty({
-        example: '05/10/2026',
-        description: 'Data de início das inscrições'
-    })
+    @ApiProperty({ example: '05/10/2026', description: 'Data de início das inscrições' })
     @IsDateString()
     registrationStart?: string;   
 
-    @ApiProperty({
-        example: '10/05/2026',
-        description: 'Data de término das inscrições'
-    })
+    @ApiProperty({ example: '10/05/2026', description: 'Data de término das inscrições' })
     @IsDateString()
     registrationEnd: string;
 
-    @ApiProperty({
-        example: 'in-progress',
-        description: 'Status do torneio'
-    })
+    @ApiProperty({ example: 'in-progress', description: 'Status do torneio' })
     @IsString()
     @IsNotEmpty()
     status: StatusEnum;

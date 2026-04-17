@@ -17,18 +17,22 @@ const common_1 = require("@nestjs/common");
 const create_member_dto_1 = require("../models/dtos/create-member.dto");
 const create_member_service_1 = require("../use-cases/create-member/create-member.service");
 const find_member_service_1 = require("../use-cases/find-member/find-member.service");
+const swagger_1 = require("@nestjs/swagger");
 let MembersController = class MembersController {
     memberCreateService;
-    memberFindSerivce;
-    constructor(memberCreateService, memberFindSerivce) {
+    memberFindService;
+    constructor(memberCreateService, memberFindService) {
         this.memberCreateService = memberCreateService;
-        this.memberFindSerivce = memberFindSerivce;
+        this.memberFindService = memberFindService;
     }
     async createMember(createMemberDto) {
-        return await this.memberCreateService.create(createMemberDto);
+        return await this.memberCreateService.execute(createMemberDto);
     }
     async findAllMembers() {
-        return await this.memberFindSerivce.findAllMembers();
+        return await this.memberFindService.findAllMembers();
+    }
+    async findAllMembersByTeam(teamId) {
+        return await this.memberFindService.findAllMembersByTeam(teamId);
     }
     async findMemberById(id) {
         return await this.findMemberById(id);
@@ -37,18 +41,37 @@ let MembersController = class MembersController {
 exports.MembersController = MembersController;
 __decorate([
     (0, common_1.Post)('new'),
+    (0, swagger_1.ApiOperation)({ summary: 'Cria um novo membro de time' }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Membro já registrado no time' }),
+    (0, swagger_1.ApiForbiddenResponse)({ description: 'Permissão negada' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_member_dto_1.CreateMemberDto]),
     __metadata("design:returntype", Promise)
 ], MembersController.prototype, "createMember", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os membros' }),
+    (0, swagger_1.ApiOkResponse)({ type: create_member_dto_1.CreateMemberDto }),
+    (0, swagger_1.ApiNoContentResponse)({ description: 'Nenhum membro encontrado' }),
     (0, common_1.Get)('all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], MembersController.prototype, "findAllMembers", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os membros pelo id do time' }),
+    (0, swagger_1.ApiOkResponse)({ type: create_member_dto_1.CreateMemberDto }),
+    (0, swagger_1.ApiNoContentResponse)({ description: 'Nenhum membro encontrado' }),
+    (0, common_1.Get)(':id/all'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], MembersController.prototype, "findAllMembersByTeam", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna um membro pelo id' }),
+    (0, swagger_1.ApiOkResponse)({ type: create_member_dto_1.CreateMemberDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Membro não encontrado' }),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),

@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { NotFoundException } from "src/common/exceptions";
 import { Team } from "src/teams/models/entity/team.entity";
 import { Repository } from "typeorm";
 
@@ -9,13 +10,13 @@ export class TeamFindService {
         @InjectRepository(Team) private readonly teamRepository: Repository<Team>
     ){}
 
-    async findTeamByAll(): Promise<Team[]> {
+    async allTeams(): Promise<Team[]> {
         const teams = await this.teamRepository.find();
 
         return teams;
     }
 
-    async findTeamById(id: string): Promise<Team>{
+    async ById(id: string): Promise<Team>{
         const team = await this.teamRepository.findOne({
             where: {
                 id: id

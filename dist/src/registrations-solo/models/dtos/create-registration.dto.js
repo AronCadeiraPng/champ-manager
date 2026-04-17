@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateRegistrationSoloDto = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateRegistrationSoloDto {
     userId;
@@ -17,11 +18,13 @@ class CreateRegistrationSoloDto {
 }
 exports.CreateRegistrationSoloDto = CreateRegistrationSoloDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 'ab29bfdf-5bbc-4a27-8cd1-fb6b03d5fc4s', description: 'id do usuário' }),
     (0, class_validator_1.IsUUID)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateRegistrationSoloDto.prototype, "userId", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 'ab29bfdf-5bbc-4a27-8cd1-fb6b03d5fc4s', description: 'id do torneio' }),
     (0, class_validator_1.IsUUID)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)

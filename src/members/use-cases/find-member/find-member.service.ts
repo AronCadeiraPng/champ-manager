@@ -36,4 +36,12 @@ export class MemberFindService {
   async findAllMembers(): Promise<Member[]> {
     return await this.memberRepository.find()
   }
+
+  async findAllMembersByTeam(teamId: string): Promise<Member[]> {
+    return await this.memberRepository.find({
+      where: {
+        teamId: teamId
+      }
+    })
+  }
 }

@@ -13,7 +13,7 @@ export class TeamUpdateService {
     ){}
 
     async updateTeam(teamId: string, updateTeamDto: UpdateTeamDto) { 
-        const team = await this.teamFindService.findTeamById(teamId)
+        const team = await this.teamFindService.ById(teamId)
 
         Object.assign(team, updateTeamDto)
 

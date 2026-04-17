@@ -3,6 +3,6 @@ import { Repository } from "typeorm";
 export declare class TeamFindService {
     private readonly teamRepository;
     constructor(teamRepository: Repository<Team>);
-    findTeamByAll(): Promise<Team[]>;
-    findTeamById(id: string): Promise<Team>;
+    allTeams(): Promise<Team[]>;
+    ById(id: string): Promise<Team>;
 }

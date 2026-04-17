@@ -7,6 +7,6 @@ export declare class TeamDeleteService {
     private readonly teamFindService;
     private readonly memberDeleteService;
     constructor(teamRepository: Repository<Team>, teamFindService: TeamFindService, memberDeleteService: MemberDeleteService);
-    deleteTeamById(teamId: string): Promise<Team>;
-    deleteAllTeams(): Promise<void>;
+    byId(teamId: string): Promise<Team>;
+    allTeams(): Promise<void>;
 }

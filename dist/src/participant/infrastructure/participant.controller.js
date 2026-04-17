@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const find_participants_service_1 = require("../use-cases/find-participants/find-participants.service");
 const create_participant_service_1 = require("../use-cases/create-participant/create-participant.service");
 const create_participant_dto_1 = require("../models/dtos/create-participant.dto");
+const swagger_1 = require("@nestjs/swagger");
 let ParticipantController = class ParticipantController {
     participantFindService;
     participantCreateService;
@@ -37,6 +38,9 @@ let ParticipantController = class ParticipantController {
 exports.ParticipantController = ParticipantController;
 __decorate([
     (0, common_1.Post)(':id/create'),
+    (0, swagger_1.ApiOperation)({ summary: 'Cria um novo participante' }),
+    (0, swagger_1.ApiOkResponse)({ type: create_participant_dto_1.CreateParticipantDto }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Torneio não encontrado' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -45,18 +49,25 @@ __decorate([
 ], ParticipantController.prototype, "createParticipant", null);
 __decorate([
     (0, common_1.Get)('all'),
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os participantes' }),
+    (0, swagger_1.ApiOkResponse)({ type: create_participant_dto_1.CreateParticipantDto }),
+    (0, swagger_1.ApiNoContentResponse)({ description: 'Nenhum participante encontrado' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ParticipantController.prototype, "findAllParticipants", null);
 __decorate([
     (0, common_1.Get)('championship/:id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os participantes em um torneio' }),
+    (0, swagger_1.ApiOkResponse)({ type: create_participant_dto_1.CreateParticipantDto }),
+    (0, swagger_1.ApiNoContentResponse)({ description: 'Nenhum participante encontrado' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ParticipantController.prototype, "findParticipantsByChampionship", null);
 exports.ParticipantController = ParticipantController = __decorate([
+    (0, swagger_1.ApiTags)('participants'),
     (0, common_1.Controller)('participants'),
     __metadata("design:paramtypes", [find_participants_service_1.ParticipantFindService,
         create_participant_service_1.ParticipantCreateService])

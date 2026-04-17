@@ -6,4 +6,5 @@ export declare class MemberFindService {
     findMemberById(id: string): Promise<Member>;
     findMemberByTeam(userId: string, teamId: string): Promise<Member | null>;
     findAllMembers(): Promise<Member[]>;
+    findAllMembersByTeam(teamId: string): Promise<Member[]>;
 }

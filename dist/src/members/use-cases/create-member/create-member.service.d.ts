@@ -6,5 +6,5 @@ export declare class MemberCreateService {
     private readonly memberRepository;
     private readonly memberFindService;
     constructor(memberRepository: Repository<Member>, memberFindService: MemberFindService);
-    create(createMemberDto: CreateMemberDto): Promise<Member>;
+    execute(createMemberDto: CreateMemberDto): Promise<Member>;
 }

@@ -19,7 +19,7 @@ export class TeamCreateService {
 
     const members = await Promise.all(
       (createTeamDto.membersId ?? []).map((userId) =>
-        this.memberCreateService.create({ userId, teamId: team.id })
+        this.memberCreateService.execute({ userId, teamId: team.id })
       )
     );
 

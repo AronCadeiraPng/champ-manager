@@ -4,9 +4,10 @@ import { MemberFindService } from '../use-cases/find-member/find-member.service'
 import { Member } from '../models/entity/member.entity';
 export declare class MembersController {
     private readonly memberCreateService;
-    private readonly memberFindSerivce;
-    constructor(memberCreateService: MemberCreateService, memberFindSerivce: MemberFindService);
+    private readonly memberFindService;
+    constructor(memberCreateService: MemberCreateService, memberFindService: MemberFindService);
     createMember(createMemberDto: CreateMemberDto): Promise<Member>;
     findAllMembers(): Promise<Member[]>;
+    findAllMembersByTeam(teamId: string): Promise<Member[]>;
     findMemberById(id: string): Promise<Member>;
 }

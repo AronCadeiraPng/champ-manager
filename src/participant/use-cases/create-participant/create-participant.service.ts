@@ -35,4 +35,4 @@ export class ParticipantCreateService {
 
         return await this.participantRepository.save(participant);
     }
-}   
+}

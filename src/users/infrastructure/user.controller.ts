@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Param, UseGuards, HttpStatus } from '@nestjs/common';
 import { RegisterUserDto } from '../models/dtos/register-user.dto';
-import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBody, ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { User } from '../models/entity/user.entity';
 import { ParseUUIDPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -9,7 +9,10 @@ import { UserRoles } from 'src/common/enums/user-roles.enum';
 import { UserRegisterService } from '../use-cases/register-user/user-register.service';
 import { UserFindService } from '../use-cases/find-user/find-user.service';
 import { RolesGuard } from 'src/common/guards/roles.guard';
+import { UsersListDto } from '../models/dtos/users-list.dto';
 
+
+@ApiTags('users')
 @Controller('user')
 export class UserController {
   constructor(
@@ -21,11 +24,14 @@ export class UserController {
   @Post('register')
   @ApiOperation({ summary: 'Registra um novo usuário' })
   @ApiBody({ type: RegisterUserDto })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'Usuário criado com sucesso!',
-    type: User
-  })
+  @ApiCreatedResponse({ description: 'Usuário criado com sucesso!', type: User, example: {
+    name: 'Gabriel Pinheiro',
+    gender: 'masculine',
+    email: 'gabriel.pinheiro@gmail.com',
+    cpf: '100.100.100-11',
+    password: 'senha123'
+  } })
+  @ApiBadRequestResponse({ description: 'Credenciais inválidas!' })
   async create(
     @Body() registerUserDto: RegisterUserDto
   ): Promise<User>
@@ -39,6 +45,9 @@ export class UserController {
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @ApiOperation({ summary: 'Retorna todos os usuários' })
+  @ApiOkResponse({ type: () =>  UsersListDto})
+  @ApiNoContentResponse({ description: 'Nenhum usuário encontrado' })
+  @ApiUnauthorizedResponse({ description: 'Permissão negada' })
   async findAllUsers(): Promise<User[]>
   {
     return await this.userFindService.findAllUsers()
@@ -49,6 +58,9 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
   @ApiOperation({ summary: 'Retorna um usuário pelo id' })
+  @ApiOkResponse({ type: () => UsersListDto })
+  @ApiNotFoundResponse({ description: 'Usuário não encontrado' })
+  @ApiUnauthorizedResponse({ description: 'Permissão negada' })
   async findUserById(
     @Param('id', ParseUUIDPipe) id: string
   ): Promise<User>

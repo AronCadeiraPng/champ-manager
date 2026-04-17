@@ -1,10 +1,13 @@
-import { IsBoolean, IsOptional, IsString, IsUUID } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsString, IsUUID } from "class-validator";
 
 export class CreateMemberDto {
+    @ApiProperty({ example: 'ab29bfdf-5bbc-4a27-8cd1-fb6b03d5fc4s', description: 'id do usuário' })
     @IsString()
     @IsUUID()
     userId: string;
 
+    @ApiProperty({ example: 'ab29bfdf-5bbc-4a27-8cd1-fb6b03d5fc4s', description: 'id do time' })
     @IsString()
     @IsUUID()
     teamId: string;

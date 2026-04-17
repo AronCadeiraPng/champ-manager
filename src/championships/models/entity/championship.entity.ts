@@ -17,6 +17,7 @@ import { ModalityEnum } from "../../../common/enums/modality.enum";
 import { StatusEnum } from "../../../common/enums/championship-status.enum";
 import { Sport } from "../../../sports/models/entity/sport.entity";
 import { RegistrationSolo } from "../../../registrations-solo/models/entity/registration.entity";
+import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
 
 
 @Entity('championships')
@@ -60,5 +61,8 @@ export class Championship {
     sport: Sport;
 
     @OneToMany(() => RegistrationSolo, (registrations) => registrations.championship)
-    registrations: RegistrationSolo[];
+    registrationsSolo: RegistrationSolo[];
+
+    @OneToMany(() => RegistrationTeam, (registrations) => registrations.championship)
+    registrationsTeam: RegistrationTeam[];
 }

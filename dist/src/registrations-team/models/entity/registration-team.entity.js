@@ -48,7 +48,7 @@ __decorate([
     __metadata("design:type", participant_entity_1.Participant)
 ], RegistrationTeam.prototype, "participant", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.registrations),
+    (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.registrationsTeam),
     (0, typeorm_1.JoinColumn)({ name: 'championship_id' }),
     __metadata("design:type", championship_entity_1.Championship)
 ], RegistrationTeam.prototype, "championship", void 0);

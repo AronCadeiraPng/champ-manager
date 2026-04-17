@@ -18,11 +18,11 @@ const auth_service_1 = require("./auth.service");
 const login_user_dto_1 = require("./dto/login-user.dto");
 const swagger_1 = require("@nestjs/swagger");
 const user_entity_1 = require("../users/models/entity/user.entity");
-const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 const update_user_dto_1 = require("../users/models/dtos/update-user.dto");
 const roles_decorator_1 = require("../decorators/roles.decorator");
 const user_roles_enum_1 = require("../common/enums/user-roles.enum");
 const roles_guard_1 = require("../common/guards/roles.guard");
+const passport_1 = require("@nestjs/passport");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -43,9 +43,8 @@ __decorate([
     (0, common_1.Post)('login'),
     (0, swagger_1.ApiOperation)({ summary: 'Login do usuário' }),
     (0, swagger_1.ApiBody)({ type: login_user_dto_1.LoginUserDto }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, description: 'Usuário logado com sucesso', type: user_entity_1.User }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.FORBIDDEN, description: 'Permissão negada' }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.NOT_FOUND, description: 'Usuário não encontrado' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Usuário logado com sucesso', type: user_entity_1.User }),
+    (0, swagger_1.ApiNotFoundResponse)({ description: 'Usuário não encontrado' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [login_user_dto_1.LoginUserDto]),
@@ -53,13 +52,13 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
     (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiOperation)({ summary: 'Update do usuário' }),
     (0, swagger_1.ApiBody)({ type: update_user_dto_1.UpdateUserDto }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, description: 'Usuário atualizado com sucesso', type: user_entity_1.User }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.FORBIDDEN, description: 'Permissão negada' }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.NOT_FOUND, description: 'Usuário não encontrado' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Usuário atualizado com sucesso', type: user_entity_1.User }),
+    (0, swagger_1.ApiForbiddenResponse)({ description: 'Permissão negada' }),
+    (0, swagger_1.ApiNotFoundResponse)({ description: 'Usuário não encontrado' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.Request)()),
@@ -69,13 +68,13 @@ __decorate([
 ], AuthController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
     (0, swagger_1.ApiBearerAuth)(),
     (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
     (0, swagger_1.ApiOperation)({ summary: 'Deletar um usuário' }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.NO_CONTENT, description: 'Usuário deletado com sucesso', type: user_entity_1.User }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.FORBIDDEN, description: 'Permissão negada' }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.NOT_FOUND, description: 'Usuário não encontrado' }),
+    (0, swagger_1.ApiNoContentResponse)({ description: 'Usuário deletado com sucesso', type: user_entity_1.User }),
+    (0, swagger_1.ApiForbiddenResponse)({ description: 'Permissão negada' }),
+    (0, swagger_1.ApiNotFoundResponse)({ description: 'Usuário não encontrado' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

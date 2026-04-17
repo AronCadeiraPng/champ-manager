@@ -13,13 +13,13 @@ export class TeamDeleteService {
         private readonly memberDeleteService: MemberDeleteService
     ) {}
 
-    async deleteTeamById(teamId: string): Promise<Team> {
-        const team = await this.teamFindService.findTeamById(teamId)
+    async byId(teamId: string): Promise<Team> {
+        const team = await this.teamFindService.ById(teamId)
 
         return this.teamRepository.remove(team);
     }
 
-    async deleteAllTeams() {
+    async allTeams() {
         await this.memberDeleteService.deleteAllMembers()
         return await this.teamRepository.clear()
     }

@@ -26,7 +26,7 @@ let MemberCreateService = class MemberCreateService {
         this.memberRepository = memberRepository;
         this.memberFindService = memberFindService;
     }
-    async create(createMemberDto) {
+    async execute(createMemberDto) {
         const memberExists = await this.memberFindService.findMemberByTeam(createMemberDto.userId, createMemberDto.teamId);
         if (memberExists)
             throw new bad_request_exception_1.BadRequestException('Esse membro já está registrado no respectivo time!', 400);

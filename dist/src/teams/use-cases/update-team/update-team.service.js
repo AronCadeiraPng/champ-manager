@@ -26,7 +26,7 @@ let TeamUpdateService = class TeamUpdateService {
         this.teamFindService = teamFindService;
     }
     async updateTeam(teamId, updateTeamDto) {
-        const team = await this.teamFindService.findTeamById(teamId);
+        const team = await this.teamFindService.ById(teamId);
         Object.assign(team, updateTeamDto);
         return this.teamRepository.update(teamId, updateTeamDto);
     }

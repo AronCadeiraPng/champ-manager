@@ -16,6 +16,7 @@ exports.RegistrationTeamFindService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const exceptions_1 = require("../../../common/exceptions");
+const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
 const registration_team_entity_1 = require("../../models/entity/registration-team.entity");
 const typeorm_2 = require("typeorm");
 let RegistrationTeamFindService = class RegistrationTeamFindService {
@@ -24,7 +25,10 @@ let RegistrationTeamFindService = class RegistrationTeamFindService {
         this.registrationsRepository = registrationsRepository;
     }
     async allRegisters() {
-        return await this.registrationsRepository.find({});
+        const registers = await this.registrationsRepository.find({});
+        if (registers.length < 1)
+            throw new bad_request_exception_1.BadRequestException('Nenhum registro encontrado!', 200);
+        return registers;
     }
     async findRegistrationsByChampionship(championshipId) {
         return this.registrationsRepository.find({ where: {

@@ -13,7 +13,7 @@ export class MemberCreateService {
     private readonly memberFindService: MemberFindService
   ) {}
 
-  async create(createMemberDto: CreateMemberDto): Promise<Member> {
+  async execute(createMemberDto: CreateMemberDto): Promise<Member> {
     const memberExists = await this.memberFindService.findMemberByTeam(createMemberDto.userId, createMemberDto.teamId)
     if(memberExists) throw new BadRequestException('Esse membro já está registrado no respectivo time!', 400)
 

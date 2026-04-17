@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:type", user_entity_1.User)
 ], RegistrationSolo.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.registrations),
+    (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.registrationsSolo),
     (0, typeorm_1.JoinColumn)({ name: 'championship_id' }),
     __metadata("design:type", championship_entity_1.Championship)
 ], RegistrationSolo.prototype, "championship", void 0);
