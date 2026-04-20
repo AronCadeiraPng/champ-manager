@@ -27,11 +27,6 @@ let ParticipantCreateService = class ParticipantCreateService {
         this.championshipFindService = championshipFindService;
     }
     async createParticipant(championshipId, createParticipantDto) {
-        const championship = await this.championshipFindService.findChampionshipById(championshipId);
-        if (championship.modality == 'team-game' && createParticipantDto.registrationUserId == null)
-            throw new bad_request_exception_1.BadRequestException('Torneio apenas para times', 400);
-        if (championship.modality == 'solo-game' && createParticipantDto.registrationTeamId !== null)
-            throw new bad_request_exception_1.BadRequestException('Torneio apenas para um jogador', 400);
         const participantExists = await this.participantRepository.findOne({
             where: {
                 registrationUserId: createParticipantDto.registrationUserId,

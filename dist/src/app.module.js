@@ -30,7 +30,9 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            config_1.ConfigModule.forRoot({
+                isGlobal: true
+            }),
             data_source_1.DataModule,
             user_module_1.UserModule,
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]),
@@ -42,14 +44,15 @@ exports.AppModule = AppModule = __decorate([
             registration_team_entity_1.RegistrationTeam,
             teams_module_1.TeamsModule,
             members_module_1.MembersModule,
-            participant_module_1.ParticipantModule
+            participant_module_1.ParticipantModule,
         ],
         controllers: [],
         providers: [
             app_service_1.AppService,
             user_register_service_1.UserRegisterService,
-            user_entity_1.User
+            user_entity_1.User,
         ],
+        exports: []
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

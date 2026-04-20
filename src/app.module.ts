@@ -15,10 +15,13 @@ import { MembersModule } from './members/infrastructure/members.module';
 import { RegistrationsTeamModule } from './registrations-team/infrastructure/registrations-team.module';
 import { Championship } from './championships/models/entity/championship.entity';
 import { ParticipantModule } from './participant/infrastructure/participant.module';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     DataModule,
     UserModule,
     TypeOrmModule.forFeature([User]),
@@ -30,13 +33,15 @@ import { ParticipantModule } from './participant/infrastructure/participant.modu
     RegistrationTeam,
     TeamsModule,
     MembersModule,
-    ParticipantModule
+    ParticipantModule,
   ],
   controllers: [],
   providers: [
     AppService,
     UserRegisterService,
-    User
+    User,
   ],
+  exports: [
+  ]
 })
 export class AppModule {}

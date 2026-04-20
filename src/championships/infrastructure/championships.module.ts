@@ -13,9 +13,12 @@ import { ChampionshipStartService } from '../use-cases/start-championship/start-
 import { ChampionshipCreateService } from '../use-cases/create-championship/create-championship.service';
 import { ParticipantCreateService } from 'src/participant/use-cases/create-participant/create-participant.service';
 import { Participant } from 'src/participant/models/entity/participant.entity';
+import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity';
+import { RegistrationTeamFindService } from 'src/registrations-team/use-cases/find-registration/find-registration.service';
+import { ChampionshipFindRegistrationsService } from '../use-cases/find-registrations/find-registrations.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, Sport, Participant]) ],
+  imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Sport, Participant]) ],
   controllers: [ChampionshipsController],
   providers: [
     Championship,
@@ -26,7 +29,9 @@ import { Participant } from 'src/participant/models/entity/participant.entity';
     ChampionshipStartService,
     RegistrationSoloFindService,
     SportFindService,
-    ParticipantCreateService
+    ParticipantCreateService,
+    RegistrationTeamFindService,
+    ChampionshipFindRegistrationsService
   ],
   exports: [    
     ChampionshipDeleteService,

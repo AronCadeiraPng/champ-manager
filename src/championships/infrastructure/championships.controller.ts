@@ -27,10 +27,10 @@ import { Championship } from '../models/entity/championship.entity';
 import { UpdateChampionshipDto } from '../models/dtos/update-championship.dto';
 import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
 import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity';
-import { RegistrationSoloFindService } from 'src/registrations-solo/use-cases/find-registration/find-registration.service';
 import { AuthGuard } from '@nestjs/passport';
 import { RegistrationTeamListDto } from 'src/registrations-team/models/dtos/registrations-team-list.dto';
 import { RegistrationSoloListDto } from 'src/registrations-solo/models/dtos/registrations-solo-list.dto';
+import { ChampionshipFindRegistrationsService } from '../use-cases/find-registrations/find-registrations.service';
 
 @ApiTags('Championships')
 @ApiBearerAuth()
@@ -43,7 +43,7 @@ export class ChampionshipsController {
     private readonly championshipDeleteService: ChampionshipDeleteService,
     private readonly championshipUpdateService: ChampionshipUpdateService,
     private readonly championshipStartService: ChampionshipStartService,
-    private readonly registrationSoloFindService: RegistrationSoloFindService
+    private readonly championshipRegistrationsFindService: ChampionshipFindRegistrationsService
 
   ) {};
 
@@ -103,9 +103,9 @@ export class ChampionshipsController {
   @ApiForbiddenResponse({ description: 'Permissão negada' })
   async getAllRegistrationsByChampionship(
     @Param('id', ParseUUIDPipe) championshipId: string
-  ): Promise<RegistrationSolo[] | RegistrationTeam[]>
+  )
   {
-    return this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
+    return this.championshipRegistrationsFindService.findRegistrations(championshipId);
   }
 
 

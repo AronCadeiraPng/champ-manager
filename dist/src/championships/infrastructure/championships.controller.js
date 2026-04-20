@@ -26,24 +26,24 @@ const delete_championship_solo_service_1 = require("../use-cases/delete-champion
 const update_championship_service_1 = require("../use-cases/update-championship/update-championship.service");
 const championship_entity_1 = require("../models/entity/championship.entity");
 const update_championship_dto_1 = require("../models/dtos/update-championship.dto");
-const find_registration_service_1 = require("../../registrations-solo/use-cases/find-registration/find-registration.service");
 const passport_1 = require("@nestjs/passport");
 const registrations_team_list_dto_1 = require("../../registrations-team/models/dtos/registrations-team-list.dto");
 const registrations_solo_list_dto_1 = require("../../registrations-solo/models/dtos/registrations-solo-list.dto");
+const find_registrations_service_1 = require("../use-cases/find-registrations/find-registrations.service");
 let ChampionshipsController = class ChampionshipsController {
     championshipCreateService;
     championshipFindService;
     championshipDeleteService;
     championshipUpdateService;
     championshipStartService;
-    registrationSoloFindService;
-    constructor(championshipCreateService, championshipFindService, championshipDeleteService, championshipUpdateService, championshipStartService, registrationSoloFindService) {
+    championshipRegistrationsFindService;
+    constructor(championshipCreateService, championshipFindService, championshipDeleteService, championshipUpdateService, championshipStartService, championshipRegistrationsFindService) {
         this.championshipCreateService = championshipCreateService;
         this.championshipFindService = championshipFindService;
         this.championshipDeleteService = championshipDeleteService;
         this.championshipUpdateService = championshipUpdateService;
         this.championshipStartService = championshipStartService;
-        this.registrationSoloFindService = registrationSoloFindService;
+        this.championshipRegistrationsFindService = championshipRegistrationsFindService;
     }
     ;
     async createChampionship(createChampionshipDto) {
@@ -56,7 +56,7 @@ let ChampionshipsController = class ChampionshipsController {
         return this.championshipFindService.findChampionshipById(id);
     }
     async getAllRegistrationsByChampionship(championshipId) {
-        return this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
+        return this.championshipRegistrationsFindService.findRegistrations(championshipId);
     }
     async deleteChampionship(id) {
         return this.championshipDeleteService.deleteChampionship(id);
@@ -170,6 +170,6 @@ exports.ChampionshipsController = ChampionshipsController = __decorate([
         delete_championship_solo_service_1.ChampionshipDeleteService,
         update_championship_service_1.ChampionshipUpdateService,
         start_championship_service_1.ChampionshipStartService,
-        find_registration_service_1.RegistrationSoloFindService])
+        find_registrations_service_1.ChampionshipFindRegistrationsService])
 ], ChampionshipsController);
 //# sourceMappingURL=championships.controller.js.map

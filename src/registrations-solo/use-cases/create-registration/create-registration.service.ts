@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BadRequestException } from 'src/common/exceptions/bad-request.exception';
@@ -9,6 +9,8 @@ import { ChampionshipFindService } from 'src/championships/use-cases/find-champi
 
 @Injectable()
 export class RegistrationSoloCreateService {
+    logger = new Logger(RegistrationSoloCreateService.name, {timestamp: true})
+
    constructor(
     @InjectRepository(RegistrationSolo) private readonly registrationSoloRepository: Repository<RegistrationSolo>,
     private readonly userFindService: UserFindService,
@@ -16,9 +18,12 @@ export class RegistrationSoloCreateService {
   ) {}
 
    async register(createRegistrationDto: CreateRegistrationSoloDto) {      
-    const user = await this.userFindService.findUserById(createRegistrationDto.userId)
-    const championship = await this.championshipFindService.findChampionshipById(createRegistrationDto.championshipId)
+    this.logger.log('Criando usuário...')
+    const user = await this.userFindService.findUserById(createRegistrationDto.userId);
+    const championship = await this.championshipFindService.findChampionshipById(createRegistrationDto.championshipId);
     
+    if(championship.modality !== 'solo-game') throw new BadRequestException('Torneio apenas para um jogador', 400);
+
     const alreadyRegistered = await this.registrationSoloRepository.findOne({
       where: {
         user: { id: user.id },

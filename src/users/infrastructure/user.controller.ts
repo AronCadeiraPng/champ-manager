@@ -10,16 +10,19 @@ import { UserRegisterService } from '../use-cases/register-user/user-register.se
 import { UserFindService } from '../use-cases/find-user/find-user.service';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { UsersListDto } from '../models/dtos/users-list.dto';
+import { Logger } from 'nestjs-pino';
 
 
 @ApiTags('users')
 @Controller('user')
 export class UserController {
+  // private readonly logger = new Logger(UserController.name);
+  
+  
   constructor(
     private readonly userFindService: UserFindService,
     private readonly userRegisterService: UserRegisterService,
   ) { }
-
 
   @Post('register')
   @ApiOperation({ summary: 'Registra um novo usuário' })

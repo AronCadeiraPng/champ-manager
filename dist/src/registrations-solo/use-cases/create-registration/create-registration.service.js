@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var RegistrationSoloCreateService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegistrationSoloCreateService = void 0;
 const common_1 = require("@nestjs/common");
@@ -20,18 +21,22 @@ const bad_request_exception_1 = require("../../../common/exceptions/bad-request.
 const find_user_service_1 = require("../../../users/use-cases/find-user/find-user.service");
 const registration_entity_1 = require("../../models/entity/registration.entity");
 const find_championship_service_1 = require("../../../championships/use-cases/find-championship/find-championship.service");
-let RegistrationSoloCreateService = class RegistrationSoloCreateService {
+let RegistrationSoloCreateService = RegistrationSoloCreateService_1 = class RegistrationSoloCreateService {
     registrationSoloRepository;
     userFindService;
     championshipFindService;
+    logger = new common_1.Logger(RegistrationSoloCreateService_1.name, { timestamp: true });
     constructor(registrationSoloRepository, userFindService, championshipFindService) {
         this.registrationSoloRepository = registrationSoloRepository;
         this.userFindService = userFindService;
         this.championshipFindService = championshipFindService;
     }
     async register(createRegistrationDto) {
+        this.logger.log('Criando usuário...');
         const user = await this.userFindService.findUserById(createRegistrationDto.userId);
         const championship = await this.championshipFindService.findChampionshipById(createRegistrationDto.championshipId);
+        if (championship.modality !== 'solo-game')
+            throw new bad_request_exception_1.BadRequestException('Torneio apenas para um jogador', 400);
         const alreadyRegistered = await this.registrationSoloRepository.findOne({
             where: {
                 user: { id: user.id },
@@ -53,7 +58,7 @@ let RegistrationSoloCreateService = class RegistrationSoloCreateService {
     }
 };
 exports.RegistrationSoloCreateService = RegistrationSoloCreateService;
-exports.RegistrationSoloCreateService = RegistrationSoloCreateService = __decorate([
+exports.RegistrationSoloCreateService = RegistrationSoloCreateService = RegistrationSoloCreateService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(registration_entity_1.RegistrationSolo)),
     __metadata("design:paramtypes", [typeorm_2.Repository,

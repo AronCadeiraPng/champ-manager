@@ -35,7 +35,7 @@ let UserFindService = class UserFindService {
             select: ['id', 'gender', 'name', 'email', 'createdAt', 'role']
         });
         if (!user) {
-            throw new exceptions_1.NotFoundException(`Usuário: ${id}`);
+            throw new exceptions_1.NotFoundException(`Usuário com id: ${id}`);
         }
         ;
         return user;

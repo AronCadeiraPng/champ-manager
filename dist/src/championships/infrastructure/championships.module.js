@@ -22,12 +22,15 @@ const start_championship_service_1 = require("../use-cases/start-championship/st
 const create_championship_service_1 = require("../use-cases/create-championship/create-championship.service");
 const create_participant_service_1 = require("../../participant/use-cases/create-participant/create-participant.service");
 const participant_entity_1 = require("../../participant/models/entity/participant.entity");
+const registration_team_entity_1 = require("../../registrations-team/models/entity/registration-team.entity");
+const find_registration_service_2 = require("../../registrations-team/use-cases/find-registration/find-registration.service");
+const find_registrations_service_1 = require("../use-cases/find-registrations/find-registrations.service");
 let ChampionshipModule = class ChampionshipModule {
 };
 exports.ChampionshipModule = ChampionshipModule;
 exports.ChampionshipModule = ChampionshipModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship, registration_entity_1.RegistrationSolo, sport_entity_1.Sport, participant_entity_1.Participant])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship, registration_entity_1.RegistrationSolo, registration_team_entity_1.RegistrationTeam, sport_entity_1.Sport, participant_entity_1.Participant])],
         controllers: [championships_controller_1.ChampionshipsController],
         providers: [
             championship_entity_1.Championship,
@@ -38,7 +41,9 @@ exports.ChampionshipModule = ChampionshipModule = __decorate([
             start_championship_service_1.ChampionshipStartService,
             find_registration_service_1.RegistrationSoloFindService,
             find_sport_service_1.SportFindService,
-            create_participant_service_1.ParticipantCreateService
+            create_participant_service_1.ParticipantCreateService,
+            find_registration_service_2.RegistrationTeamFindService,
+            find_registrations_service_1.ChampionshipFindRegistrationsService
         ],
         exports: [
             delete_championship_solo_service_1.ChampionshipDeleteService,

@@ -14,19 +14,23 @@ const common_1 = require("@nestjs/common");
 const create_participant_service_1 = require("../../../participant/use-cases/create-participant/create-participant.service");
 const find_registration_service_1 = require("../../../registrations-solo/use-cases/find-registration/find-registration.service");
 const find_championship_service_1 = require("../find-championship/find-championship.service");
+const find_registration_service_2 = require("../../../registrations-team/use-cases/find-registration/find-registration.service");
 let ChampionshipStartService = class ChampionshipStartService {
     participantCreateService;
-    registrationFindService;
+    registrationSoloFindService;
+    registrationTeamFindService;
     championshipFindService;
-    constructor(participantCreateService, registrationFindService, championshipFindService) {
+    constructor(participantCreateService, registrationSoloFindService, registrationTeamFindService, championshipFindService) {
         this.participantCreateService = participantCreateService;
-        this.registrationFindService = registrationFindService;
+        this.registrationSoloFindService = registrationSoloFindService;
+        this.registrationTeamFindService = registrationTeamFindService;
         this.championshipFindService = championshipFindService;
     }
     async start(championshipId) {
         const championship = await this.championshipFindService.findChampionshipById(championshipId);
+        const registrations = await this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
         if (championship.modality == 'solo-game') {
-            const registrations = await this.registrationFindService.findRegistrationsByChampionship(championshipId);
+            console.log('é solo');
             const participants = await Promise.all(registrations.map(async (registration) => {
                 const participantDto = {
                     registrationUserId: registration.id,
@@ -37,7 +41,8 @@ let ChampionshipStartService = class ChampionshipStartService {
             return participants;
         }
         if (championship.modality == 'team-game') {
-            const registrations = await this.registrationFindService.findRegistrationsByChampionship(championshipId);
+            console.log('é time');
+            const registrations = await this.registrationTeamFindService.findRegistrationsByChampionship(championshipId);
             const participants = await Promise.all(registrations.map(async (registration) => {
                 const participantDto = {
                     registrationTeamId: registration.id,
@@ -54,6 +59,7 @@ exports.ChampionshipStartService = ChampionshipStartService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [create_participant_service_1.ParticipantCreateService,
         find_registration_service_1.RegistrationSoloFindService,
+        find_registration_service_2.RegistrationTeamFindService,
         find_championship_service_1.ChampionshipFindService])
 ], ChampionshipStartService);
 //# sourceMappingURL=start-championship.service.js.map
