@@ -1,36 +1,32 @@
-import { Controller, Get, Post, Body, Param, ParseUUIDPipe, UseGuards, Delete, Patch } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBody,
-  ApiBearerAuth,
-  ApiParam,
-  ApiCreatedResponse,
-  ApiBadRequestResponse,
-  ApiUnauthorizedResponse,
-  ApiForbiddenResponse,
-  ApiOkResponse,
-  ApiNoContentResponse,
-} from '@nestjs/swagger';
-import { Roles } from 'src/decorators/roles.decorator';
-import { UserRoles } from 'src/common/enums/user-roles.enum';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
-import { CreateChampionshipDto } from '../models/dtos/create-championship.dto';
-import { ChampionshipCreateService } from '../use-cases/create-championship/create-championship.service';
-import { ChampionshipFindService } from '../use-cases/find-championship/find-championship.service';
-import { ChampionshipDeleteService } from '../use-cases/delete-championship/delete-championship-solo.service';
-import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
-import { Championship } from '../models/entity/championship.entity';
-import { UpdateChampionshipDto } from '../models/dtos/update-championship.dto';
-import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
-import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { RegistrationTeamListDto } from 'src/registrations-team/models/dtos/registrations-team-list.dto';
-import { RegistrationSoloListDto } from 'src/registrations-solo/models/dtos/registrations-solo-list.dto';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiNoContentResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+  ApiUnauthorizedResponse
+} from '@nestjs/swagger';
+import { RolesGuard } from '../../common/guards/roles.guard';
+import { CreateChampionshipDto } from '../models/dtos/create-championship.dto';
+import { UpdateChampionshipDto } from '../models/dtos/update-championship.dto';
+import { Championship } from '../models/entity/championship.entity';
+import { ChampionshipCreateService } from '../use-cases/create-championship/create-championship.service';
+import { ChampionshipDeleteService } from '../use-cases/delete-championship/delete-championship-solo.service';
+import { ChampionshipFindService } from '../use-cases/find-championship/find-championship.service';
 import { ChampionshipFindRegistrationsService } from '../use-cases/find-registrations/find-registrations.service';
+import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
+import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
+import { UserRoles } from '../../common/enums/user-roles.enum';
+import { Roles } from '../../decorators/roles.decorator';
+import { RegistrationTeamListDto } from '../../registrations-team/models/dtos/registrations-team-list.dto';
+import { RegistrationSoloListDto } from '../../registrations-solo/models/dtos/registrations-solo-list.dto';
 
 @ApiTags('Championships')
 @ApiBearerAuth()

@@ -1,9 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
-import { RegistrationSoloFindService } from 'src/registrations-solo/use-cases/find-registration/find-registration.service';
-import { SportFindService } from 'src/sports/use-cases/find-sport/find-sport.service';
-import { Sport } from 'src/sports/models/entity/sport.entity';
 import { Championship } from '../models/entity/championship.entity';
 import { ChampionshipsController } from './championships.controller';
 import { ChampionshipDeleteService } from '../use-cases/delete-championship/delete-championship-solo.service';
@@ -11,11 +7,15 @@ import { ChampionshipFindService } from '../use-cases/find-championship/find-cha
 import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
 import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
 import { ChampionshipCreateService } from '../use-cases/create-championship/create-championship.service';
-import { ParticipantCreateService } from 'src/participant/use-cases/create-participant/create-participant.service';
-import { Participant } from 'src/participant/models/entity/participant.entity';
-import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity';
-import { RegistrationTeamFindService } from 'src/registrations-team/use-cases/find-registration/find-registration.service';
 import { ChampionshipFindRegistrationsService } from '../use-cases/find-registrations/find-registrations.service';
+import { ParticipantCreateService } from '../../participant/use-cases/create-participant/create-participant.service';
+import { RegistrationTeamFindService } from '../../registrations-team/use-cases/find-registration/find-registration.service';
+import { RegistrationTeam } from '../../registrations-team/models/entity/registration-team.entity';
+import { Participant } from '../../participant/models/entity/participant.entity';
+import { RegistrationSolo } from '../../registrations-solo/models/entity/registration.entity';
+import { Sport } from '../../sports/models/entity/sport.entity';
+import { RegistrationSoloFindService } from '../../registrations-solo/use-cases/find-registration/find-registration.service';
+import { SportFindService } from '../../sports/use-cases/find-sport/find-sport.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Sport, Participant]) ],

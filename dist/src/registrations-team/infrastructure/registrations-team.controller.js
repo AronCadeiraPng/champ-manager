@@ -42,7 +42,7 @@ exports.RegistrationsTeamController = RegistrationsTeamController;
 __decorate([
     (0, common_1.Get)('all'),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os registros de times' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Sucesso' }),
+    (0, swagger_1.ApiOkResponse)({ description: 'Sucesso' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -50,7 +50,7 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Deleta um registro de time pelo id' }),
-    (0, swagger_1.ApiResponse)({ status: 204, description: 'Deletado com sucesso!' }),
+    (0, swagger_1.ApiNoContentResponse)({ description: 'Deletado com sucesso!' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -60,6 +60,7 @@ __decorate([
     (0, common_1.Post)('new/:id'),
     (0, swagger_1.ApiOperation)({ summary: 'Cria um registro de time', description: 'No header é passado o id do Campeonato' }),
     (0, swagger_1.ApiCreatedResponse)({ description: 'Registrado com sucesso!' }),
+    (0, swagger_1.ApiBadRequestResponse)({ description: 'Credenciais inválidas' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),

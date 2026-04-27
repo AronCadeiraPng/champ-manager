@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Timestamp, Unique, UpdateDateColumn } from "typeorm";
 import { User } from "../../../users/models/entity/user.entity";
-import { Championship } from "src/championships/models/entity/championship.entity";
-import { Participant } from "src/participant/models/entity/participant.entity";
+import { Championship } from "../../../championships/models/entity/championship.entity";
+import { Participant } from "../../../participant/models/entity/participant.entity";
 
 @Entity('registrations-solo')
 @Unique(['userId', 'championshipId'])

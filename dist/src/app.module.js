@@ -24,6 +24,8 @@ const members_module_1 = require("./members/infrastructure/members.module");
 const registrations_team_module_1 = require("./registrations-team/infrastructure/registrations-team.module");
 const championship_entity_1 = require("./championships/models/entity/championship.entity");
 const participant_module_1 = require("./participant/infrastructure/participant.module");
+const matches_module_1 = require("./matches/infrastructure/matches.module");
+const phases_module_1 = require("./phases/infrastructure/phases.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -45,6 +47,8 @@ exports.AppModule = AppModule = __decorate([
             teams_module_1.TeamsModule,
             members_module_1.MembersModule,
             participant_module_1.ParticipantModule,
+            matches_module_1.MatchesModule,
+            phases_module_1.PhasesModule,
         ],
         controllers: [],
         providers: [

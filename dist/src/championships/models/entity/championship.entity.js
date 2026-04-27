@@ -18,6 +18,7 @@ const championship_status_enum_1 = require("../../../common/enums/championship-s
 const sport_entity_1 = require("../../../sports/models/entity/sport.entity");
 const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
 const registration_team_entity_1 = require("../../../registrations-team/models/entity/registration-team.entity");
+const phase_entity_1 = require("../../../phases/entity/phase.entity");
 let Championship = class Championship {
     id;
     name;
@@ -33,6 +34,7 @@ let Championship = class Championship {
     sport;
     registrationsSolo;
     registrationsTeam;
+    phases;
 };
 exports.Championship = Championship;
 __decorate([
@@ -92,6 +94,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => registration_team_entity_1.RegistrationTeam, (registrations) => registrations.championship),
     __metadata("design:type", Array)
 ], Championship.prototype, "registrationsTeam", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => phase_entity_1.Phase, (phase) => phase.championship),
+    __metadata("design:type", Array)
+], Championship.prototype, "phases", void 0);
 exports.Championship = Championship = __decorate([
     (0, typeorm_1.Entity)('championships')
 ], Championship);

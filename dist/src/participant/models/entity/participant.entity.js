@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Participant = void 0;
+const match_entity_1 = require("../../../matches/models/entity/match.entity");
 const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
 const registration_team_entity_1 = require("../../../registrations-team/models/entity/registration-team.entity");
 const typeorm_1 = require("typeorm");
@@ -20,6 +21,7 @@ let Participant = class Participant {
     points;
     registrationSolo;
     registrationTeam;
+    match;
 };
 exports.Participant = Participant;
 __decorate([
@@ -48,6 +50,11 @@ __decorate([
     (0, typeorm_1.JoinColumn)({ name: 'registration_team_id' }),
     __metadata("design:type", registration_team_entity_1.RegistrationTeam)
 ], Participant.prototype, "registrationTeam", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => match_entity_1.Match, (match) => match.participants, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({}),
+    __metadata("design:type", match_entity_1.Match)
+], Participant.prototype, "match", void 0);
 exports.Participant = Participant = __decorate([
     (0, typeorm_1.Entity)('participants')
 ], Participant);

@@ -18,6 +18,7 @@ import { StatusEnum } from "../../../common/enums/championship-status.enum";
 import { Sport } from "../../../sports/models/entity/sport.entity";
 import { RegistrationSolo } from "../../../registrations-solo/models/entity/registration.entity";
 import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
+import { Phase } from "src/phases/entity/phase.entity";
 
 
 @Entity('championships')
@@ -65,4 +66,7 @@ export class Championship {
 
     @OneToMany(() => RegistrationTeam, (registrations) => registrations.championship)
     registrationsTeam: RegistrationTeam[];
+
+    @OneToMany(() => Phase, (phase) => phase.championship)
+    phases: Phase[];
 }

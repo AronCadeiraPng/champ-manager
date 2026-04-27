@@ -22,7 +22,8 @@ import { ChampionshipFindService } from 'src/championships/use-cases/find-champi
   ],
   exports: [
     ParticipantModule,
-    ParticipantCreateService
+    ParticipantCreateService,
+    ParticipantFindService
   ]
   })
 export class ParticipantModule {}

@@ -9,10 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChampionshipModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const registration_entity_1 = require("../../registrations-solo/models/entity/registration.entity");
-const find_registration_service_1 = require("../../registrations-solo/use-cases/find-registration/find-registration.service");
-const find_sport_service_1 = require("../../sports/use-cases/find-sport/find-sport.service");
-const sport_entity_1 = require("../../sports/models/entity/sport.entity");
 const championship_entity_1 = require("../models/entity/championship.entity");
 const championships_controller_1 = require("./championships.controller");
 const delete_championship_solo_service_1 = require("../use-cases/delete-championship/delete-championship-solo.service");
@@ -20,11 +16,15 @@ const find_championship_service_1 = require("../use-cases/find-championship/find
 const update_championship_service_1 = require("../use-cases/update-championship/update-championship.service");
 const start_championship_service_1 = require("../use-cases/start-championship/start-championship.service");
 const create_championship_service_1 = require("../use-cases/create-championship/create-championship.service");
-const create_participant_service_1 = require("../../participant/use-cases/create-participant/create-participant.service");
-const participant_entity_1 = require("../../participant/models/entity/participant.entity");
-const registration_team_entity_1 = require("../../registrations-team/models/entity/registration-team.entity");
-const find_registration_service_2 = require("../../registrations-team/use-cases/find-registration/find-registration.service");
 const find_registrations_service_1 = require("../use-cases/find-registrations/find-registrations.service");
+const create_participant_service_1 = require("../../participant/use-cases/create-participant/create-participant.service");
+const find_registration_service_1 = require("../../registrations-team/use-cases/find-registration/find-registration.service");
+const registration_team_entity_1 = require("../../registrations-team/models/entity/registration-team.entity");
+const participant_entity_1 = require("../../participant/models/entity/participant.entity");
+const registration_entity_1 = require("../../registrations-solo/models/entity/registration.entity");
+const sport_entity_1 = require("../../sports/models/entity/sport.entity");
+const find_registration_service_2 = require("../../registrations-solo/use-cases/find-registration/find-registration.service");
+const find_sport_service_1 = require("../../sports/use-cases/find-sport/find-sport.service");
 let ChampionshipModule = class ChampionshipModule {
 };
 exports.ChampionshipModule = ChampionshipModule;
@@ -39,10 +39,10 @@ exports.ChampionshipModule = ChampionshipModule = __decorate([
             find_championship_service_1.ChampionshipFindService,
             update_championship_service_1.ChampionshipUpdateService,
             start_championship_service_1.ChampionshipStartService,
-            find_registration_service_1.RegistrationSoloFindService,
+            find_registration_service_2.RegistrationSoloFindService,
             find_sport_service_1.SportFindService,
             create_participant_service_1.ParticipantCreateService,
-            find_registration_service_2.RegistrationTeamFindService,
+            find_registration_service_1.RegistrationTeamFindService,
             find_registrations_service_1.ChampionshipFindRegistrationsService
         ],
         exports: [

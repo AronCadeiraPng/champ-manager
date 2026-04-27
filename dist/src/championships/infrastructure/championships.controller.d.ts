@@ -1,13 +1,12 @@
-import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
 import { CreateChampionshipDto } from '../models/dtos/create-championship.dto';
-import { ChampionshipCreateService } from '../use-cases/create-championship/create-championship.service';
-import { ChampionshipFindService } from '../use-cases/find-championship/find-championship.service';
-import { ChampionshipDeleteService } from '../use-cases/delete-championship/delete-championship-solo.service';
-import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
-import { Championship } from '../models/entity/championship.entity';
 import { UpdateChampionshipDto } from '../models/dtos/update-championship.dto';
-import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
+import { Championship } from '../models/entity/championship.entity';
+import { ChampionshipCreateService } from '../use-cases/create-championship/create-championship.service';
+import { ChampionshipDeleteService } from '../use-cases/delete-championship/delete-championship-solo.service';
+import { ChampionshipFindService } from '../use-cases/find-championship/find-championship.service';
 import { ChampionshipFindRegistrationsService } from '../use-cases/find-registrations/find-registrations.service';
+import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
+import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
 export declare class ChampionshipsController {
     private readonly championshipCreateService;
     private readonly championshipFindService;
@@ -19,7 +18,7 @@ export declare class ChampionshipsController {
     createChampionship(createChampionshipDto: CreateChampionshipDto): Promise<Championship>;
     getAllChampionships(): Promise<Championship[]>;
     findChampionshipById(id: string): Promise<Championship>;
-    getAllRegistrationsByChampionship(championshipId: string): Promise<RegistrationSolo[] | undefined>;
+    getAllRegistrationsByChampionship(championshipId: string): Promise<import("../../registrations-solo/models/entity/registration.entity").RegistrationSolo[] | undefined>;
     deleteChampionship(id: string): Promise<Championship>;
     updateChampionship(id: string, updateChampionshipDto: UpdateChampionshipDto): Promise<Championship>;
     convertRegistrations(championshipId: string): Promise<import("../../participant/models/entity/participant.entity").Participant[] | undefined>;

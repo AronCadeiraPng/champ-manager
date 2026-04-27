@@ -15,7 +15,9 @@ import { MembersModule } from './members/infrastructure/members.module';
 import { RegistrationsTeamModule } from './registrations-team/infrastructure/registrations-team.module';
 import { Championship } from './championships/models/entity/championship.entity';
 import { ParticipantModule } from './participant/infrastructure/participant.module';
-import { LoggerModule } from 'nestjs-pino';
+import { MatchesModule } from './matches/infrastructure/matches.module';
+import { PhasesModule } from './phases/infrastructure/phases.module';
+import { PlayersModule } from './players/players.module';
 
 @Module({
   imports: [
@@ -34,6 +36,9 @@ import { LoggerModule } from 'nestjs-pino';
     TeamsModule,
     MembersModule,
     ParticipantModule,
+    MatchesModule,
+    PhasesModule,
+    PlayersModule,
   ],
   controllers: [],
   providers: [

@@ -14,8 +14,8 @@ const auth_controller_1 = require("./auth.controller");
 const user_module_1 = require("../users/infrastructure/user.module");
 const jwt_strategy_1 = require("./strategies/jwt.strategy");
 const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("../users/models/entity/user.entity");
 const config_1 = require("@nestjs/config");
+const user_entity_1 = require("../users/models/entity/user.entity");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
