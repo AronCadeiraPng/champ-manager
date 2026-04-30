@@ -1,10 +1,12 @@
-import { Participant } from "src/participant/models/entity/participant.entity";
 import { Timestamp } from "typeorm";
+import { Phase } from "src/phases/entity/phase.entity";
+import { Player } from "src/players/models/entity/player.entity";
 export declare class Match {
     id: string;
-    name: string;
     winnerId?: string;
-    participants: Participant[];
+    phaseId: string;
+    players?: Player[];
+    phase?: Phase;
     createdAt: Timestamp;
     updatedAt: Timestamp;
 }

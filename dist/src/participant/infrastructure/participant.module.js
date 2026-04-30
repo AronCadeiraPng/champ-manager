@@ -34,7 +34,8 @@ exports.ParticipantModule = ParticipantModule = __decorate([
         ],
         exports: [
             ParticipantModule,
-            create_participant_service_1.ParticipantCreateService
+            create_participant_service_1.ParticipantCreateService,
+            find_participants_service_1.ParticipantFindService
         ]
     })
 ], ParticipantModule);

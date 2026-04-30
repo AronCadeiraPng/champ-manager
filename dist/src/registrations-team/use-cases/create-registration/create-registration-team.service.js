@@ -16,6 +16,7 @@ exports.RegistrationsTeamCreateService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const find_championship_service_1 = require("../../../championships/use-cases/find-championship/find-championship.service");
+const modality_enum_1 = require("../../../common/enums/modality.enum");
 const exceptions_1 = require("../../../common/exceptions");
 const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
 const registration_team_entity_1 = require("../../models/entity/registration-team.entity");
@@ -36,7 +37,7 @@ let RegistrationsTeamCreateService = class RegistrationsTeamCreateService {
     async execute(championshipId, createTeamDto) {
         const members = createTeamDto.membersId;
         const championship = await this.championshipFindService.findChampionshipById(championshipId);
-        if (championship.modality !== 'solo-game')
+        if (championship.modality !== modality_enum_1.ModalityEnum.TEAM)
             throw new bad_request_exception_1.BadRequestException('Torneio apenas para times', 400);
         await Promise.all(members.map(async (memberId) => {
             this.userFindService.findUserById(memberId);

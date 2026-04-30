@@ -10,14 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Match = void 0;
-const phase_name_enum_1 = require("../../../common/enums/phase-name.enum");
-const participant_entity_1 = require("../../../participant/models/entity/participant.entity");
 const typeorm_1 = require("typeorm");
+const phase_entity_1 = require("../../../phases/entity/phase.entity");
+const player_entity_1 = require("../../../players/models/entity/player.entity");
 let Match = class Match {
     id;
-    name;
     winnerId;
-    participants;
+    phaseId;
+    players;
+    phase;
     createdAt;
     updatedAt;
 };
@@ -27,17 +28,22 @@ __decorate([
     __metadata("design:type", String)
 ], Match.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ enum: phase_name_enum_1.PhaseName }),
-    __metadata("design:type", String)
-], Match.prototype, "name", void 0);
-__decorate([
     (0, typeorm_1.Column)({ type: 'varchar', name: 'winner_id', nullable: true }),
     __metadata("design:type", String)
 ], Match.prototype, "winnerId", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => participant_entity_1.Participant, (participant) => participant.match),
+    (0, typeorm_1.Column)({ type: 'varchar', name: 'phase_id' }),
+    __metadata("design:type", String)
+], Match.prototype, "phaseId", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => player_entity_1.Player, (player) => player.match, { nullable: true }),
     __metadata("design:type", Array)
-], Match.prototype, "participants", void 0);
+], Match.prototype, "players", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => phase_entity_1.Phase, (phase) => phase.matches, { nullable: true }),
+    (0, typeorm_1.JoinColumn)({ name: 'phase_id' }),
+    __metadata("design:type", phase_entity_1.Phase)
+], Match.prototype, "phase", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz', name: 'created_at' }),
     __metadata("design:type", typeorm_1.Timestamp)

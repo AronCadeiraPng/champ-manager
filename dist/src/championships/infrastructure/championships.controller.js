@@ -30,6 +30,8 @@ const user_roles_enum_1 = require("../../common/enums/user-roles.enum");
 const roles_decorator_1 = require("../../decorators/roles.decorator");
 const registrations_team_list_dto_1 = require("../../registrations-team/models/dtos/registrations-team-list.dto");
 const registrations_solo_list_dto_1 = require("../../registrations-solo/models/dtos/registrations-solo-list.dto");
+const create_phase_dto_1 = require("../../phases/dtos/create-phase.dto");
+const start_group_phase_service_1 = require("../use-cases/start-group-phase/start-group-phase.service");
 let ChampionshipsController = class ChampionshipsController {
     championshipCreateService;
     championshipFindService;
@@ -37,13 +39,15 @@ let ChampionshipsController = class ChampionshipsController {
     championshipUpdateService;
     championshipStartService;
     championshipRegistrationsFindService;
-    constructor(championshipCreateService, championshipFindService, championshipDeleteService, championshipUpdateService, championshipStartService, championshipRegistrationsFindService) {
+    startGroupPhaseService;
+    constructor(championshipCreateService, championshipFindService, championshipDeleteService, championshipUpdateService, championshipStartService, championshipRegistrationsFindService, startGroupPhaseService) {
         this.championshipCreateService = championshipCreateService;
         this.championshipFindService = championshipFindService;
         this.championshipDeleteService = championshipDeleteService;
         this.championshipUpdateService = championshipUpdateService;
         this.championshipStartService = championshipStartService;
         this.championshipRegistrationsFindService = championshipRegistrationsFindService;
+        this.startGroupPhaseService = startGroupPhaseService;
     }
     ;
     async createChampionship(createChampionshipDto) {
@@ -66,6 +70,9 @@ let ChampionshipsController = class ChampionshipsController {
     }
     async convertRegistrations(championshipId) {
         return this.championshipStartService.start(championshipId);
+    }
+    async startGroupPhase(createPhaseDto) {
+        return await this.startGroupPhaseService.execute(createPhaseDto);
     }
 };
 exports.ChampionshipsController = ChampionshipsController;
@@ -160,6 +167,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ChampionshipsController.prototype, "convertRegistrations", null);
+__decorate([
+    (0, common_1.Post)(':id/start/group'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_phase_dto_1.CreatePhaseDto]),
+    __metadata("design:returntype", Promise)
+], ChampionshipsController.prototype, "startGroupPhase", null);
 exports.ChampionshipsController = ChampionshipsController = __decorate([
     (0, swagger_1.ApiTags)('Championships'),
     (0, swagger_1.ApiBearerAuth)(),
@@ -170,6 +186,7 @@ exports.ChampionshipsController = ChampionshipsController = __decorate([
         delete_championship_solo_service_1.ChampionshipDeleteService,
         update_championship_service_1.ChampionshipUpdateService,
         start_championship_service_1.ChampionshipStartService,
-        find_registrations_service_1.ChampionshipFindRegistrationsService])
+        find_registrations_service_1.ChampionshipFindRegistrationsService,
+        start_group_phase_service_1.StartGroupPhaseService])
 ], ChampionshipsController);
 //# sourceMappingURL=championships.controller.js.map

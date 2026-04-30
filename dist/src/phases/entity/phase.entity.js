@@ -11,12 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Phase = void 0;
 const championship_entity_1 = require("../../championships/models/entity/championship.entity");
+const phase_name_enum_1 = require("../../common/enums/phase-name.enum");
+const phase_status_enum_1 = require("../../common/enums/phase-status.enum");
+const match_entity_1 = require("../../matches/models/entity/match.entity");
 const typeorm_1 = require("typeorm");
 let Phase = class Phase {
     id;
     name;
+    phaseStatus;
     championshipId;
     championship;
+    matches;
     createdAt;
     updatedAt;
 };
@@ -26,9 +31,13 @@ __decorate([
     __metadata("design:type", String)
 ], Phase.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar' }),
+    (0, typeorm_1.Column)({ enum: phase_name_enum_1.PhaseName, default: phase_name_enum_1.PhaseName.GROUP_FASE }),
     __metadata("design:type", String)
 ], Phase.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ enum: phase_status_enum_1.PhaseStatus, default: phase_status_enum_1.PhaseStatus.IN_PROGRESS }),
+    __metadata("design:type", String)
+], Phase.prototype, "phaseStatus", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar', name: 'championship_id' }),
     __metadata("design:type", String)
@@ -38,6 +47,10 @@ __decorate([
     (0, typeorm_1.JoinColumn)({ name: 'championship_id' }),
     __metadata("design:type", championship_entity_1.Championship)
 ], Phase.prototype, "championship", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => match_entity_1.Match, (match) => match.players, { nullable: true }),
+    __metadata("design:type", Array)
+], Phase.prototype, "matches", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz', name: 'created_at' }),
     __metadata("design:type", typeorm_1.Timestamp)

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ChampionshipFindService } from 'src/championships/use-cases/find-championship/find-championship.service';
+import { ModalityEnum } from 'src/common/enums/modality.enum';
 import { ConflictException, NotFoundException } from 'src/common/exceptions';
 import { BadRequestException } from 'src/common/exceptions/bad-request.exception';
 import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity';
@@ -22,7 +23,7 @@ export class RegistrationsTeamCreateService {
     const members = createTeamDto.membersId;
     const championship = await this.championshipFindService.findChampionshipById(championshipId);
 
-    if(championship.modality !== 'solo-game') throw new BadRequestException('Torneio apenas para times', 400);
+    if(championship.modality !== ModalityEnum.TEAM) throw new BadRequestException('Torneio apenas para times', 400);
 
     await Promise.all(
       members.map(async (memberId) => {

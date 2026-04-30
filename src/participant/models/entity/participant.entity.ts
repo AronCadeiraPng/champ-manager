@@ -1,8 +1,7 @@
-import { Match } from "src/matches/models/entity/match.entity";
 import { Player } from "src/players/models/entity/player.entity";
 import { RegistrationSolo } from "src/registrations-solo/models/entity/registration.entity";
 import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('participants')
 export class Participant {

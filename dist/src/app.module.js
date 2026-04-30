@@ -10,7 +10,6 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
 const user_module_1 = require("./users/infrastructure/user.module");
-const data_source_1 = require("../source/data-source");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./users/models/entity/user.entity");
 const auth_module_1 = require("./auth/auth.module");
@@ -26,6 +25,8 @@ const championship_entity_1 = require("./championships/models/entity/championshi
 const participant_module_1 = require("./participant/infrastructure/participant.module");
 const matches_module_1 = require("./matches/infrastructure/matches.module");
 const phases_module_1 = require("./phases/infrastructure/phases.module");
+const players_module_1 = require("./players/infrastructure/players.module");
+const data_source_module_1 = require("../source/data-source.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -35,7 +36,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true
             }),
-            data_source_1.DataModule,
+            data_source_module_1.DataModule,
             user_module_1.UserModule,
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]),
             auth_module_1.AuthModule,
@@ -49,6 +50,7 @@ exports.AppModule = AppModule = __decorate([
             participant_module_1.ParticipantModule,
             matches_module_1.MatchesModule,
             phases_module_1.PhasesModule,
+            players_module_1.PlayersModule,
         ],
         controllers: [],
         providers: [

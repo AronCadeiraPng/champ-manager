@@ -25,12 +25,24 @@ const registration_entity_1 = require("../../registrations-solo/models/entity/re
 const sport_entity_1 = require("../../sports/models/entity/sport.entity");
 const find_registration_service_2 = require("../../registrations-solo/use-cases/find-registration/find-registration.service");
 const find_sport_service_1 = require("../../sports/use-cases/find-sport/find-sport.service");
+const phase_entity_1 = require("../../phases/entity/phase.entity");
+const build_group_phase_service_1 = require("../../phases/use-cases/build-group-phase/build-group-phase.service");
+const start_group_phase_service_1 = require("../use-cases/start-group-phase/start-group-phase.service");
+const find_participants_service_1 = require("../../participant/use-cases/find-participants/find-participants.service");
+const pair_matches_service_1 = require("../../matches/use-cases/pair-matches/pair-matches.service");
+const match_entity_1 = require("../../matches/models/entity/match.entity");
+const shuffle_match_service_1 = require("../../matches/use-cases/shuffle-match/shuffle-match.service");
+const create_match_service_1 = require("../../matches/use-cases/create-match/create-match.service");
+const update_match_service_1 = require("../../matches/use-cases/update-match/update-match.service");
+const create_player_service_1 = require("../../players/use-cases/create-player/create-player.service");
+const find_match_service_1 = require("../../matches/use-cases/find-match/find-match.service");
+const player_entity_1 = require("../../players/models/entity/player.entity");
 let ChampionshipModule = class ChampionshipModule {
 };
 exports.ChampionshipModule = ChampionshipModule;
 exports.ChampionshipModule = ChampionshipModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship, registration_entity_1.RegistrationSolo, registration_team_entity_1.RegistrationTeam, sport_entity_1.Sport, participant_entity_1.Participant])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship, registration_entity_1.RegistrationSolo, registration_team_entity_1.RegistrationTeam, match_entity_1.Match, player_entity_1.Player, sport_entity_1.Sport, participant_entity_1.Participant, phase_entity_1.Phase])],
         controllers: [championships_controller_1.ChampionshipsController],
         providers: [
             championship_entity_1.Championship,
@@ -43,7 +55,12 @@ exports.ChampionshipModule = ChampionshipModule = __decorate([
             find_sport_service_1.SportFindService,
             create_participant_service_1.ParticipantCreateService,
             find_registration_service_1.RegistrationTeamFindService,
-            find_registrations_service_1.ChampionshipFindRegistrationsService
+            find_registrations_service_1.ChampionshipFindRegistrationsService,
+            build_group_phase_service_1.BuildGroupPhaseService,
+            start_group_phase_service_1.StartGroupPhaseService,
+            find_participants_service_1.ParticipantFindService,
+            pair_matches_service_1.MatchPairService,
+            shuffle_match_service_1.MatchShuffleService, create_match_service_1.MatchCreateService, update_match_service_1.MatchUpdateService, create_player_service_1.PlayerCreateService, find_match_service_1.MatchFindService
         ],
         exports: [
             delete_championship_solo_service_1.ChampionshipDeleteService,

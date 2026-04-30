@@ -1,7 +1,5 @@
-import { PhaseName } from "src/common/enums/phase-name.enum";
+import { Player } from "src/players/models/entity/player.entity";
 export declare class CreateMatchDto {
-    name: PhaseName;
-    participants: {
-        id: string;
-    }[];
+    phaseId?: string;
+    players?: Player[];
 }

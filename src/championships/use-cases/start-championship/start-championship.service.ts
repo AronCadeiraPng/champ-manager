@@ -3,6 +3,7 @@ import { ParticipantCreateService } from "src/participant/use-cases/create-parti
 import { RegistrationSoloFindService } from "src/registrations-solo/use-cases/find-registration/find-registration.service";
 import { ChampionshipFindService } from "../find-championship/find-championship.service";
 import { RegistrationTeamFindService } from "src/registrations-team/use-cases/find-registration/find-registration.service";
+import { ModalityEnum } from "src/common/enums/modality.enum";
 
 @Injectable()
 export class ChampionshipStartService {
@@ -18,11 +19,12 @@ export class ChampionshipStartService {
         const championship = await this.championshipFindService.findChampionshipById(championshipId)
         const registrations = await this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
 
-        if (championship.modality == 'solo-game') {
+        if (championship.modality == ModalityEnum.SOLO) {
             console.log('é solo')
             const participants = await Promise.all(
                 registrations.map(async (registration) => {
                     const participantDto = {
+                        registrationSolo: registration,
                         registrationUserId: registration.id,
                     }
                     const participant = await this.participantCreateService.createParticipant(championshipId, participantDto);
@@ -30,10 +32,11 @@ export class ChampionshipStartService {
                 }
                 )
             )
+
             return participants;
         }
 
-        if (championship.modality == 'team-game') {
+        if (championship.modality == ModalityEnum.TEAM) {
             console.log('é time')
             const registrations = await this.registrationTeamFindService.findRegistrationsByChampionship(championshipId);
             const participants = await Promise.all(

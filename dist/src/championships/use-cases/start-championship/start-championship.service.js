@@ -15,6 +15,7 @@ const create_participant_service_1 = require("../../../participant/use-cases/cre
 const find_registration_service_1 = require("../../../registrations-solo/use-cases/find-registration/find-registration.service");
 const find_championship_service_1 = require("../find-championship/find-championship.service");
 const find_registration_service_2 = require("../../../registrations-team/use-cases/find-registration/find-registration.service");
+const modality_enum_1 = require("../../../common/enums/modality.enum");
 let ChampionshipStartService = class ChampionshipStartService {
     participantCreateService;
     registrationSoloFindService;
@@ -29,10 +30,11 @@ let ChampionshipStartService = class ChampionshipStartService {
     async start(championshipId) {
         const championship = await this.championshipFindService.findChampionshipById(championshipId);
         const registrations = await this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
-        if (championship.modality == 'solo-game') {
+        if (championship.modality == modality_enum_1.ModalityEnum.SOLO) {
             console.log('é solo');
             const participants = await Promise.all(registrations.map(async (registration) => {
                 const participantDto = {
+                    registrationSolo: registration,
                     registrationUserId: registration.id,
                 };
                 const participant = await this.participantCreateService.createParticipant(championshipId, participantDto);
@@ -40,7 +42,7 @@ let ChampionshipStartService = class ChampionshipStartService {
             }));
             return participants;
         }
-        if (championship.modality == 'team-game') {
+        if (championship.modality == modality_enum_1.ModalityEnum.TEAM) {
             console.log('é time');
             const registrations = await this.registrationTeamFindService.findRegistrationsByChampionship(championshipId);
             const participants = await Promise.all(registrations.map(async (registration) => {

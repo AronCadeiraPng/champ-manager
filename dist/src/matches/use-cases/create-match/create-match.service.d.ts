@@ -4,5 +4,5 @@ import { Repository } from "typeorm";
 export declare class MatchCreateService {
     private readonly matchRepository;
     constructor(matchRepository: Repository<Match>);
-    execute(phaseId: string, createMatchDto: CreateMatchDto): Promise<CreateMatchDto>;
+    execute(createMatchDto: CreateMatchDto): Promise<CreateMatchDto & Match>;
 }

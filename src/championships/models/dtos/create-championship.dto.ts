@@ -20,7 +20,7 @@ export class CreateChampionshipDto {
     @IsNotEmpty()
     gender: GenderEnum;
 
-    @ApiProperty({ example: 'solo-game', description: 'Modo do torneio (dupla ou sozinho)' })
+    @ApiProperty({ example: 'solo_game', description: 'Modo do torneio (dupla ou sozinho)' })
     @IsString()
     @IsNotEmpty()
     modality: ModalityEnum;
@@ -34,7 +34,7 @@ export class CreateChampionshipDto {
     @IsDateString()
     registrationEnd: string;
 
-    @ApiProperty({ example: 'in-progress', description: 'Status do torneio' })
+    @ApiProperty({ example: 'in_progress', description: 'Status do torneio' })
     @IsString()
     @IsNotEmpty()
     status: StatusEnum;

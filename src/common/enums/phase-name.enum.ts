@@ -1,7 +1,7 @@
 export enum PhaseName {
-    GROUP_FASE = 'group_fase',
+    GROUP_FASE = 'group-fase',
     OCTAVE = 'octave',
     QUARTER = 'quarter',
-    SEMI = 'semi_final',
+    SEMI = 'semi-final',
     FINAL = 'final'
 }

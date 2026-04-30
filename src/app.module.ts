@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UserModule } from './users/infrastructure/user.module';
-import { DataModule } from 'source/data-source';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/models/entity/user.entity';
 import { AuthModule } from './auth/auth.module';
@@ -17,7 +16,8 @@ import { Championship } from './championships/models/entity/championship.entity'
 import { ParticipantModule } from './participant/infrastructure/participant.module';
 import { MatchesModule } from './matches/infrastructure/matches.module';
 import { PhasesModule } from './phases/infrastructure/phases.module';
-import { PlayersModule } from './players/players.module';
+import { PlayersModule } from './players/infrastructure/players.module';
+import { DataModule } from 'source/data-source.module';
 
 @Module({
   imports: [

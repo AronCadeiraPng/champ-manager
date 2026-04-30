@@ -12,24 +12,39 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PhaseCreateService = void 0;
+exports.MatchFindService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const phase_entity_1 = require("../entity/phase.entity");
+const exceptions_1 = require("../../../common/exceptions");
+const match_entity_1 = require("../../models/entity/match.entity");
 const typeorm_2 = require("typeorm");
-let PhaseCreateService = class PhaseCreateService {
-    phaseRepository;
-    constructor(phaseRepository) {
-        this.phaseRepository = phaseRepository;
+let MatchFindService = class MatchFindService {
+    matchRepository;
+    constructor(matchRepository) {
+        this.matchRepository = matchRepository;
     }
-    async execute(createPhaseDto) {
-        return await this.phaseRepository.save(createPhaseDto);
+    async ById(id) {
+        const match = await this.matchRepository.findOne({
+            where: {
+                id: id
+            }
+        });
+        if (!match)
+            throw new exceptions_1.NotFoundException('Partida', id);
+        return match;
+    }
+    async All() {
+        return await this.matchRepository.find({
+            relations: {
+                players: true
+            }
+        });
     }
 };
-exports.PhaseCreateService = PhaseCreateService;
-exports.PhaseCreateService = PhaseCreateService = __decorate([
+exports.MatchFindService = MatchFindService;
+exports.MatchFindService = MatchFindService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(phase_entity_1.Phase)),
+    __param(0, (0, typeorm_1.InjectRepository)(match_entity_1.Match)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], PhaseCreateService);
-//# sourceMappingURL=create-phase.service.js.map
+], MatchFindService);
+//# sourceMappingURL=find-match.service.js.map

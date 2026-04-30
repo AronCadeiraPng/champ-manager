@@ -12,18 +12,33 @@ const matches_controller_1 = require("./matches.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const match_entity_1 = require("../models/entity/match.entity");
 const create_match_service_1 = require("../use-cases/create-match/create-match.service");
+const shuffle_match_service_1 = require("../use-cases/shuffle-match/shuffle-match.service");
+const pair_matches_service_1 = require("../use-cases/pair-matches/pair-matches.service");
+const player_entity_1 = require("../../players/models/entity/player.entity");
+const create_player_service_1 = require("../../players/use-cases/create-player/create-player.service");
+const find_match_service_1 = require("../use-cases/find-match/find-match.service");
+const update_match_service_1 = require("../use-cases/update-match/update-match.service");
 let MatchesModule = class MatchesModule {
 };
 exports.MatchesModule = MatchesModule;
 exports.MatchesModule = MatchesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([match_entity_1.Match])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([match_entity_1.Match, player_entity_1.Player])],
         controllers: [matches_controller_1.MatchesController],
         providers: [
-            create_match_service_1.MatchCreateService
+            create_match_service_1.MatchCreateService,
+            shuffle_match_service_1.MatchShuffleService,
+            pair_matches_service_1.MatchPairService,
+            create_player_service_1.PlayerCreateService,
+            find_match_service_1.MatchFindService,
+            update_match_service_1.MatchUpdateService
         ],
         exports: [
-            create_match_service_1.MatchCreateService
+            create_match_service_1.MatchCreateService,
+            shuffle_match_service_1.MatchShuffleService,
+            pair_matches_service_1.MatchPairService,
+            find_match_service_1.MatchFindService,
+            update_match_service_1.MatchUpdateService
         ]
     })
 ], MatchesModule);

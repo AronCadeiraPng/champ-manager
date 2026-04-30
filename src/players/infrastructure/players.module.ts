@@ -14,7 +14,7 @@ import { PlayerFindService } from '../use-cases/find-player/find-player.service'
   ],
   exports: [
     PlayerCreateService,
-    PlayerFindService
+    PlayerFindService 
   ]
 })
 export class PlayersModule {}

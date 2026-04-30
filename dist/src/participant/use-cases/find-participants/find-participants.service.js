@@ -46,7 +46,11 @@ let ParticipantFindService = class ParticipantFindService {
         return participants;
     }
     async findAllParticipants() {
-        return await this.participantRepository.find();
+        return await this.participantRepository.find({
+            relations: {
+                registrationSolo: true
+            }
+        });
     }
 };
 exports.ParticipantFindService = ParticipantFindService;

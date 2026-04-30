@@ -22,7 +22,7 @@ export class PlayerFindService {
         return player;
     }
 
-    async all(): Promise<Player[]> {
+    async All(): Promise<Player[]> {
         return await this.playerRepository.find();
     }
 

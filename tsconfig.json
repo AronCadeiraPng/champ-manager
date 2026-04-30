@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "ignoreDeprecations": true,
     "strictPropertyInitialization": false,
     "module": "nodenext",
     "moduleResolution": "nodenext",

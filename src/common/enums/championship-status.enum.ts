@@ -1,7 +1,7 @@
 export enum StatusEnum {
     CANCELED = 'canceled',
-    REGISTRATION_START = 'registration_start',
-    REGISTRATION_END = 'registration_end',
+    REGISTRATION_START = 'registration-start',
+    REGISTRATION_END = 'registration-end',
     FINISHED = 'finished', 
     INPROGRESS = 'in-progress'
 }

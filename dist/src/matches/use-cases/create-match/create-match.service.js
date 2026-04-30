@@ -22,8 +22,10 @@ let MatchCreateService = class MatchCreateService {
     constructor(matchRepository) {
         this.matchRepository = matchRepository;
     }
-    async execute(phaseId, createMatchDto) {
-        return this.matchRepository.save(createMatchDto);
+    async execute(createMatchDto) {
+        const match = await this.matchRepository.save(createMatchDto);
+        console.log('match criada');
+        return match;
     }
 };
 exports.MatchCreateService = MatchCreateService;

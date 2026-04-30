@@ -16,13 +16,19 @@ exports.MatchesController = void 0;
 const common_1 = require("@nestjs/common");
 const create_match_service_1 = require("../use-cases/create-match/create-match.service");
 const create_match_dto_1 = require("../models/dtos/create-match.dto");
+const find_match_service_1 = require("../use-cases/find-match/find-match.service");
 let MatchesController = class MatchesController {
     matchCreateService;
-    constructor(matchCreateService) {
+    matchFindService;
+    constructor(matchCreateService, matchFindService) {
         this.matchCreateService = matchCreateService;
+        this.matchFindService = matchFindService;
     }
     async createMatch(phaseId, createMatchDto) {
-        return this.matchCreateService.execute(phaseId, createMatchDto);
+        return this.matchCreateService.execute(createMatchDto);
+    }
+    async findAllMatches() {
+        return await this.matchFindService.All();
     }
 };
 exports.MatchesController = MatchesController;
@@ -34,8 +40,15 @@ __decorate([
     __metadata("design:paramtypes", [String, create_match_dto_1.CreateMatchDto]),
     __metadata("design:returntype", Promise)
 ], MatchesController.prototype, "createMatch", null);
+__decorate([
+    (0, common_1.Get)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], MatchesController.prototype, "findAllMatches", null);
 exports.MatchesController = MatchesController = __decorate([
     (0, common_1.Controller)('matches'),
-    __metadata("design:paramtypes", [create_match_service_1.MatchCreateService])
+    __metadata("design:paramtypes", [create_match_service_1.MatchCreateService,
+        find_match_service_1.MatchFindService])
 ], MatchesController);
 //# sourceMappingURL=matches.controller.js.map

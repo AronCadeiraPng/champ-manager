@@ -21,6 +21,7 @@ const bad_request_exception_1 = require("../../../common/exceptions/bad-request.
 const find_user_service_1 = require("../../../users/use-cases/find-user/find-user.service");
 const registration_entity_1 = require("../../models/entity/registration.entity");
 const find_championship_service_1 = require("../../../championships/use-cases/find-championship/find-championship.service");
+const modality_enum_1 = require("../../../common/enums/modality.enum");
 let RegistrationSoloCreateService = RegistrationSoloCreateService_1 = class RegistrationSoloCreateService {
     registrationSoloRepository;
     userFindService;
@@ -35,7 +36,7 @@ let RegistrationSoloCreateService = RegistrationSoloCreateService_1 = class Regi
         this.logger.log('Criando usuário...');
         const user = await this.userFindService.findUserById(createRegistrationDto.userId);
         const championship = await this.championshipFindService.findChampionshipById(createRegistrationDto.championshipId);
-        if (championship.modality !== 'solo-game')
+        if (championship.modality !== modality_enum_1.ModalityEnum.SOLO)
             throw new bad_request_exception_1.BadRequestException('Torneio apenas para um jogador', 400);
         const alreadyRegistered = await this.registrationSoloRepository.findOne({
             where: {

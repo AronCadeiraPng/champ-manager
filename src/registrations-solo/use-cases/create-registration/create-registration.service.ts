@@ -6,6 +6,7 @@ import { UserFindService } from 'src/users/use-cases/find-user/find-user.service
 import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
 import { CreateRegistrationSoloDto } from 'src/registrations-solo/models/dtos/create-registration.dto';
 import { ChampionshipFindService } from 'src/championships/use-cases/find-championship/find-championship.service';
+import { ModalityEnum } from 'src/common/enums/modality.enum';
 
 @Injectable()
 export class RegistrationSoloCreateService {
@@ -22,7 +23,7 @@ export class RegistrationSoloCreateService {
     const user = await this.userFindService.findUserById(createRegistrationDto.userId);
     const championship = await this.championshipFindService.findChampionshipById(createRegistrationDto.championshipId);
     
-    if(championship.modality !== 'solo-game') throw new BadRequestException('Torneio apenas para um jogador', 400);
+    if(championship.modality !== ModalityEnum.SOLO) throw new BadRequestException('Torneio apenas para um jogador', 400);
 
     const alreadyRegistered = await this.registrationSoloRepository.findOne({
       where: {

@@ -11,6 +11,6 @@ export class PlayerCreateService {
     ) {}
 
     async execute(createPlayerDto: CreatePlayerDto): Promise<Player> {
-        return this.playerRepository.save(createPlayerDto)
+        return this.playerRepository.save(createPlayerDto);
     }
 }

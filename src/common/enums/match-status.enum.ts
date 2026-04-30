@@ -1,5 +1,5 @@
 export enum MatchStatusEnum {
     PENDING = 'pending',
-    ONGOING = 'in_progress',
+    ONGOING = 'in-progress',
     FINISHED = 'finished'
 }

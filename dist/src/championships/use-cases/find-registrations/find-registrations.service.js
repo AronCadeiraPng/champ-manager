@@ -15,6 +15,7 @@ const find_registration_service_1 = require("../../../registrations-solo/use-cas
 const find_registration_service_2 = require("../../../registrations-team/use-cases/find-registration/find-registration.service");
 const find_championship_service_1 = require("../find-championship/find-championship.service");
 const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
+const modality_enum_1 = require("../../../common/enums/modality.enum");
 let ChampionshipFindRegistrationsService = class ChampionshipFindRegistrationsService {
     championshipFindService;
     registrationSoloFindService;
@@ -26,13 +27,13 @@ let ChampionshipFindRegistrationsService = class ChampionshipFindRegistrationsSe
     }
     async findRegistrations(championshipId) {
         const championship = await this.championshipFindService.findChampionshipById(championshipId);
-        if (championship.modality == 'solo-game') {
+        if (championship.modality == modality_enum_1.ModalityEnum.SOLO) {
             const registrations = await this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
             if (registrations.length < 1)
                 throw new bad_request_exception_1.BadRequestException('Nenhum registro encontrado.', 204);
             return registrations;
         }
-        if (championship.modality == 'team-game') {
+        if (championship.modality == modality_enum_1.ModalityEnum.TEAM) {
             const registrations = await this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
             if (registrations.length < 1)
                 throw new bad_request_exception_1.BadRequestException('Nenhum registro encontrado.', 204);

@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateChampionshipDto.prototype, "gender", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'solo-game', description: 'Modo do torneio (dupla ou sozinho)' }),
+    (0, swagger_1.ApiProperty)({ example: 'solo_game', description: 'Modo do torneio (dupla ou sozinho)' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
@@ -61,7 +61,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateChampionshipDto.prototype, "registrationEnd", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'in-progress', description: 'Status do torneio' }),
+    (0, swagger_1.ApiProperty)({ example: 'in_progress', description: 'Status do torneio' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)

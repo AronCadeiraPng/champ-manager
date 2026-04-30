@@ -1,11 +1,13 @@
-import { IsArray, IsEnum, IsString } from "class-validator";
-import { PhaseName } from "src/common/enums/phase-name.enum";
+import { IsArray, IsEnum, IsOptional, IsString } from "class-validator";
+import { Player } from "src/players/models/entity/player.entity";
 
 export class CreateMatchDto {
-    @IsEnum(PhaseName)
-    name: PhaseName;
+    @IsOptional()
+    @IsString()
+    phaseId?: string;
 
+    @IsOptional()
     @IsArray()
     @IsString({ each: true })
-    players: { id: string }[];
+    players?: Player[];
 }

@@ -12,12 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePhaseDto = void 0;
 const class_validator_1 = require("class-validator");
 const phase_name_enum_1 = require("../../common/enums/phase-name.enum");
+const phase_status_enum_1 = require("../../common/enums/phase-status.enum");
 class CreatePhaseDto {
     name;
     championshipId;
+    phaseStatus;
 }
 exports.CreatePhaseDto = CreatePhaseDto;
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEnum)(phase_name_enum_1.PhaseName),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -27,4 +30,10 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreatePhaseDto.prototype, "championshipId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsEnum)(phase_status_enum_1.PhaseStatus),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePhaseDto.prototype, "phaseStatus", void 0);
 //# sourceMappingURL=create-phase.dto.js.map

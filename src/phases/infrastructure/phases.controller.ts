@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PhaseCreateService } from '../use-cases/create-phase.service';
 import { Phase } from '../entity/phase.entity';
 import { CreatePhaseDto } from '../dtos/create-phase.dto';
+import { PhaseCreateService } from '../use-cases/create-phase/create-phase.service';
 
 @Controller('phases')
 export class PhasesController {

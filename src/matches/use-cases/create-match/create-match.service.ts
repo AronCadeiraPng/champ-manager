@@ -7,10 +7,13 @@ import { Repository } from "typeorm";
 @Injectable()
 export class MatchCreateService {
     constructor(
-        @InjectRepository(Match) private readonly matchRepository: Repository<Match>
-    ) {}
+        @InjectRepository(Match) private readonly matchRepository: Repository<Match>,
+    ) { }
 
-    async execute(phaseId: string, createMatchDto: CreateMatchDto): Promise<CreateMatchDto> {
-        return this.matchRepository.save(createMatchDto)
+    async execute(createMatchDto: CreateMatchDto) {
+        const match = await this.matchRepository.save(createMatchDto);
+        console.log('match criada');
+
+        return match;
     }
 }

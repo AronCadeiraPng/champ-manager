@@ -16,9 +16,21 @@ import { RegistrationSolo } from '../../registrations-solo/models/entity/registr
 import { Sport } from '../../sports/models/entity/sport.entity';
 import { RegistrationSoloFindService } from '../../registrations-solo/use-cases/find-registration/find-registration.service';
 import { SportFindService } from '../../sports/use-cases/find-sport/find-sport.service';
+import { Phase } from 'src/phases/entity/phase.entity';
+import { BuildGroupPhaseService } from 'src/phases/use-cases/build-group-phase/build-group-phase.service';
+import { StartGroupPhaseService } from '../use-cases/start-group-phase/start-group-phase.service';
+import { ParticipantFindService } from 'src/participant/use-cases/find-participants/find-participants.service';
+import { MatchPairService } from 'src/matches/use-cases/pair-matches/pair-matches.service';
+import { Match } from 'src/matches/models/entity/match.entity';
+import { MatchShuffleService } from 'src/matches/use-cases/shuffle-match/shuffle-match.service';
+import { MatchCreateService } from 'src/matches/use-cases/create-match/create-match.service';
+import { MatchUpdateService } from 'src/matches/use-cases/update-match/update-match.service';
+import { PlayerCreateService } from 'src/players/use-cases/create-player/create-player.service';
+import { MatchFindService } from 'src/matches/use-cases/find-match/find-match.service';
+import { Player } from 'src/players/models/entity/player.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Sport, Participant]) ],
+  imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Match, Player, Sport, Participant, Phase]) ],
   controllers: [ChampionshipsController],
   providers: [
     Championship,
@@ -31,7 +43,12 @@ import { SportFindService } from '../../sports/use-cases/find-sport/find-sport.s
     SportFindService,
     ParticipantCreateService,
     RegistrationTeamFindService,
-    ChampionshipFindRegistrationsService
+    ChampionshipFindRegistrationsService,
+    BuildGroupPhaseService,
+    StartGroupPhaseService,
+    ParticipantFindService,
+    MatchPairService,
+    MatchShuffleService,MatchCreateService, MatchUpdateService, PlayerCreateService, MatchFindService
   ],
   exports: [    
     ChampionshipDeleteService,

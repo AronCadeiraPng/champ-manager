@@ -11,19 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMatchDto = void 0;
 const class_validator_1 = require("class-validator");
-const phase_name_enum_1 = require("../../../common/enums/phase-name.enum");
 class CreateMatchDto {
-    name;
-    participants;
+    phaseId;
+    players;
 }
 exports.CreateMatchDto = CreateMatchDto;
 __decorate([
-    (0, class_validator_1.IsEnum)(phase_name_enum_1.PhaseName),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateMatchDto.prototype, "name", void 0);
+], CreateMatchDto.prototype, "phaseId", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.IsString)({ each: true }),
     __metadata("design:type", Array)
-], CreateMatchDto.prototype, "participants", void 0);
+], CreateMatchDto.prototype, "players", void 0);
 //# sourceMappingURL=create-match.dto.js.map

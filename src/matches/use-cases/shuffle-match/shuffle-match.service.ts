@@ -1,16 +1,19 @@
 import { Injectable } from "@nestjs/common";
+import { Participant } from "src/participant/models/entity/participant.entity";
 
 @Injectable()
 export class MatchShuffleService {
     constructor(){}
 
-    async execute(participants: string[]) {
-        const players = [...participants];
+    async execute(participants: Participant[]) {
+        const players = participants;
         
         for (let i = players.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [players[i], players[j]] = [players[j], players[i]];
         }
+        
+        console.log('player 1 sjufled:' + players[1])
         return players;
     }
 }

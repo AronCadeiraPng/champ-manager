@@ -27,6 +27,9 @@ import { UserRoles } from '../../common/enums/user-roles.enum';
 import { Roles } from '../../decorators/roles.decorator';
 import { RegistrationTeamListDto } from '../../registrations-team/models/dtos/registrations-team-list.dto';
 import { RegistrationSoloListDto } from '../../registrations-solo/models/dtos/registrations-solo-list.dto';
+import { CreatePhaseDto } from 'src/phases/dtos/create-phase.dto';
+import { Phase } from 'src/phases/entity/phase.entity';
+import { StartGroupPhaseService } from '../use-cases/start-group-phase/start-group-phase.service';
 
 @ApiTags('Championships')
 @ApiBearerAuth()
@@ -39,7 +42,8 @@ export class ChampionshipsController {
     private readonly championshipDeleteService: ChampionshipDeleteService,
     private readonly championshipUpdateService: ChampionshipUpdateService,
     private readonly championshipStartService: ChampionshipStartService,
-    private readonly championshipRegistrationsFindService: ChampionshipFindRegistrationsService
+    private readonly championshipRegistrationsFindService: ChampionshipFindRegistrationsService,
+    private readonly startGroupPhaseService: StartGroupPhaseService
 
   ) {};
 
@@ -145,5 +149,15 @@ export class ChampionshipsController {
   )
   {
     return this.championshipStartService.start(championshipId);
+  }
+
+  @Post(':id/start/group')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  async startGroupPhase(
+    @Body() createPhaseDto: CreatePhaseDto
+  ): Promise<Phase>
+  {
+    return await this.startGroupPhaseService.execute(createPhaseDto);
   }
 }

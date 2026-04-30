@@ -36,8 +36,11 @@ export class ParticipantFindService {
         return participants;
     }
 
-
     async findAllParticipants(): Promise<Participant[]> {
-        return await this.participantRepository.find();
+        return await this.participantRepository.find({
+            relations: {
+                registrationSolo: true
+            }
+        });
     }
 }

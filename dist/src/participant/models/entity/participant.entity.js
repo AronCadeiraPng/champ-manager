@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Participant = void 0;
-const match_entity_1 = require("../../../matches/models/entity/match.entity");
+const player_entity_1 = require("../../../players/models/entity/player.entity");
 const registration_entity_1 = require("../../../registrations-solo/models/entity/registration.entity");
 const registration_team_entity_1 = require("../../../registrations-team/models/entity/registration-team.entity");
 const typeorm_1 = require("typeorm");
@@ -18,10 +18,9 @@ let Participant = class Participant {
     id;
     registrationUserId;
     registrationTeamId;
-    points;
     registrationSolo;
     registrationTeam;
-    match;
+    player;
 };
 exports.Participant = Participant;
 __decorate([
@@ -37,10 +36,6 @@ __decorate([
     __metadata("design:type", String)
 ], Participant.prototype, "registrationTeamId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'points', type: 'integer', nullable: true }),
-    __metadata("design:type", Number)
-], Participant.prototype, "points", void 0);
-__decorate([
     (0, typeorm_1.OneToOne)(() => registration_entity_1.RegistrationSolo, { nullable: true }),
     (0, typeorm_1.JoinColumn)({ name: 'registration_user_id' }),
     __metadata("design:type", registration_entity_1.RegistrationSolo)
@@ -51,10 +46,9 @@ __decorate([
     __metadata("design:type", registration_team_entity_1.RegistrationTeam)
 ], Participant.prototype, "registrationTeam", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => match_entity_1.Match, (match) => match.participants, { nullable: true }),
-    (0, typeorm_1.JoinColumn)({}),
-    __metadata("design:type", match_entity_1.Match)
-], Participant.prototype, "match", void 0);
+    (0, typeorm_1.OneToMany)(() => player_entity_1.Player, (player) => player.participant, { nullable: true }),
+    __metadata("design:type", player_entity_1.Player)
+], Participant.prototype, "player", void 0);
 exports.Participant = Participant = __decorate([
     (0, typeorm_1.Entity)('participants')
 ], Participant);
