@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { RegistrationSolo } from "src/registrations-solo/models/entity/registration.entity";
 import { RegistrationSoloFindService } from "src/registrations-solo/use-cases/find-registration/find-registration.service";
 import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
 import { RegistrationTeamFindService } from "src/registrations-team/use-cases/find-registration/find-registration.service";

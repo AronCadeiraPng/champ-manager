@@ -33,6 +33,18 @@ let MatchFindService = class MatchFindService {
             throw new exceptions_1.NotFoundException('Partida', id);
         return match;
     }
+    async ByChampionship(championshipId) {
+        const match = await this.matchRepository.findOne({
+            where: {
+                phase: {
+                    championshipId: championshipId
+                }
+            }
+        });
+        if (!match)
+            throw new exceptions_1.NotFoundException('Partida', `id do campeonato: ${championshipId}`);
+        return match;
+    }
     async All() {
         return await this.matchRepository.find({
             relations: {
