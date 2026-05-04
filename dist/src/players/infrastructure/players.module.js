@@ -13,6 +13,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const player_entity_1 = require("../models/entity/player.entity");
 const create_player_service_1 = require("../use-cases/create-player/create-player.service");
 const find_player_service_1 = require("../use-cases/find-player/find-player.service");
+const update_player_service_1 = require("../use-cases/update-player/update-player.service");
 let PlayersModule = class PlayersModule {
 };
 exports.PlayersModule = PlayersModule;
@@ -22,11 +23,13 @@ exports.PlayersModule = PlayersModule = __decorate([
         controllers: [players_controller_1.PlayersController],
         providers: [
             create_player_service_1.PlayerCreateService,
-            find_player_service_1.PlayerFindService
+            find_player_service_1.PlayerFindService,
+            update_player_service_1.PlayerUpdateService
         ],
         exports: [
             create_player_service_1.PlayerCreateService,
-            find_player_service_1.PlayerFindService
+            find_player_service_1.PlayerFindService,
+            update_player_service_1.PlayerUpdateService
         ]
     })
 ], PlayersModule);

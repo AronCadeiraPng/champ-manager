@@ -6,7 +6,7 @@ import { Repository } from "typeorm";
 export declare class BuildGroupPhaseService {
     private readonly phaseRepository;
     private readonly participantFindService;
-    private readonly pairMatchService;
-    constructor(phaseRepository: Repository<Phase>, participantFindService: ParticipantFindService, pairMatchService: MatchPairService);
+    private readonly matchPairService;
+    constructor(phaseRepository: Repository<Phase>, participantFindService: ParticipantFindService, matchPairService: MatchPairService);
     execute(createPhaseDto: CreatePhaseDto): Promise<CreatePhaseDto & Phase>;
 }

@@ -12,7 +12,6 @@ export class MatchCreateService {
 
     async execute(createMatchDto: CreateMatchDto) {
         const match = await this.matchRepository.save(createMatchDto);
-        console.log('match criada');
 
         return match;
     }

@@ -22,16 +22,16 @@ const typeorm_2 = require("typeorm");
 let BuildGroupPhaseService = class BuildGroupPhaseService {
     phaseRepository;
     participantFindService;
-    pairMatchService;
-    constructor(phaseRepository, participantFindService, pairMatchService) {
+    matchPairService;
+    constructor(phaseRepository, participantFindService, matchPairService) {
         this.phaseRepository = phaseRepository;
         this.participantFindService = participantFindService;
-        this.pairMatchService = pairMatchService;
+        this.matchPairService = matchPairService;
     }
     async execute(createPhaseDto) {
         const phase = await this.phaseRepository.save(createPhaseDto);
         const participants = await this.participantFindService.findParticipantsByChampionship(createPhaseDto.championshipId);
-        await this.pairMatchService.execute(phase.id, participants);
+        await this.matchPairService.execute(phase.id, participants);
         return phase;
     }
 };

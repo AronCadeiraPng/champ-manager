@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Player.prototype, "points", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'match_id' }),
+    (0, typeorm_1.Column)({ name: 'match_id', nullable: true }),
     __metadata("design:type", String)
 ], Player.prototype, "matchId", void 0);
 __decorate([

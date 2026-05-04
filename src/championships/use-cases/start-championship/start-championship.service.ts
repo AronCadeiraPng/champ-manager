@@ -20,7 +20,6 @@ export class ChampionshipStartService {
         const registrations = await this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
 
         if (championship.modality == ModalityEnum.SOLO) {
-            console.log('é solo')
             const participants = await Promise.all(
                 registrations.map(async (registration) => {
                     const participantDto = {
@@ -37,7 +36,6 @@ export class ChampionshipStartService {
         }
 
         if (championship.modality == ModalityEnum.TEAM) {
-            console.log('é time')
             const registrations = await this.registrationTeamFindService.findRegistrationsByChampionship(championshipId);
             const participants = await Promise.all(
                 registrations.map(async (registration) => {

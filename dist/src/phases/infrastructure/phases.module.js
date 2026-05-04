@@ -24,9 +24,11 @@ const create_player_service_1 = require("../../players/use-cases/create-player/c
 const player_entity_1 = require("../../players/models/entity/player.entity");
 const update_match_service_1 = require("../../matches/use-cases/update-match/update-match.service");
 const find_match_service_1 = require("../../matches/use-cases/find-match/find-match.service");
-const pair_matches_service_1 = require("../../matches/use-cases/pair-matches/pair-matches.service");
 const shuffle_match_service_1 = require("../../matches/use-cases/shuffle-match/shuffle-match.service");
 const build_group_phase_service_1 = require("../use-cases/build-group-phase/build-group-phase.service");
+const update_player_service_1 = require("../../players/use-cases/update-player/update-player.service");
+const find_player_service_1 = require("../../players/use-cases/find-player/find-player.service");
+const pair_matches_service_1 = require("../../matches/use-cases/pair-matches/pair-matches.service");
 let PhasesModule = class PhasesModule {
 };
 exports.PhasesModule = PhasesModule;
@@ -44,6 +46,8 @@ exports.PhasesModule = PhasesModule = __decorate([
             find_match_service_1.MatchFindService,
             find_participants_service_1.ParticipantFindService,
             create_player_service_1.PlayerCreateService,
+            update_player_service_1.PlayerUpdateService,
+            find_player_service_1.PlayerFindService,
             pair_matches_service_1.MatchPairService,
             shuffle_match_service_1.MatchShuffleService,
             build_group_phase_service_1.BuildGroupPhaseService

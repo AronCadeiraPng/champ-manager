@@ -12,25 +12,30 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MatchCreateService = void 0;
+exports.PlayerUpdateService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const match_entity_1 = require("../../models/entity/match.entity");
+const player_entity_1 = require("../../models/entity/player.entity");
 const typeorm_2 = require("typeorm");
-let MatchCreateService = class MatchCreateService {
-    matchRepository;
-    constructor(matchRepository) {
-        this.matchRepository = matchRepository;
+const find_player_service_1 = require("../find-player/find-player.service");
+let PlayerUpdateService = class PlayerUpdateService {
+    playerRepository;
+    playerFindService;
+    constructor(playerRepository, playerFindService) {
+        this.playerRepository = playerRepository;
+        this.playerFindService = playerFindService;
     }
-    async execute(createMatchDto) {
-        const match = await this.matchRepository.save(createMatchDto);
-        return match;
+    async execute(playerId, playerDto) {
+        const player = await this.playerFindService.byId(playerId);
+        Object.assign(player, playerDto);
+        return await this.playerRepository.save(player);
     }
 };
-exports.MatchCreateService = MatchCreateService;
-exports.MatchCreateService = MatchCreateService = __decorate([
+exports.PlayerUpdateService = PlayerUpdateService;
+exports.PlayerUpdateService = PlayerUpdateService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(match_entity_1.Match)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
-], MatchCreateService);
-//# sourceMappingURL=create-match.service.js.map
+    __param(0, (0, typeorm_1.InjectRepository)(player_entity_1.Player)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        find_player_service_1.PlayerFindService])
+], PlayerUpdateService);
+//# sourceMappingURL=update-player.service.js.map

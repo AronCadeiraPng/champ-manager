@@ -13,6 +13,8 @@ exports.StartGroupPhaseService = void 0;
 const common_1 = require("@nestjs/common");
 const build_group_phase_service_1 = require("../../../phases/use-cases/build-group-phase/build-group-phase.service");
 const find_championship_service_1 = require("../find-championship/find-championship.service");
+const championship_status_enum_1 = require("../../../common/enums/championship-status.enum");
+const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
 let StartGroupPhaseService = class StartGroupPhaseService {
     buildGroupPhaseService;
     championshipFindService;
@@ -21,7 +23,9 @@ let StartGroupPhaseService = class StartGroupPhaseService {
         this.championshipFindService = championshipFindService;
     }
     async execute(createPhaseDto) {
-        await this.championshipFindService.findChampionshipById(createPhaseDto.championshipId);
+        const championship = await this.championshipFindService.findChampionshipById(createPhaseDto.championshipId);
+        if (championship.status == championship_status_enum_1.StatusEnum.GROUP_PHASE)
+            throw new bad_request_exception_1.BadRequestException('Este torneio já está em fase de grupo', 400);
         return await this.buildGroupPhaseService.execute(createPhaseDto);
     }
 };

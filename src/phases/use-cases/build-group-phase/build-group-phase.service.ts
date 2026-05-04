@@ -11,7 +11,7 @@ export class BuildGroupPhaseService {
     constructor(
         @InjectRepository(Phase) private readonly phaseRepository: Repository<Phase>,
         private readonly participantFindService: ParticipantFindService,
-        private readonly pairMatchService: MatchPairService
+        private readonly matchPairService: MatchPairService
     ){}
 
     async execute(createPhaseDto: CreatePhaseDto) {
@@ -19,7 +19,7 @@ export class BuildGroupPhaseService {
 
         const participants = await this.participantFindService.findParticipantsByChampionship(createPhaseDto.championshipId);
 
-        await this.pairMatchService.execute(phase.id, participants);
+        await this.matchPairService.execute(phase.id, participants);
 
         return phase;
     }

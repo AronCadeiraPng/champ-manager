@@ -13,42 +13,46 @@ exports.MatchPairService = void 0;
 const common_1 = require("@nestjs/common");
 const shuffle_match_service_1 = require("../shuffle-match/shuffle-match.service");
 const create_match_service_1 = require("../create-match/create-match.service");
-const update_match_service_1 = require("../update-match/update-match.service");
 const create_player_service_1 = require("../../../players/use-cases/create-player/create-player.service");
 let MatchPairService = class MatchPairService {
     matchShuffleService;
     matchCreateService;
-    matchUpdateService;
     playerCreateService;
-    constructor(matchShuffleService, matchCreateService, matchUpdateService, playerCreateService) {
+    constructor(matchShuffleService, matchCreateService, playerCreateService) {
         this.matchShuffleService = matchShuffleService;
         this.matchCreateService = matchCreateService;
-        this.matchUpdateService = matchUpdateService;
         this.playerCreateService = playerCreateService;
     }
     async execute(phaseId, participantsDto) {
-        const shuffled = await this.matchShuffleService.execute(participantsDto);
-        let participants = shuffled;
+        const participants = await this.matchShuffleService.execute(participantsDto);
+        console.log(participants);
+        const matchPairs = [];
         for (let i = 0; i < participants.length; i++) {
             for (let j = i + 1; j < participants.length; j++) {
-                let matchParticipants = ([participants[i], participants[j]]);
-                const players = await Promise.all(matchParticipants.map(async (participant) => {
-                    let playerDto = {
-                        matchId: match.id,
-                        participantId: participant.id
-                    };
-                    return this.playerCreateService.execute(playerDto);
-                }));
-            }
-            for (let i = 0, j = 1; i < (participants.length); i++, j++) {
-                let match = await this.matchCreateService.execute({
-                    phaseId: phaseId
-                });
-                [participants[i], participants[j]];
-                console.log(players.length);
-                return await this.matchUpdateService.execute(match.id, players);
+                const playerOne = {
+                    matchId: '',
+                    participantId: participants[i].id
+                };
+                const playerTwo = {
+                    matchId: '',
+                    participantId: participants[j].id
+                };
+                matchPairs.push({ playerOne, playerTwo });
             }
         }
+        const matchPair = [];
+        for (let i = 0; i < matchPairs.length; i++) {
+            const pair = matchPairs[i];
+            const match = await this.matchCreateService.execute({ phaseId: phaseId });
+            const playerOne = await this.playerCreateService.execute({ matchId: match.id, participantId: pair.playerOne.participantId });
+            const playerTwo = await this.playerCreateService.execute({ matchId: match.id, participantId: pair.playerTwo.participantId });
+            matchPair.push({
+                playerOne,
+                playerTwo,
+                match
+            });
+        }
+        return matchPair;
     }
 };
 exports.MatchPairService = MatchPairService;
@@ -56,7 +60,6 @@ exports.MatchPairService = MatchPairService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [shuffle_match_service_1.MatchShuffleService,
         create_match_service_1.MatchCreateService,
-        update_match_service_1.MatchUpdateService,
         create_player_service_1.PlayerCreateService])
 ], MatchPairService);
 //# sourceMappingURL=pair-matches.service.js.map

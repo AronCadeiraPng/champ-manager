@@ -15,9 +15,11 @@ import { PlayerCreateService } from 'src/players/use-cases/create-player/create-
 import { Player } from 'src/players/models/entity/player.entity';
 import { MatchUpdateService } from 'src/matches/use-cases/update-match/update-match.service';
 import { MatchFindService } from 'src/matches/use-cases/find-match/find-match.service';
-import { MatchPairService } from 'src/matches/use-cases/pair-matches/pair-matches.service';
 import { MatchShuffleService } from 'src/matches/use-cases/shuffle-match/shuffle-match.service';
 import { BuildGroupPhaseService } from '../use-cases/build-group-phase/build-group-phase.service';
+import { PlayerUpdateService } from 'src/players/use-cases/update-player/update-player.service';
+import { PlayerFindService } from 'src/players/use-cases/find-player/find-player.service';
+import { MatchPairService } from 'src/matches/use-cases/pair-matches/pair-matches.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Phase, Championship, RegistrationSolo, Participant, Match, Player])],
@@ -32,6 +34,8 @@ import { BuildGroupPhaseService } from '../use-cases/build-group-phase/build-gro
     MatchFindService,
     ParticipantFindService,
     PlayerCreateService,
+    PlayerUpdateService,
+    PlayerFindService,
     MatchPairService,
     MatchShuffleService,
     BuildGroupPhaseService

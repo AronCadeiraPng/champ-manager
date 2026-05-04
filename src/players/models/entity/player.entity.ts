@@ -10,7 +10,7 @@ export class Player {
     @Column({ type: 'integer', name: 'points', default: 0, nullable: true })
     points?: number;
 
-    @Column({name: 'match_id' })
+    @Column({name: 'match_id', nullable: true})
     matchId: string;
 
     @Column({ type: 'varchar', name: 'participant_id' })

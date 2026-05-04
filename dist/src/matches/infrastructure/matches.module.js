@@ -13,11 +13,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const match_entity_1 = require("../models/entity/match.entity");
 const create_match_service_1 = require("../use-cases/create-match/create-match.service");
 const shuffle_match_service_1 = require("../use-cases/shuffle-match/shuffle-match.service");
-const pair_matches_service_1 = require("../use-cases/pair-matches/pair-matches.service");
 const player_entity_1 = require("../../players/models/entity/player.entity");
 const create_player_service_1 = require("../../players/use-cases/create-player/create-player.service");
 const find_match_service_1 = require("../use-cases/find-match/find-match.service");
 const update_match_service_1 = require("../use-cases/update-match/update-match.service");
+const update_player_service_1 = require("../../players/use-cases/update-player/update-player.service");
+const find_player_service_1 = require("../../players/use-cases/find-player/find-player.service");
+const pair_matches_service_1 = require("../use-cases/pair-matches/pair-matches.service");
 let MatchesModule = class MatchesModule {
 };
 exports.MatchesModule = MatchesModule;
@@ -30,6 +32,8 @@ exports.MatchesModule = MatchesModule = __decorate([
             shuffle_match_service_1.MatchShuffleService,
             pair_matches_service_1.MatchPairService,
             create_player_service_1.PlayerCreateService,
+            update_player_service_1.PlayerUpdateService,
+            find_player_service_1.PlayerFindService,
             find_match_service_1.MatchFindService,
             update_match_service_1.MatchUpdateService
         ],
