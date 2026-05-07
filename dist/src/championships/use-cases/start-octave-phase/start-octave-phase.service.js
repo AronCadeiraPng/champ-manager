@@ -12,8 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChampionshipOctavePhaseService = void 0;
 const common_1 = require("@nestjs/common");
 const find_championship_service_1 = require("../find-championship/find-championship.service");
-const championship_status_enum_1 = require("../../../common/enums/championship-status.enum");
-const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
 const build_octave_phase_service_1 = require("../../../phases/use-cases/build-octave-phase/build-octave-phase.service");
 let ChampionshipOctavePhaseService = class ChampionshipOctavePhaseService {
     championshipFindService;
@@ -24,9 +22,6 @@ let ChampionshipOctavePhaseService = class ChampionshipOctavePhaseService {
     }
     async execute(createPhaseDto) {
         const championship = await this.championshipFindService.findChampionshipById(createPhaseDto.championshipId);
-        if (championship.status == championship_status_enum_1.StatusEnum.OCTAVE_PHASE)
-            throw new bad_request_exception_1.BadRequestException('Este torneio já está em fase de grupo', 400);
-        await this.buildOctavePhase.execute(createPhaseDto);
     }
 };
 exports.ChampionshipOctavePhaseService = ChampionshipOctavePhaseService;

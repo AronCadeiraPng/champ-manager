@@ -25,7 +25,6 @@ let MatchPairService = class MatchPairService {
     }
     async execute(phaseId, participantsDto) {
         const participants = await this.matchShuffleService.execute(participantsDto);
-        console.log(participants);
         const matchPairs = [];
         for (let i = 0; i < participants.length; i++) {
             for (let j = i + 1; j < participants.length; j++) {

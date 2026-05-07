@@ -30,7 +30,6 @@ const user_roles_enum_1 = require("../../common/enums/user-roles.enum");
 const roles_decorator_1 = require("../../decorators/roles.decorator");
 const registrations_team_list_dto_1 = require("../../registrations-team/models/dtos/registrations-team-list.dto");
 const registrations_solo_list_dto_1 = require("../../registrations-solo/models/dtos/registrations-solo-list.dto");
-const create_phase_dto_1 = require("../../phases/dtos/create-phase.dto");
 const start_group_phase_service_1 = require("../use-cases/start-group-phase/start-group-phase.service");
 let ChampionshipsController = class ChampionshipsController {
     championshipCreateService;
@@ -71,15 +70,15 @@ let ChampionshipsController = class ChampionshipsController {
     async convertRegistrations(championshipId) {
         return this.championshipStartService.start(championshipId);
     }
-    async startGroupPhase(createPhaseDto) {
-        return await this.startGroupPhaseService.execute(createPhaseDto);
+    async startGroupPhase(championshipId) {
+        return await this.startGroupPhaseService.execute(championshipId);
     }
 };
 exports.ChampionshipsController = ChampionshipsController;
 __decorate([
     (0, common_1.Post)('create'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN),
     (0, swagger_1.ApiOperation)({ summary: 'Cria um novo torneio', description: 'Apenas administradores podem criar torneios' }),
     (0, swagger_1.ApiBody)({ type: create_championship_dto_1.CreateChampionshipDto }),
     (0, swagger_1.ApiCreatedResponse)({ description: 'Torneio criado com sucesso', type: championship_entity_1.Championship }),
@@ -94,7 +93,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)('all'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN, user_roles_enum_1.UserRolesEnum.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Lista todos os torneios' }),
     (0, swagger_1.ApiOkResponse)({ type: create_championship_dto_1.CreateChampionshipDto }),
     (0, swagger_1.ApiNoContentResponse)({ description: 'Nenhum torneio encontrado' }),
@@ -106,7 +105,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':id'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN, user_roles_enum_1.UserRolesEnum.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Busca um torneio pelo id' }),
     (0, swagger_1.ApiParam)({ name: 'id', description: 'UUID do torneio', format: 'uuid' }),
     (0, swagger_1.ApiOkResponse)({ type: () => create_championship_dto_1.CreateChampionshipDto }),
@@ -120,7 +119,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':id/registrations'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN, user_roles_enum_1.UserRolesEnum.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Lista as inscrições de um torneio', description: 'Pode listar tanto inscrições individuais quanto de times' }),
     (0, swagger_1.ApiOkResponse)({ type: registrations_solo_list_dto_1.RegistrationSoloListDto || registrations_team_list_dto_1.RegistrationTeamListDto }),
     (0, swagger_1.ApiBadRequestResponse)({ description: 'Torneio não encontrando' }),
@@ -133,7 +132,7 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN, user_roles_enum_1.UserRolesEnum.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Deleta um torneio por id', description: 'Apenas administradores podem deletar torneios' }),
     (0, swagger_1.ApiNoContentResponse)({ description: 'Torneio deletado com sucesso' }),
     (0, swagger_1.ApiBadRequestResponse)({ description: 'Torneio não encontrando' }),
@@ -146,7 +145,7 @@ __decorate([
 __decorate([
     (0, common_1.Patch)(':id'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN, user_roles_enum_1.UserRolesEnum.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Atualiza um torneio pelo id' }),
     (0, swagger_1.ApiBadRequestResponse)({ description: 'Torneio não encontrando' }),
     (0, swagger_1.ApiForbiddenResponse)({ description: 'Permissão negada' }),
@@ -170,10 +169,10 @@ __decorate([
 __decorate([
     (0, common_1.Post)(':id/start/group'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
-    __param(0, (0, common_1.Body)()),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN, user_roles_enum_1.UserRolesEnum.MANAGER),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_phase_dto_1.CreatePhaseDto]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ChampionshipsController.prototype, "startGroupPhase", null);
 exports.ChampionshipsController = ChampionshipsController = __decorate([

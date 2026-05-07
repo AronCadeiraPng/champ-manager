@@ -63,8 +63,8 @@ __decorate([
 __decorate([
     (0, common_1.Get)('all'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN, user_roles_enum_1.UserRolesEnum.MANAGER),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN, user_roles_enum_1.UserRolesEnum.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os usuários' }),
     (0, swagger_1.ApiOkResponse)({ type: () => users_list_dto_1.UsersListDto }),
     (0, swagger_1.ApiNoContentResponse)({ description: 'Nenhum usuário encontrado' }),
@@ -76,7 +76,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':id'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN, user_roles_enum_1.UserRoles.MANAGER),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN, user_roles_enum_1.UserRolesEnum.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna um usuário pelo id' }),
     (0, swagger_1.ApiOkResponse)({ type: () => users_list_dto_1.UsersListDto }),
     (0, swagger_1.ApiNotFoundResponse)({ description: 'Usuário não encontrado' }),

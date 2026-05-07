@@ -11,9 +11,15 @@ import { MatchUpdateService } from '../use-cases/update-match/update-match.servi
 import { PlayerUpdateService } from 'src/players/use-cases/update-player/update-player.service';
 import { PlayerFindService } from 'src/players/use-cases/find-player/find-player.service';
 import { MatchPairService } from '../use-cases/pair-matches/pair-matches.service';
+import { Phase } from 'src/phases/entity/phase.entity';
+import { Championship } from 'src/championships/models/entity/championship.entity';
+import { ChampionshipFindService } from 'src/championships/use-cases/find-championship/find-championship.service';
+import { PhaseFindService } from 'src/phases/use-cases/find-phase/find-phase.service';
+import { MatchSetWinnerService } from '../use-cases/set-winner/set-winner.service';
+import { MatchGetWinnersService } from '../use-cases/get-winners/get-winners.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Match, Player])],
+  imports: [TypeOrmModule.forFeature([Championship, Match, Player, Phase])],
   controllers: [MatchesController],
   providers: [
     MatchCreateService,
@@ -23,14 +29,21 @@ import { MatchPairService } from '../use-cases/pair-matches/pair-matches.service
     PlayerUpdateService,
     PlayerFindService,
     MatchFindService,
-    MatchUpdateService
+    MatchFindService,
+    MatchUpdateService,
+    MatchSetWinnerService,
+    MatchGetWinnersService,
+    ChampionshipFindService,
+    PhaseFindService
   ],
   exports: [
     MatchCreateService,
     MatchShuffleService,
     MatchPairService,
     MatchFindService,
-    MatchUpdateService
+    MatchUpdateService,
+    MatchSetWinnerService,
+    MatchGetWinnersService,
   ]
 })
 export class MatchesModule {}

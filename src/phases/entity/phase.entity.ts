@@ -1,6 +1,6 @@
 import { Championship } from "src/championships/models/entity/championship.entity";
-import { PhaseName } from "src/common/enums/phase-name.enum";
-import { PhaseStatus } from "src/common/enums/phase-status.enum";
+import { PhaseEnum } from "src/common/enums/phase-name.enum";
+import { PhaseStatusEnum } from "src/common/enums/phase-status.enum";
 import { Match } from "src/matches/models/entity/match.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
 
@@ -9,11 +9,11 @@ export class Phase {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ enum: PhaseName , default: PhaseName.GROUP_FASE})
-    name: string; 
+    @Column({  type: 'enum', enum: PhaseEnum , default: PhaseEnum.GROUP_FASE})
+    name: PhaseEnum; 
 
-    @Column({ enum: PhaseStatus, default: PhaseStatus.IN_PROGRESS })
-    phaseStatus: PhaseStatus;
+    @Column({ type: 'enum', enum: PhaseStatusEnum, default: PhaseStatusEnum.IN_PROGRESS })
+    status: PhaseStatusEnum;
 
     @Column({ type: 'varchar', name: 'championship_id' })
     championshipId: string;
@@ -22,7 +22,7 @@ export class Phase {
     @JoinColumn({ name: 'championship_id' })
     championship: Championship;
 
-    @OneToMany(() => Match, (match) => match.players, { nullable: true })
+    @OneToMany(() => Match, (match) => match.phase, { nullable: true })
     matches?: Match[];
 
     @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })

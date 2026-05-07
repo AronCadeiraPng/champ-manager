@@ -6,7 +6,7 @@ import { User } from 'src/users/models/entity/user.entity';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UpdateUserDto } from 'src/users/models/dtos/update-user.dto';
 import { Roles } from 'src/decorators/roles.decorator';
-import { UserRoles } from 'src/common/enums/user-roles.enum';
+import { UserRolesEnum } from 'src/common/enums/user-roles.enum';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -48,7 +48,7 @@ export class AuthController {
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @ApiBearerAuth()
-  @Roles(UserRoles.ADMIN)
+  @Roles(UserRolesEnum.ADMIN)
   @ApiOperation({ summary: 'Deletar um usuário' })
   @ApiNoContentResponse({ description: 'Usuário deletado com sucesso', type: User })
   @ApiForbiddenResponse({ description: 'Permissão negada' })

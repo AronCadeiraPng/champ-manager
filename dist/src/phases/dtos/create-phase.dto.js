@@ -16,12 +16,12 @@ const phase_status_enum_1 = require("../../common/enums/phase-status.enum");
 class CreatePhaseDto {
     name;
     championshipId;
-    phaseStatus;
+    status;
 }
 exports.CreatePhaseDto = CreatePhaseDto;
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsEnum)(phase_name_enum_1.PhaseName),
+    (0, class_validator_1.IsEnum)(phase_name_enum_1.PhaseEnum),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreatePhaseDto.prototype, "name", void 0);
@@ -32,8 +32,8 @@ __decorate([
 ], CreatePhaseDto.prototype, "championshipId", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsEnum)(phase_status_enum_1.PhaseStatus),
+    (0, class_validator_1.IsEnum)(phase_status_enum_1.PhaseStatusEnum),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreatePhaseDto.prototype, "phaseStatus", void 0);
+], CreatePhaseDto.prototype, "status", void 0);
 //# sourceMappingURL=create-phase.dto.js.map

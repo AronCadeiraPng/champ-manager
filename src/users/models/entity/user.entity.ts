@@ -12,7 +12,7 @@ import {
     Timestamp,
     UpdateDateColumn 
 } from "typeorm";
-import { UserRoles } from "../../../common/enums/user-roles.enum";
+import { UserRolesEnum } from "../../../common/enums/user-roles.enum";
 import { GenderEnum } from "../../../common/enums/gender.enum";
 import { RegistrationSolo } from "../../../registrations-solo/models/entity/registration.entity";
 import { Team } from "../../../teams/models/entity/team.entity";
@@ -41,8 +41,8 @@ export class User {
     @Column({ name: 'team_id', nullable: true })
     teamId: string;
 
-    @Column({ type: 'enum', enum: UserRoles, default: UserRoles.USER })
-    role: UserRoles;
+    @Column({ type: 'enum', enum: UserRolesEnum, default: UserRolesEnum.USER })
+    role: UserRolesEnum;
 
     @Column({ type: 'enum', enum: GenderEnum })
     gender: GenderEnum;

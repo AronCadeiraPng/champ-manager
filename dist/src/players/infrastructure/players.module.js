@@ -14,17 +14,20 @@ const player_entity_1 = require("../models/entity/player.entity");
 const create_player_service_1 = require("../use-cases/create-player/create-player.service");
 const find_player_service_1 = require("../use-cases/find-player/find-player.service");
 const update_player_service_1 = require("../use-cases/update-player/update-player.service");
+const find_phase_service_1 = require("../../phases/use-cases/find-phase/find-phase.service");
+const phase_entity_1 = require("../../phases/entity/phase.entity");
 let PlayersModule = class PlayersModule {
 };
 exports.PlayersModule = PlayersModule;
 exports.PlayersModule = PlayersModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([player_entity_1.Player])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([player_entity_1.Player, phase_entity_1.Phase])],
         controllers: [players_controller_1.PlayersController],
         providers: [
             create_player_service_1.PlayerCreateService,
             find_player_service_1.PlayerFindService,
-            update_player_service_1.PlayerUpdateService
+            update_player_service_1.PlayerUpdateService,
+            find_phase_service_1.PhaseFindService
         ],
         exports: [
             create_player_service_1.PlayerCreateService,

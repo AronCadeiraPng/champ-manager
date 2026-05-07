@@ -28,6 +28,9 @@ let ParticipantController = class ParticipantController {
     async createParticipant(championshipId, createParticipantDto) {
         return this.participantCreateService.createParticipant(championshipId, createParticipantDto);
     }
+    async findByPlayer(players) {
+        return await this.participantFindService.ByPlayer(players);
+    }
     async findAllParticipants() {
         return this.participantFindService.findAllParticipants();
     }
@@ -47,6 +50,13 @@ __decorate([
     __metadata("design:paramtypes", [String, create_participant_dto_1.CreateParticipantDto]),
     __metadata("design:returntype", Promise)
 ], ParticipantController.prototype, "createParticipant", null);
+__decorate([
+    (0, common_1.Get)('/players'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array]),
+    __metadata("design:returntype", Promise)
+], ParticipantController.prototype, "findByPlayer", null);
 __decorate([
     (0, common_1.Get)('all'),
     (0, swagger_1.ApiOperation)({ summary: 'Retorna todos os participantes' }),

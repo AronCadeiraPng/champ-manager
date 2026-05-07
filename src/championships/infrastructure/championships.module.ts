@@ -30,6 +30,7 @@ import { MatchFindService } from 'src/matches/use-cases/find-match/find-match.se
 import { Player } from 'src/players/models/entity/player.entity';
 import { PlayerUpdateService } from 'src/players/use-cases/update-player/update-player.service';
 import { PlayerFindService } from 'src/players/use-cases/find-player/find-player.service';
+import { PhaseFindService } from 'src/phases/use-cases/find-phase/find-phase.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Match, Player, Sport, Participant, Phase]) ],
@@ -50,7 +51,14 @@ import { PlayerFindService } from 'src/players/use-cases/find-player/find-player
     StartGroupPhaseService,
     ParticipantFindService,
     MatchPairService,
-    MatchShuffleService,MatchCreateService, MatchUpdateService, PlayerCreateService, MatchFindService, PlayerUpdateService, PlayerFindService
+    MatchShuffleService,
+    MatchCreateService,
+    MatchUpdateService, 
+    PlayerCreateService,
+    MatchFindService,
+    PlayerUpdateService,
+    PlayerFindService,
+    PhaseFindService
   ],
   exports: [    
     ChampionshipDeleteService,

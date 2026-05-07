@@ -1,13 +1,16 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { NotFoundException } from "src/common/exceptions";
+import { BadRequestException } from "src/common/exceptions/bad-request.exception";
 import { Participant } from "src/participant/models/entity/participant.entity";
+import { Player } from "src/players/models/entity/player.entity";
 import { Repository } from "typeorm";
 
 @Injectable()
 export class ParticipantFindService {
     constructor(
         @InjectRepository(Participant) private readonly participantRepository: Repository<Participant>
-    ) {}
+    ) { }
 
     async findParticipantById(id: string): Promise<Participant> {
         const participant = await this.participantRepository.findOne({
@@ -16,9 +19,28 @@ export class ParticipantFindService {
             }
         })
 
-        if(!participant) throw new BadRequestException('Participante', id);
+        if (!participant) throw new NotFoundException('Participante', id);
 
         return participant;
+    }
+
+    async ByPlayer(players: Player[]) {
+        const participants = Promise.all(
+            players.map(async (player) => {
+                return await this.participantRepository.find({
+                    where: {
+                        id: player.participantId
+                    },
+                    relations: {
+                        player: true
+                    }
+                })
+            })
+        )
+
+        if (!participants) throw new BadRequestException('Participantes não encontrados', 400);
+
+        return participants;
     }
 
     async findParticipantsByChampionship(championshipId: string): Promise<Participant[]> {

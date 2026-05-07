@@ -1,4 +1,4 @@
-export declare enum StatusEnum {
+export declare enum ChampionshipStatusEnum {
     CANCELED = "canceled",
     REGISTRATION_START = "registration-start",
     REGISTRATION_END = "registration-end",

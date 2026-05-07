@@ -23,7 +23,7 @@ import { ChampionshipFindService } from '../use-cases/find-championship/find-cha
 import { ChampionshipFindRegistrationsService } from '../use-cases/find-registrations/find-registrations.service';
 import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
 import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
-import { UserRoles } from '../../common/enums/user-roles.enum';
+import { UserRolesEnum } from '../../common/enums/user-roles.enum';
 import { Roles } from '../../decorators/roles.decorator';
 import { RegistrationTeamListDto } from '../../registrations-team/models/dtos/registrations-team-list.dto';
 import { RegistrationSoloListDto } from '../../registrations-solo/models/dtos/registrations-solo-list.dto';
@@ -50,7 +50,7 @@ export class ChampionshipsController {
 
   @Post('create')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRoles.ADMIN)
+  @Roles(UserRolesEnum.ADMIN)
   @ApiOperation({ summary: 'Cria um novo torneio', description: 'Apenas administradores podem criar torneios' })
   @ApiBody({ type: CreateChampionshipDto })
   @ApiCreatedResponse({ description: 'Torneio criado com sucesso', type: Championship })
@@ -67,7 +67,7 @@ export class ChampionshipsController {
   
   @Get('all')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Lista todos os torneios' })
   @ApiOkResponse({ type: CreateChampionshipDto })
   @ApiNoContentResponse({ description: 'Nenhum torneio encontrado' })
@@ -80,7 +80,7 @@ export class ChampionshipsController {
 
   @Get(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Busca um torneio pelo id' })
   @ApiParam({ name: 'id', description: 'UUID do torneio', format: 'uuid' })
   @ApiOkResponse({ type: () => CreateChampionshipDto })
@@ -96,7 +96,7 @@ export class ChampionshipsController {
 
   @Get(':id/registrations')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Lista as inscrições de um torneio', description: 'Pode listar tanto inscrições individuais quanto de times' })
   @ApiOkResponse({ type: RegistrationSoloListDto ||  RegistrationTeamListDto})
   @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
@@ -111,7 +111,7 @@ export class ChampionshipsController {
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Deleta um torneio por id', description: 'Apenas administradores podem deletar torneios' })
   @ApiNoContentResponse({ description: 'Torneio deletado com sucesso' })
   @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
@@ -126,7 +126,7 @@ export class ChampionshipsController {
 
   @Patch(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Atualiza um torneio pelo id' })
   @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
   @ApiForbiddenResponse({ description: 'Permissão negada' })
@@ -153,11 +153,11 @@ export class ChampionshipsController {
 
   @Post(':id/start/group')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   async startGroupPhase(
-    @Body() createPhaseDto: CreatePhaseDto
+    @Param('id', ParseUUIDPipe) championshipId: string
   ): Promise<Phase>
   {
-    return await this.startGroupPhaseService.execute(createPhaseDto);
+    return await this.startGroupPhaseService.execute(championshipId);
   }
 }

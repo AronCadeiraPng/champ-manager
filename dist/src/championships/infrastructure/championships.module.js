@@ -39,6 +39,7 @@ const find_match_service_1 = require("../../matches/use-cases/find-match/find-ma
 const player_entity_1 = require("../../players/models/entity/player.entity");
 const update_player_service_1 = require("../../players/use-cases/update-player/update-player.service");
 const find_player_service_1 = require("../../players/use-cases/find-player/find-player.service");
+const find_phase_service_1 = require("../../phases/use-cases/find-phase/find-phase.service");
 let ChampionshipModule = class ChampionshipModule {
 };
 exports.ChampionshipModule = ChampionshipModule;
@@ -62,7 +63,14 @@ exports.ChampionshipModule = ChampionshipModule = __decorate([
             start_group_phase_service_1.StartGroupPhaseService,
             find_participants_service_1.ParticipantFindService,
             pair_matches_service_1.MatchPairService,
-            shuffle_match_service_1.MatchShuffleService, create_match_service_1.MatchCreateService, update_match_service_1.MatchUpdateService, create_player_service_1.PlayerCreateService, find_match_service_1.MatchFindService, update_player_service_1.PlayerUpdateService, find_player_service_1.PlayerFindService
+            shuffle_match_service_1.MatchShuffleService,
+            create_match_service_1.MatchCreateService,
+            update_match_service_1.MatchUpdateService,
+            create_player_service_1.PlayerCreateService,
+            find_match_service_1.MatchFindService,
+            update_player_service_1.PlayerUpdateService,
+            find_player_service_1.PlayerFindService,
+            find_phase_service_1.PhaseFindService
         ],
         exports: [
             delete_championship_solo_service_1.ChampionshipDeleteService,

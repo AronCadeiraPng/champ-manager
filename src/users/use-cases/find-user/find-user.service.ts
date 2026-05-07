@@ -1,6 +1,6 @@
 import { Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UserRoles } from "src/common/enums/user-roles.enum";
+import { UserRolesEnum } from "src/common/enums/user-roles.enum";
 import { NotFoundException } from "src/common/exceptions";
 import { Roles } from "src/decorators/roles.decorator";
 import { User } from "src/users/models/entity/user.entity";
@@ -9,7 +9,7 @@ import { Repository } from "typeorm";
 export class UserFindService {
   constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>) { }
 
-  @Roles(UserRoles.ADMIN, UserRoles.MANAGER)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   async findAllUsers(): Promise<User[]> {
 
     return await this.usersRepository.find({

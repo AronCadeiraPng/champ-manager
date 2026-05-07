@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, UseGuards, ParseUUIDPipe } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Roles } from 'src/decorators/roles.decorator';
-import { UserRoles } from 'src/common/enums/user-roles.enum';
+import { UserRolesEnum } from 'src/common/enums/user-roles.enum';
 import { ApiBadRequestResponse, ApiNoContentResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateRegistrationSoloDto } from '../models/dtos/create-registration.dto';
 import { RegistrationSoloFindService } from '../use-cases/find-registration/find-registration.service';
@@ -22,17 +22,18 @@ export class RegistrationsSoloController {
   ) { }
 
 
-  @Post('new')
+  @Post(':championship/new/:user')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRoles.ADMIN)
+  @Roles(UserRolesEnum.ADMIN)
   @ApiOperation({ summary: 'Cria um novo registro individual em um campeonato' })
   @ApiOkResponse({ type: () => CreateRegistrationSoloDto })
   @ApiBadRequestResponse({ description: 'Credenciais inválidas' })
   async register(
-    @Body() createRegistrationDto: CreateRegistrationSoloDto
+    @Param('championship', ParseUUIDPipe) championshipId: string,
+    @Param('user', ParseUUIDPipe) userId: string,
   ): Promise<RegistrationSolo>
   {
-    return await this.registrationCreateService.register(createRegistrationDto)
+    return await this.registrationCreateService.register(championshipId, userId);
   }
 
 
@@ -59,7 +60,7 @@ export class RegistrationsSoloController {
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRoles.ADMIN)
+  @Roles(UserRolesEnum.ADMIN)
   @ApiOperation({ summary: 'Deletar um registro' })
   @ApiNoContentResponse({ description: 'Registro deletado com sucesso' })
   @ApiBadRequestResponse({ description: 'Registro não encontrado' })

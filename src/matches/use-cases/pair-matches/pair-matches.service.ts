@@ -17,7 +17,6 @@ export class MatchPairService {
     async execute(phaseId: string, participantsDto: Participant[]) {
         const participants: Participant[] = await this.matchShuffleService.execute(participantsDto);
 
-        console.log(participants);
         const matchPairs: { playerOne: CreatePlayerDto, playerTwo: CreatePlayerDto }[] = []
         for (let i = 0; i < participants.length; i++) {
             for (let j = i + 1; j < participants.length; j++) {

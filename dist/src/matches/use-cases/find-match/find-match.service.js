@@ -45,6 +45,59 @@ let MatchFindService = class MatchFindService {
             throw new exceptions_1.NotFoundException('Partida', `id do campeonato: ${championshipId}`);
         return match;
     }
+    async ByParticipant(participantId) {
+        return await this.matchRepository.query(`
+            SELECT
+                match.id, 
+                match.winner_id,
+                match.phase_id,
+                json_agg(
+                    json_build_object(
+                    'id', players.id,
+                    'participant_id', players.participant_id
+                    )
+                ) as players
+            FROM
+                public.matches as match
+            JOIN
+                public.players as players
+            ON
+                match.id = players.match_id
+            WHERE match.id IN (
+                SELECT 
+                    public.matches.id
+                FROM 
+                    public.matches 
+                JOIN 
+                    public.players 
+                ON 
+                    public.matches.id = public.players.match_id
+                WHERE
+                    public.players.participant_id = $1
+            )
+            GROUP BY match.id, match.winner_id, match.phase_id
+            `, [participantId]);
+    }
+    async ByPhase(championshipId, phaseStatus) {
+        const matches = await this.matchRepository.find({
+            where: {
+                phase: {
+                    name: phaseStatus,
+                    championship: {
+                        id: championshipId
+                    }
+                }
+            },
+            relations: {
+                phase: {
+                    championship: true
+                }
+            }
+        });
+        if (!matches)
+            throw new exceptions_1.NotFoundException('Torneio', 400);
+        return matches;
+    }
     async All() {
         return await this.matchRepository.find({
             relations: {

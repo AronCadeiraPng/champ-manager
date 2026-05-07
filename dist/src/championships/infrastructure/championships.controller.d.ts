@@ -7,7 +7,6 @@ import { ChampionshipFindService } from '../use-cases/find-championship/find-cha
 import { ChampionshipFindRegistrationsService } from '../use-cases/find-registrations/find-registrations.service';
 import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
 import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
-import { CreatePhaseDto } from 'src/phases/dtos/create-phase.dto';
 import { Phase } from 'src/phases/entity/phase.entity';
 import { StartGroupPhaseService } from '../use-cases/start-group-phase/start-group-phase.service';
 export declare class ChampionshipsController {
@@ -26,5 +25,5 @@ export declare class ChampionshipsController {
     deleteChampionship(id: string): Promise<Championship>;
     updateChampionship(id: string, updateChampionshipDto: UpdateChampionshipDto): Promise<Championship>;
     convertRegistrations(championshipId: string): Promise<import("../../participant/models/entity/participant.entity").Participant[] | undefined>;
-    startGroupPhase(createPhaseDto: CreatePhaseDto): Promise<Phase>;
+    startGroupPhase(championshipId: string): Promise<Phase>;
 }

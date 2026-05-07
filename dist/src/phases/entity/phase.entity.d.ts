@@ -1,11 +1,12 @@
 import { Championship } from "src/championships/models/entity/championship.entity";
-import { PhaseStatus } from "src/common/enums/phase-status.enum";
+import { PhaseEnum } from "src/common/enums/phase-name.enum";
+import { PhaseStatusEnum } from "src/common/enums/phase-status.enum";
 import { Match } from "src/matches/models/entity/match.entity";
 import { Timestamp } from "typeorm";
 export declare class Phase {
     id: string;
-    name: string;
-    phaseStatus: PhaseStatus;
+    name: PhaseEnum;
+    status: PhaseStatusEnum;
     championshipId: string;
     championship: Championship;
     matches?: Match[];

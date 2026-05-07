@@ -5,5 +5,5 @@ export declare class StartGroupPhaseService {
     private readonly buildGroupPhaseService;
     private readonly championshipFindService;
     constructor(buildGroupPhaseService: BuildGroupPhaseService, championshipFindService: ChampionshipFindService);
-    execute(createPhaseDto: CreatePhaseDto): Promise<CreatePhaseDto & import("../../../phases/entity/phase.entity").Phase>;
+    execute(championshipId: string): Promise<CreatePhaseDto & import("../../../phases/entity/phase.entity").Phase>;
 }

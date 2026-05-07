@@ -20,12 +20,18 @@ const update_match_service_1 = require("../use-cases/update-match/update-match.s
 const update_player_service_1 = require("../../players/use-cases/update-player/update-player.service");
 const find_player_service_1 = require("../../players/use-cases/find-player/find-player.service");
 const pair_matches_service_1 = require("../use-cases/pair-matches/pair-matches.service");
+const phase_entity_1 = require("../../phases/entity/phase.entity");
+const championship_entity_1 = require("../../championships/models/entity/championship.entity");
+const find_championship_service_1 = require("../../championships/use-cases/find-championship/find-championship.service");
+const find_phase_service_1 = require("../../phases/use-cases/find-phase/find-phase.service");
+const set_winner_service_1 = require("../use-cases/set-winner/set-winner.service");
+const get_winners_service_1 = require("../use-cases/get-winners/get-winners.service");
 let MatchesModule = class MatchesModule {
 };
 exports.MatchesModule = MatchesModule;
 exports.MatchesModule = MatchesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([match_entity_1.Match, player_entity_1.Player])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([championship_entity_1.Championship, match_entity_1.Match, player_entity_1.Player, phase_entity_1.Phase])],
         controllers: [matches_controller_1.MatchesController],
         providers: [
             create_match_service_1.MatchCreateService,
@@ -35,14 +41,21 @@ exports.MatchesModule = MatchesModule = __decorate([
             update_player_service_1.PlayerUpdateService,
             find_player_service_1.PlayerFindService,
             find_match_service_1.MatchFindService,
-            update_match_service_1.MatchUpdateService
+            find_match_service_1.MatchFindService,
+            update_match_service_1.MatchUpdateService,
+            set_winner_service_1.MatchSetWinnerService,
+            get_winners_service_1.MatchGetWinnersService,
+            find_championship_service_1.ChampionshipFindService,
+            find_phase_service_1.PhaseFindService
         ],
         exports: [
             create_match_service_1.MatchCreateService,
             shuffle_match_service_1.MatchShuffleService,
             pair_matches_service_1.MatchPairService,
             find_match_service_1.MatchFindService,
-            update_match_service_1.MatchUpdateService
+            update_match_service_1.MatchUpdateService,
+            set_winner_service_1.MatchSetWinnerService,
+            get_winners_service_1.MatchGetWinnersService,
         ]
     })
 ], MatchesModule);

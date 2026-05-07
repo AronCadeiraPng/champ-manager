@@ -18,7 +18,7 @@ const typeorm_1 = require("typeorm");
 let Phase = class Phase {
     id;
     name;
-    phaseStatus;
+    status;
     championshipId;
     championship;
     matches;
@@ -31,13 +31,13 @@ __decorate([
     __metadata("design:type", String)
 ], Phase.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ enum: phase_name_enum_1.PhaseName, default: phase_name_enum_1.PhaseName.GROUP_FASE }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: phase_name_enum_1.PhaseEnum, default: phase_name_enum_1.PhaseEnum.GROUP_FASE }),
     __metadata("design:type", String)
 ], Phase.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ enum: phase_status_enum_1.PhaseStatus, default: phase_status_enum_1.PhaseStatus.IN_PROGRESS }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: phase_status_enum_1.PhaseStatusEnum, default: phase_status_enum_1.PhaseStatusEnum.IN_PROGRESS }),
     __metadata("design:type", String)
-], Phase.prototype, "phaseStatus", void 0);
+], Phase.prototype, "status", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar', name: 'championship_id' }),
     __metadata("design:type", String)
@@ -48,7 +48,7 @@ __decorate([
     __metadata("design:type", championship_entity_1.Championship)
 ], Phase.prototype, "championship", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => match_entity_1.Match, (match) => match.players, { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => match_entity_1.Match, (match) => match.phase, { nullable: true }),
     __metadata("design:type", Array)
 ], Phase.prototype, "matches", void 0);
 __decorate([

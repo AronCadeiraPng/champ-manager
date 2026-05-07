@@ -33,8 +33,8 @@ let RegistrationsSoloController = class RegistrationsSoloController {
         this.registrationCreateService = registrationCreateService;
         this.registrationDeleteService = registrationDeleteService;
     }
-    async register(createRegistrationDto) {
-        return await this.registrationCreateService.register(createRegistrationDto);
+    async register(championshipId, userId) {
+        return await this.registrationCreateService.register(championshipId, userId);
     }
     async getAllRegistrations() {
         return await this.registrationFindService.allRegisters();
@@ -48,15 +48,16 @@ let RegistrationsSoloController = class RegistrationsSoloController {
 };
 exports.RegistrationsSoloController = RegistrationsSoloController;
 __decorate([
-    (0, common_1.Post)('new'),
+    (0, common_1.Post)(':championship/new/:user'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN),
     (0, swagger_1.ApiOperation)({ summary: 'Cria um novo registro individual em um campeonato' }),
     (0, swagger_1.ApiOkResponse)({ type: () => create_registration_dto_1.CreateRegistrationSoloDto }),
     (0, swagger_1.ApiBadRequestResponse)({ description: 'Credenciais inválidas' }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Param)('championship', common_1.ParseUUIDPipe)),
+    __param(1, (0, common_1.Param)('user', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_registration_dto_1.CreateRegistrationSoloDto]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], RegistrationsSoloController.prototype, "register", null);
 __decorate([
@@ -81,7 +82,7 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN),
     (0, swagger_1.ApiOperation)({ summary: 'Deletar um registro' }),
     (0, swagger_1.ApiNoContentResponse)({ description: 'Registro deletado com sucesso' }),
     (0, swagger_1.ApiBadRequestResponse)({ description: 'Registro não encontrado' }),

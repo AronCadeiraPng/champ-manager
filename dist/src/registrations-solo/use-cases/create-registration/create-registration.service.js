@@ -32,10 +32,10 @@ let RegistrationSoloCreateService = RegistrationSoloCreateService_1 = class Regi
         this.userFindService = userFindService;
         this.championshipFindService = championshipFindService;
     }
-    async register(createRegistrationDto) {
+    async register(championshipId, userId) {
         this.logger.log('Criando usuário...');
-        const user = await this.userFindService.findUserById(createRegistrationDto.userId);
-        const championship = await this.championshipFindService.findChampionshipById(createRegistrationDto.championshipId);
+        const user = await this.userFindService.findUserById(userId);
+        const championship = await this.championshipFindService.findChampionshipById(championshipId);
         if (championship.modality !== modality_enum_1.ModalityEnum.SOLO)
             throw new bad_request_exception_1.BadRequestException('Torneio apenas para um jogador', 400);
         const alreadyRegistered = await this.registrationSoloRepository.findOne({
@@ -45,7 +45,7 @@ let RegistrationSoloCreateService = RegistrationSoloCreateService_1 = class Regi
             }
         });
         if (alreadyRegistered)
-            throw new bad_request_exception_1.BadRequestException('Registro já feito', 400);
+            throw new bad_request_exception_1.BadRequestException('Usuário já registrado neste torneio', 400);
         if (user.gender !== championship.gender)
             throw new bad_request_exception_1.BadRequestException('Gênero não correspondente ao do torneio', 400);
         const nowDate = new Date();

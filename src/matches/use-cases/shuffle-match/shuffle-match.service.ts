@@ -13,7 +13,6 @@ export class MatchShuffleService {
             [players[i], players[j]] = [players[j], players[i]];
         }
         
-        console.log('player 1 sjufled:' + players[1])
         return players;
     }
 }

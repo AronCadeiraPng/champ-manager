@@ -44,26 +44,27 @@ __decorate([
     __metadata("design:type", String)
 ], CreateChampionshipDto.prototype, "gender", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'solo_game', description: 'Modo do torneio (dupla ou sozinho)' }),
+    (0, swagger_1.ApiProperty)({ example: 'solo-game', description: 'Modo do torneio (dupla ou sozinho)' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateChampionshipDto.prototype, "modality", void 0);
 __decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, swagger_1.ApiProperty)({ example: '05/10/2026', description: 'Data de início das inscrições' }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Escolha uma data para o início das inscrições' }),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
 ], CreateChampionshipDto.prototype, "registrationStart", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '10/05/2026', description: 'Data de término das inscrições' }),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
 ], CreateChampionshipDto.prototype, "registrationEnd", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'in_progress', description: 'Status do torneio' }),
+    (0, swagger_1.ApiProperty)({ example: 'in-progress', description: 'Status do torneio', default: championship_status_enum_1.ChampionshipStatusEnum.REGISTRATION_START }),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateChampionshipDto.prototype, "status", void 0);
 //# sourceMappingURL=create-championship.dto.js.map

@@ -19,7 +19,6 @@ let MatchShuffleService = class MatchShuffleService {
             const j = Math.floor(Math.random() * (i + 1));
             [players[i], players[j]] = [players[j], players[i]];
         }
-        console.log('player 1 sjufled:' + players[1]);
         return players;
     }
 };

@@ -1,4 +1,4 @@
-export enum PhaseName {
+export enum PhaseEnum {
     GROUP_FASE = 'group-fase',
     OCTAVE = 'octave',
     QUARTER = 'quarter',

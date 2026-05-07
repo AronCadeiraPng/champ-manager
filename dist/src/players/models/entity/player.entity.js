@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], Player.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'integer', name: 'points', default: 0, nullable: true }),
+    (0, typeorm_1.Column)({ type: 'integer', name: 'points', default: 0 }),
     __metadata("design:type", Number)
 ], Player.prototype, "points", void 0);
 __decorate([

@@ -14,7 +14,7 @@ import {
 import { Timestamp } from "typeorm";
 import { GenderEnum } from "../../../common/enums/gender.enum";
 import { ModalityEnum } from "../../../common/enums/modality.enum";
-import { StatusEnum } from "../../../common/enums/championship-status.enum";
+import { ChampionshipStatusEnum } from "../../../common/enums/championship-status.enum";
 import { Sport } from "../../../sports/models/entity/sport.entity";
 import { RegistrationSolo } from "../../../registrations-solo/models/entity/registration.entity";
 import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
@@ -29,7 +29,6 @@ export class Championship {
     @Column({ unique:true, type: 'varchar', name: 'name' })
     name: string;
 
-
     @Column({ type: 'enum', enum: GenderEnum, name: 'gender' })
     gender: GenderEnum;
 
@@ -42,8 +41,8 @@ export class Championship {
     @Column({ type: 'timestamptz' , name: 'registration_end' })
     registrationEnd: Date;
 
-    @Column({ type: 'enum', enum: StatusEnum, name: 'status' })
-    status: StatusEnum;
+    @Column({ type: 'enum', enum: ChampionshipStatusEnum, name: 'status', default: ChampionshipStatusEnum.REGISTRATION_START })
+    status: ChampionshipStatusEnum;
     
     @Column({ name: 'sport' })
     sportId?: string;

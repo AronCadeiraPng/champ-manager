@@ -13,9 +13,11 @@ exports.Match = void 0;
 const typeorm_1 = require("typeorm");
 const phase_entity_1 = require("../../../phases/entity/phase.entity");
 const player_entity_1 = require("../../../players/models/entity/player.entity");
+const match_status_enum_1 = require("../../../common/enums/match-status.enum");
 let Match = class Match {
     id;
     winnerId;
+    status;
     phaseId;
     players;
     phase;
@@ -31,6 +33,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'varchar', name: 'winner_id', nullable: true }),
     __metadata("design:type", String)
 ], Match.prototype, "winnerId", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'enum', enum: match_status_enum_1.MatchStatusEnum, default: match_status_enum_1.MatchStatusEnum.PENDING }),
+    __metadata("design:type", String)
+], Match.prototype, "status", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar', name: 'phase_id' }),
     __metadata("design:type", String)

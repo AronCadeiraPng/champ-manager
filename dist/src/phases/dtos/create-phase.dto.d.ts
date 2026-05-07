@@ -1,7 +1,7 @@
-import { PhaseName } from "src/common/enums/phase-name.enum";
-import { PhaseStatus } from "src/common/enums/phase-status.enum";
+import { PhaseEnum } from "src/common/enums/phase-name.enum";
+import { PhaseStatusEnum } from "src/common/enums/phase-status.enum";
 export declare class CreatePhaseDto {
-    name?: PhaseName;
+    name?: PhaseEnum;
     championshipId: string;
-    phaseStatus?: PhaseStatus;
+    status?: PhaseStatusEnum;
 }

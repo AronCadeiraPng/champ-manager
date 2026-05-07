@@ -62,7 +62,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Championship.prototype, "registrationEnd", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: championship_status_enum_1.StatusEnum, name: 'status' }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: championship_status_enum_1.ChampionshipStatusEnum, name: 'status', default: championship_status_enum_1.ChampionshipStatusEnum.REGISTRATION_START }),
     __metadata("design:type", String)
 ], Championship.prototype, "status", void 0);
 __decorate([

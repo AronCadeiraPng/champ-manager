@@ -20,12 +20,17 @@ import { BuildGroupPhaseService } from '../use-cases/build-group-phase/build-gro
 import { PlayerUpdateService } from 'src/players/use-cases/update-player/update-player.service';
 import { PlayerFindService } from 'src/players/use-cases/find-player/find-player.service';
 import { MatchPairService } from 'src/matches/use-cases/pair-matches/pair-matches.service';
+import { PhaseFindService } from '../use-cases/find-phase/find-phase.service';
+import { MatchGetWinnersService } from 'src/matches/use-cases/get-winners/get-winners.service';
+import { PhaseBuildOctaveService } from '../use-cases/build-octave-phase/build-octave-phase.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Phase, Championship, RegistrationSolo, Participant, Match, Player])],
   controllers: [PhasesController],
   providers: [
     PhaseCreateService,
+    PhaseBuildOctaveService,
+    PhaseFindService,
     ChampionshipFindService,
     RegistrationSoloFindService,
     ParticipantFindService,
@@ -38,10 +43,12 @@ import { MatchPairService } from 'src/matches/use-cases/pair-matches/pair-matche
     PlayerFindService,
     MatchPairService,
     MatchShuffleService,
-    BuildGroupPhaseService
+    MatchGetWinnersService,
+    BuildGroupPhaseService,
   ],
   exports: [
     PhaseCreateService,
+    PhaseFindService,
     BuildGroupPhaseService
   ]
 })

@@ -16,12 +16,15 @@ exports.PlayerFindService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const exceptions_1 = require("../../../common/exceptions");
+const find_phase_service_1 = require("../../../phases/use-cases/find-phase/find-phase.service");
 const player_entity_1 = require("../../models/entity/player.entity");
 const typeorm_2 = require("typeorm");
 let PlayerFindService = class PlayerFindService {
     playerRepository;
-    constructor(playerRepository) {
+    phaseFindService;
+    constructor(playerRepository, phaseFindService) {
         this.playerRepository = playerRepository;
+        this.phaseFindService = phaseFindService;
     }
     async byId(id) {
         const player = await this.playerRepository.findOne({
@@ -34,13 +37,24 @@ let PlayerFindService = class PlayerFindService {
         return player;
     }
     async All() {
-        return await this.playerRepository.find();
+        const players = await this.playerRepository.find();
+        return players;
+    }
+    async ByPhase(phaseId) {
+        return await this.playerRepository.find({
+            where: {
+                match: {
+                    phaseId: phaseId
+                }
+            }
+        });
     }
 };
 exports.PlayerFindService = PlayerFindService;
 exports.PlayerFindService = PlayerFindService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(player_entity_1.Player)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        find_phase_service_1.PhaseFindService])
 ], PlayerFindService);
 //# sourceMappingURL=find-player.service.js.map

@@ -7,7 +7,7 @@ export class Player {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ type: 'integer', name: 'points', default: 0, nullable: true })
+    @Column({ type: 'integer', name: 'points', default: 0})
     points?: number;
 
     @Column({name: 'match_id', nullable: true})

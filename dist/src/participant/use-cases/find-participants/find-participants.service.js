@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParticipantFindService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const exceptions_1 = require("../../../common/exceptions");
+const bad_request_exception_1 = require("../../../common/exceptions/bad-request.exception");
 const participant_entity_1 = require("../../models/entity/participant.entity");
 const typeorm_2 = require("typeorm");
 let ParticipantFindService = class ParticipantFindService {
@@ -29,8 +31,23 @@ let ParticipantFindService = class ParticipantFindService {
             }
         });
         if (!participant)
-            throw new common_1.BadRequestException('Participante', id);
+            throw new exceptions_1.NotFoundException('Participante', id);
         return participant;
+    }
+    async ByPlayer(players) {
+        const participants = Promise.all(players.map(async (player) => {
+            return await this.participantRepository.find({
+                where: {
+                    id: player.participantId
+                },
+                relations: {
+                    player: true
+                }
+            });
+        }));
+        if (!participants)
+            throw new bad_request_exception_1.BadRequestException('Participantes não encontrados', 400);
+        return participants;
     }
     async findParticipantsByChampionship(championshipId) {
         const participants = await this.participantRepository.find({

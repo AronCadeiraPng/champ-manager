@@ -2,7 +2,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsDateString, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { GenderEnum } from "src/common/enums/gender.enum";
 import { ModalityEnum } from "src/common/enums/modality.enum";
-import { StatusEnum } from "src/common/enums/championship-status.enum";
+import { ChampionshipStatusEnum } from "src/common/enums/championship-status.enum";
+import { Transform } from "class-transformer";
 
 export class CreateChampionshipDto {
     @ApiProperty({ example: 'Sinuca Masculino 2026', description: 'Nome do torneio' })
@@ -20,22 +21,23 @@ export class CreateChampionshipDto {
     @IsNotEmpty()
     gender: GenderEnum;
 
-    @ApiProperty({ example: 'solo_game', description: 'Modo do torneio (dupla ou sozinho)' })
+    @ApiProperty({ example: 'solo-game', description: 'Modo do torneio (dupla ou sozinho)' })
     @IsString()
     @IsNotEmpty()
     modality: ModalityEnum;
 
-    @IsOptional()
     @ApiProperty({ example: '05/10/2026', description: 'Data de início das inscrições' })
+    @IsNotEmpty({ message: 'Escolha uma data para o início das inscrições' })
     @IsDateString()
-    registrationStart?: string;   
+    registrationStart: string;   
 
     @ApiProperty({ example: '10/05/2026', description: 'Data de término das inscrições' })
+    @IsOptional()
     @IsDateString()
-    registrationEnd: string;
+    registrationEnd?: string;
 
-    @ApiProperty({ example: 'in_progress', description: 'Status do torneio' })
+    @ApiProperty({ example: 'in-progress', description: 'Status do torneio', default: ChampionshipStatusEnum.REGISTRATION_START })
+    @IsOptional()
     @IsString()
-    @IsNotEmpty()
-    status: StatusEnum;
+    status: ChampionshipStatusEnum;
 }

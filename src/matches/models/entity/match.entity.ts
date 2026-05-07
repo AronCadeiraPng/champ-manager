@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
 import { Phase } from "src/phases/entity/phase.entity";
 import { Player } from "src/players/models/entity/player.entity";
+import { MatchStatusEnum } from "src/common/enums/match-status.enum";
 
 @Entity('matches')
 export class Match {
@@ -9,6 +10,9 @@ export class Match {
 
     @Column({ type: 'varchar', name: 'winner_id', nullable: true})
     winnerId?: string;
+
+    @Column({ type: 'enum', enum: MatchStatusEnum, default: MatchStatusEnum.PENDING })
+    status: MatchStatusEnum;
 
     @Column({type: 'varchar', name: 'phase_id' })
     phaseId: string;

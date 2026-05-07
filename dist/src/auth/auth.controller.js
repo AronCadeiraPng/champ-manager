@@ -70,7 +70,7 @@ __decorate([
     (0, common_1.Delete)(':id'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), roles_guard_1.RolesGuard),
     (0, swagger_1.ApiBearerAuth)(),
-    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRoles.ADMIN),
+    (0, roles_decorator_1.Roles)(user_roles_enum_1.UserRolesEnum.ADMIN),
     (0, swagger_1.ApiOperation)({ summary: 'Deletar um usuário' }),
     (0, swagger_1.ApiNoContentResponse)({ description: 'Usuário deletado com sucesso', type: user_entity_1.User }),
     (0, swagger_1.ApiForbiddenResponse)({ description: 'Permissão negada' }),

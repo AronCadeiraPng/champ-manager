@@ -4,6 +4,7 @@ import { Participant } from '../models/entity/participant.entity';
 import { ParticipantCreateService } from '../use-cases/create-participant/create-participant.service';
 import { CreateParticipantDto } from '../models/dtos/create-participant.dto';
 import { ApiBadRequestResponse, ApiNoContentResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Player } from 'src/players/models/entity/player.entity';
 
 @ApiTags('participants')
 @Controller('participants')
@@ -25,7 +26,14 @@ export class ParticipantController {
     return this.participantCreateService.createParticipant(championshipId, createParticipantDto)
   }
 
-  
+  @Get('/players')
+  async findByPlayer(
+    @Body() players: Player[]
+  )
+  {
+    return await this.participantFindService.ByPlayer(players);
+  }
+
   @Get('all')
   @ApiOperation({ summary: 'Retorna todos os participantes' })
     @ApiOkResponse({ type: CreateParticipantDto })

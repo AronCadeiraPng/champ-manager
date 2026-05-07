@@ -16,16 +16,35 @@ exports.PhasesController = void 0;
 const common_1 = require("@nestjs/common");
 const create_phase_dto_1 = require("../dtos/create-phase.dto");
 const create_phase_service_1 = require("../use-cases/create-phase/create-phase.service");
+const find_phase_service_1 = require("../use-cases/find-phase/find-phase.service");
+const build_octave_phase_service_1 = require("../use-cases/build-octave-phase/build-octave-phase.service");
 let PhasesController = class PhasesController {
     phaseCreateService;
-    constructor(phaseCreateService) {
+    phaseFindService;
+    phaseBuildOctaveService;
+    constructor(phaseCreateService, phaseFindService, phaseBuildOctaveService) {
         this.phaseCreateService = phaseCreateService;
+        this.phaseFindService = phaseFindService;
+        this.phaseBuildOctaveService = phaseBuildOctaveService;
+    }
+    async startOctave(championshipId) {
+        return await this.phaseBuildOctaveService.execute(championshipId);
     }
     async createPhase(createPhaseDto) {
         return await this.phaseCreateService.execute(createPhaseDto);
     }
+    async findByChampionship(championshipId) {
+        return await this.phaseFindService.ByChampionship(championshipId);
+    }
 };
 exports.PhasesController = PhasesController;
+__decorate([
+    (0, common_1.Post)(':championship/octave'),
+    __param(0, (0, common_1.Param)('championship', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PhasesController.prototype, "startOctave", null);
 __decorate([
     (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
@@ -33,8 +52,17 @@ __decorate([
     __metadata("design:paramtypes", [create_phase_dto_1.CreatePhaseDto]),
     __metadata("design:returntype", Promise)
 ], PhasesController.prototype, "createPhase", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PhasesController.prototype, "findByChampionship", null);
 exports.PhasesController = PhasesController = __decorate([
     (0, common_1.Controller)('phases'),
-    __metadata("design:paramtypes", [create_phase_service_1.PhaseCreateService])
+    __metadata("design:paramtypes", [create_phase_service_1.PhaseCreateService,
+        find_phase_service_1.PhaseFindService,
+        build_octave_phase_service_1.PhaseBuildOctaveService])
 ], PhasesController);
 //# sourceMappingURL=phases.controller.js.map

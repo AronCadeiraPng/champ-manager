@@ -29,6 +29,9 @@ const build_group_phase_service_1 = require("../use-cases/build-group-phase/buil
 const update_player_service_1 = require("../../players/use-cases/update-player/update-player.service");
 const find_player_service_1 = require("../../players/use-cases/find-player/find-player.service");
 const pair_matches_service_1 = require("../../matches/use-cases/pair-matches/pair-matches.service");
+const find_phase_service_1 = require("../use-cases/find-phase/find-phase.service");
+const get_winners_service_1 = require("../../matches/use-cases/get-winners/get-winners.service");
+const build_octave_phase_service_1 = require("../use-cases/build-octave-phase/build-octave-phase.service");
 let PhasesModule = class PhasesModule {
 };
 exports.PhasesModule = PhasesModule;
@@ -38,6 +41,8 @@ exports.PhasesModule = PhasesModule = __decorate([
         controllers: [phases_controller_1.PhasesController],
         providers: [
             create_phase_service_1.PhaseCreateService,
+            build_octave_phase_service_1.PhaseBuildOctaveService,
+            find_phase_service_1.PhaseFindService,
             find_championship_service_1.ChampionshipFindService,
             find_registration_service_1.RegistrationSoloFindService,
             find_participants_service_1.ParticipantFindService,
@@ -50,10 +55,12 @@ exports.PhasesModule = PhasesModule = __decorate([
             find_player_service_1.PlayerFindService,
             pair_matches_service_1.MatchPairService,
             shuffle_match_service_1.MatchShuffleService,
-            build_group_phase_service_1.BuildGroupPhaseService
+            get_winners_service_1.MatchGetWinnersService,
+            build_group_phase_service_1.BuildGroupPhaseService,
         ],
         exports: [
             create_phase_service_1.PhaseCreateService,
+            find_phase_service_1.PhaseFindService,
             build_group_phase_service_1.BuildGroupPhaseService
         ]
     })

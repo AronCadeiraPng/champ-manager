@@ -1,19 +1,19 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { PhaseName } from "src/common/enums/phase-name.enum";
-import { PhaseStatus } from "src/common/enums/phase-status.enum";
+import { PhaseEnum } from "src/common/enums/phase-name.enum";
+import { PhaseStatusEnum } from "src/common/enums/phase-status.enum";
 
 export class CreatePhaseDto {
     @IsOptional()
-    @IsEnum(PhaseName)
+    @IsEnum(PhaseEnum)
     @IsString()
-    name?: PhaseName;
+    name?: PhaseEnum;
 
     @IsNotEmpty()
     @IsString()
     championshipId: string;
 
     @IsOptional()
-    @IsEnum(PhaseStatus)
+    @IsEnum(PhaseStatusEnum)
     @IsString()
-    phaseStatus?: PhaseStatus;
+    status?: PhaseStatusEnum;
 }

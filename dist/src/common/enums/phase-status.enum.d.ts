@@ -1,4 +1,4 @@
-export declare enum PhaseStatus {
+export declare enum PhaseStatusEnum {
     IN_PROGRESS = "in-progress",
     FINISHED = "finished"
 }
