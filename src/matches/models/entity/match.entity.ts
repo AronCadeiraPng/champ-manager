@@ -1,5 +1,4 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from 'typeorm';
-import { Phase } from '../../../phases/entity/phase.entity';
 import { Player } from '../../../players/models/entity/player.entity';
 import { MatchStatusEnum } from '../../../common/enums/match-status.enum';
 import { Group } from '../../../groups/models/entity/group.entity';

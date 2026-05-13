@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ChampionshipStatusEnum } from '../../../common/enums/championship-status.enum';
 import { NotFoundException } from '../../../common/exceptions';
-import { PhaseFindService } from '../../../phases/use-cases/find-phase/find-phase.service';
 import { Player } from '../../models/entity/player.entity';
 import { Repository } from 'typeorm';
 
@@ -10,7 +8,6 @@ import { Repository } from 'typeorm';
 export class PlayerFindService {
     constructor (
         @InjectRepository(Player) private readonly playerRepository: Repository<Player>,
-        private readonly phaseFindService: PhaseFindService
     ) {}
 
     async byId(id: string): Promise<Player> {

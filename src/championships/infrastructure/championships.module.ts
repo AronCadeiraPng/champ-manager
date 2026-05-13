@@ -8,9 +8,6 @@ import { MatchUpdateService } from '../../matches/use-cases/update-match/update-
 import { Participant } from '../../participant/models/entity/participant.entity';
 import { ParticipantCreateService } from '../../participant/use-cases/create-participant/create-participant.service';
 import { ParticipantFindService } from '../../participant/use-cases/find-participants/find-participants.service';
-import { Phase } from '../../phases/entity/phase.entity';
-import { BuildGroupPhaseService } from '../../phases/use-cases/build-group-phase/build-group-phase.service';
-import { PhaseFindService } from '../../phases/use-cases/find-phase/find-phase.service';
 import { Player } from '../../players/models/entity/player.entity';
 import { PlayerCreateService } from '../../players/use-cases/create-player/create-player.service';
 import { PlayerFindService } from '../../players/use-cases/find-player/find-player.service';
@@ -33,7 +30,7 @@ import { ChampionshipsController } from './championships.controller';
 import { Module } from '@nestjs/common';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Match, Player, Sport, Participant, Phase]) ],
+  imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Match, Player, Sport, Participant]) ],
   controllers: [ChampionshipsController],
   providers: [
     Championship,
@@ -47,7 +44,6 @@ import { Module } from '@nestjs/common';
     ParticipantCreateService,
     RegistrationTeamFindService,
     ChampionshipFindRegistrationsService,
-    BuildGroupPhaseService,
     StartGroupPhaseService,
     ParticipantFindService,
     MatchPairService,
@@ -58,7 +54,6 @@ import { Module } from '@nestjs/common';
     MatchFindService,
     PlayerUpdateService,
     PlayerFindService,
-    PhaseFindService
   ],
   exports: [    
     ChampionshipDeleteService,

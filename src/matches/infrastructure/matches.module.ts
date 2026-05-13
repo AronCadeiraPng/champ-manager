@@ -11,15 +11,13 @@ import { MatchUpdateService } from '../use-cases/update-match/update-match.servi
 import { PlayerUpdateService } from '../../players/use-cases/update-player/update-player.service';
 import { PlayerFindService } from '../../players/use-cases/find-player/find-player.service';
 import { MatchPairService } from '../use-cases/pair-matches/pair-matches.service';
-import { Phase } from '../../phases/entity/phase.entity';
 import { Championship } from '../../championships/models/entity/championship.entity';
 import { ChampionshipFindService } from '../../championships/use-cases/find-championship/find-championship.service';
-import { PhaseFindService } from '../../phases/use-cases/find-phase/find-phase.service';
 import { MatchSetWinnerService } from '../use-cases/set-winner/set-winner.service';
 import { MatchGetWinnersService } from '../use-cases/get-winners/get-winners.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Championship, Match, Player, Phase])],
+  imports: [TypeOrmModule.forFeature([Championship, Match, Player])],
   controllers: [MatchesController],
   providers: [
     MatchCreateService,
@@ -34,7 +32,6 @@ import { MatchGetWinnersService } from '../use-cases/get-winners/get-winners.ser
     MatchSetWinnerService,
     MatchGetWinnersService,
     ChampionshipFindService,
-    PhaseFindService,
   ],
   exports: [
     MatchCreateService,

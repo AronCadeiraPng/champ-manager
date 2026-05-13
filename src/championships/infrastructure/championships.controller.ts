@@ -38,7 +38,6 @@ import { Roles } from '../../decorators/roles.decorator';
 import { RegistrationTeamListDto } from '../../registrations-team/models/dtos/registrations-team-list.dto';
 import { RegistrationSoloListDto } from '../../registrations-solo/models/dtos/registrations-solo-list.dto';
 import { StartGroupPhaseService } from '../use-cases/start-group-phase/start-group-phase.service';
-import { Phase } from '../../phases/entity/phase.entity';
 
 @ApiTags('Championships')
 @ApiBearerAuth()
@@ -169,7 +168,7 @@ export class ChampionshipsController {
   @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   async startGroupPhase(
     @Param('id', ParseUUIDPipe) championshipId: string,
-  ): Promise<Phase> {
+  ) {
     return await this.startGroupPhaseService.execute(championshipId);
   }
 }

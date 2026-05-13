@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { UserModule } from './users/infrastructure/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/models/entity/user.entity';
@@ -15,7 +14,6 @@ import { RegistrationsTeamModule } from './registrations-team/infrastructure/reg
 import { Championship } from './championships/models/entity/championship.entity';
 import { ParticipantModule } from './participant/infrastructure/participant.module';
 import { MatchesModule } from './matches/infrastructure/matches.module';
-import { PhasesModule } from './phases/infrastructure/phases.module';
 import { PlayersModule } from './players/infrastructure/players.module';
 
 import { APP_GUARD } from '@nestjs/core';
@@ -42,12 +40,12 @@ import { PostgresChampConfigService } from './db-config/data.config';
     MembersModule,
     ParticipantModule,
     MatchesModule,
-    PhasesModule,
     PlayersModule,
   ],
-  controllers: [],
+  controllers: [
+    
+  ],
   providers: [
-    AppService,
     UserRegisterService,
     User,
     {
