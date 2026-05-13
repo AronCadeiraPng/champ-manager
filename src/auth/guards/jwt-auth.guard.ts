@@ -5,26 +5,25 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-    constructor(
-        private reflector: Reflector,
-    )
-    {
-        super();
+  constructor(private reflector: Reflector) {
+    super();
+  }
+
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const isPublic = this.reflector.get('isPublic', context.getHandler());
+    const request = context.switchToHttp().getRequest();
+
+    if (isPublic) {
+      return true;
     }
 
-    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-        const isPublic = this.reflector.get('isPublic', context.getHandler());
-        const request = context.switchToHttp().getRequest();
- 
-        if(isPublic){
-            return true;
-        }
-        
-        const accessToken = request.cookies.accessToken
-        if(!accessToken){
-            return false
-        }
-        
-        return true;
+    const accessToken = request.cookies.accessToken;
+    if (!accessToken) {
+      return false;
     }
+
+    return true;
+  }
 }

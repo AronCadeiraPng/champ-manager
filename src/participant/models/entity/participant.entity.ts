@@ -1,9 +1,9 @@
-import { Player } from "src/players/models/entity/player.entity";
-import { RegistrationSolo } from "src/registrations-solo/models/entity/registration.entity";
-import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
-import { Column, Entity, JoinColumn,OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Player } from '../../../players/models/entity/player.entity';
+import { RegistrationSolo } from '../../../registrations-solo/models/entity/registration.entity';
+import { RegistrationTeam } from '../../../registrations-team/models/entity/registration-team.entity';
+import { Column, Entity, JoinColumn,OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('participants')
+@Entity('participa')
 export class Participant {
     @PrimaryGeneratedColumn('uuid')
     id: string;

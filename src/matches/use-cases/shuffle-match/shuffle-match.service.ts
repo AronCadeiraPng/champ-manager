@@ -1,5 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import { Participant } from "src/participant/models/entity/participant.entity";
+import { Injectable } from '@nestjs/common';
+import { Participant } from '../../../participant/models/entity/participant.entity';
 
 @Injectable()
 export class MatchShuffleService {

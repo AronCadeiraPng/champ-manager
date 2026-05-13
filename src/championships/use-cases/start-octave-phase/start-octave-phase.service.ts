@@ -1,20 +1,21 @@
-import { Injectable } from '@nestjs/common'
-import { CreatePhaseDto } from 'src/phases/dtos/create-phase.dto'
-import { ChampionshipFindService } from '../find-championship/find-championship.service'
-import { BadRequestException } from 'src/common/exceptions/bad-request.exception'
-import { PhaseBuildOctaveService } from 'src/phases/use-cases/build-octave-phase/build-octave-phase.service'
-import { ChampionshipStatusEnum } from 'src/common/enums/championship-status.enum'
+import { Injectable } from '@nestjs/common';
+import { CreatePhaseDto } from '../../../phases/dtos/create-phase.dto';
+import { PhaseBuildOctaveService } from '../../../phases/use-cases/build-octave-phase/build-octave-phase.service';
+import { ChampionshipFindService } from '../find-championship/find-championship.service';
 
 @Injectable()
 export class ChampionshipOctavePhaseService {
-constructor (
+  constructor(
     private readonly championshipFindService: ChampionshipFindService,
-    private readonly buildOctavePhase: PhaseBuildOctaveService
-) { }
+    private readonly buildOctavePhase: PhaseBuildOctaveService,
+  ) {}
 
-    async execute(createPhaseDto: CreatePhaseDto) {
-        const championship = await this.championshipFindService.findChampionshipById(createPhaseDto.championshipId);
+  async execute(createPhaseDto: CreatePhaseDto) {
+    const championship =
+      await this.championshipFindService.findChampionshipById(
+        createPhaseDto.championshipId,
+      );
 
-        // await this.buildOctavePhase.execute(createPhaseDto);
-    }
+    // await this.buildOctavePhase.execute(createPhaseDto);
+  }
 }

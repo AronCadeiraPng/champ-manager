@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { NotFoundException } from "src/common/exceptions";
-import { BadRequestException } from "src/common/exceptions/bad-request.exception";
-import { Participant } from "src/participant/models/entity/participant.entity";
-import { Player } from "src/players/models/entity/player.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundException } from '../../../common/exceptions';
+import { BadRequestException } from '../../../common/exceptions/bad-request.exception';
+import { Participant } from '../../models/entity/participant.entity';
+import { Player } from '../../../players/models/entity/player.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ParticipantFindService {

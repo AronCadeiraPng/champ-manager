@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { MemberDeleteService } from "src/members/use-cases/delete-member/delete-member.service";
-import { Team } from "src/teams/models/entity/team.entity";
-import { Repository } from "typeorm";
-import { TeamFindService } from "../find-team/find-team.service";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MemberDeleteService } from '../../../members/use-cases/delete-member/delete-member.service';
+import { Team } from '../../models/entity/team.entity';
+import { Repository } from 'typeorm';
+import { TeamFindService } from '../find-team/find-team.service';
 
 @Injectable()
 export class TeamDeleteService {

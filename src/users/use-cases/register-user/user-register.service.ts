@@ -1,11 +1,11 @@
-import { Injectable } from "@nestjs/common"
-import { InjectRepository } from "@nestjs/typeorm";
-import { BadRequestException } from "src/common/exceptions/bad-request.exception";
-import { RegisterUserDto } from "src/users/models/dtos/register-user.dto";
-import { User } from "src/users/models/entity/user.entity";
-import { Repository } from "typeorm";
+import { BadRequestException, Injectable } from "@nestjs/common"
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt'
-import { UserFindService } from "../find-user/find-user.service";
+import { UserFindService } from '../find-user/find-user.service';
+import { RegisterUserDto } from '../../models/dtos/register-user.dto';
+import { User } from '../../models/entity/user.entity';
 
 @Injectable()
 export class UserRegisterService {
@@ -18,8 +18,8 @@ export class UserRegisterService {
         const emailExists = await this.findUser.findUserByEmail(registerUserDto.email);
         const CpfExists = await this.findUser.findUserByCpf(registerUserDto.cpf);
     
-        if (emailExists) throw new BadRequestException('Usuário com este email já existe!', 400);
-        if (CpfExists) throw new BadRequestException('Usuário com este cpf já cadastrado!', 400);
+        if (emailExists) throw new BadRequestException('Usuário com este email já existe!');
+        if (CpfExists) throw new BadRequestException('Usuário com este cpf já cadastrado!');
     
         /* gerar hash da senha */
         const salt = await bcrypt.genSalt(10);

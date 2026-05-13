@@ -1,9 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { Repository } from "typeorm";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Championship } from "src/championships/models/entity/championship.entity";
-import { ChampionshipFindService } from "../find-championship/find-championship.service";
-import { UpdateChampionshipDto } from "src/championships/models/dtos/update-championship.dto";
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateChampionshipDto } from '../../models/dtos/update-championship.dto';
+import { Championship } from '../../models/entity/championship.entity';
+import { ChampionshipFindService } from '../find-championship/find-championship.service';
+
 
 @Injectable()
 export class ChampionshipUpdateService {

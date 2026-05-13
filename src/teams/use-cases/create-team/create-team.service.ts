@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTeamDto } from '../../models/dtos/create-team.dto';
-import { Team } from 'src/teams/models/entity/team.entity';
+import { Team } from '../../models/entity/team.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MemberCreateService } from 'src/members/use-cases/create-member/create-member.service';
+import { MemberCreateService } from '../../../members/use-cases/create-member/create-member.service';
 
 @Injectable()
 export class TeamCreateService {
   constructor(
     @InjectRepository(Team) private readonly teamRepository: Repository<Team>,
-    private readonly memberCreateService: MemberCreateService
+    private readonly memberCreateService: MemberCreateService,
   ) {}
 
   async execute(createTeamDto: CreateTeamDto) {
@@ -19,8 +19,8 @@ export class TeamCreateService {
 
     const members = await Promise.all(
       (createTeamDto.membersId ?? []).map((userId) =>
-        this.memberCreateService.execute({ userId, teamId: team.id })
-      )
+        this.memberCreateService.execute({ userId, teamId: team.id }),
+      ),
     );
 
     team.members = members;

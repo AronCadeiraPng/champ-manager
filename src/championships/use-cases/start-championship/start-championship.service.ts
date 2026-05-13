@@ -1,9 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { ParticipantCreateService } from "src/participant/use-cases/create-participant/create-participant.service";
-import { RegistrationSoloFindService } from "src/registrations-solo/use-cases/find-registration/find-registration.service";
-import { ChampionshipFindService } from "../find-championship/find-championship.service";
-import { RegistrationTeamFindService } from "src/registrations-team/use-cases/find-registration/find-registration.service";
-import { ModalityEnum } from "src/common/enums/modality.enum";
+import { Injectable } from '@nestjs/common';
+import { ModalityEnum } from '../../../common/enums/modality.enum';
+import { ParticipantCreateService } from '../../../participant/use-cases/create-participant/create-participant.service';
+import { RegistrationSoloFindService } from '../../../registrations-solo/use-cases/find-registration/find-registration.service';
+import { RegistrationTeamFindService } from '../../../registrations-team/use-cases/find-registration/find-registration.service';
+import { ChampionshipFindService } from '../find-championship/find-championship.service';
+
 
 @Injectable()
 export class ChampionshipStartService {

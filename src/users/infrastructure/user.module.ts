@@ -9,16 +9,7 @@ import { UserRegisterService } from '../use-cases/register-user/user-register.se
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
-  providers: [
-    UserFindService,
-    UserLoginService,
-    UserRegisterService
-  ],
-  exports: [
-    UserModule,
-    UserFindService,
-    UserLoginService,
-    UserRegisterService
-  ]
+  providers: [UserFindService, UserLoginService, UserRegisterService],
+  exports: [UserModule, UserFindService, UserLoginService, UserRegisterService],
 })
 export class UserModule {}

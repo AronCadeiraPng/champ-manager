@@ -1,8 +1,8 @@
-import { Championship } from "src/championships/models/entity/championship.entity";
-import { PhaseEnum } from "src/common/enums/phase-name.enum";
-import { PhaseStatusEnum } from "src/common/enums/phase-status.enum";
-import { Match } from "src/matches/models/entity/match.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
+import { Championship } from '../../championships/models/entity/championship.entity';
+import { PhaseEnum } from '../../common/enums/phase-name.enum';
+import { PhaseStatusEnum } from '../../common/enums/phase-status.enum';
+import { Match } from '../../matches/models/entity/match.entity';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from 'typeorm';
 
 @Entity('phases')
 export class Phase {

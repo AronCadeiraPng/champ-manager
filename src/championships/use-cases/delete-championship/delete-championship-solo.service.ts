@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { Repository } from "typeorm";
-import { InjectRepository } from "@nestjs/typeorm";
-import { ChampionshipFindService } from "../find-championship/find-championship.service";
-import { Championship } from "src/championships/models/entity/championship.entity";
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ChampionshipFindService } from '../find-championship/find-championship.service';
+import { Championship } from '../../models/entity/championship.entity';
 
 @Injectable()
 export class ChampionshipDeleteService {

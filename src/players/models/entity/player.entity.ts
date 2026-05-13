@@ -1,13 +1,13 @@
-import { Match } from "src/matches/models/entity/match.entity";
-import { Participant } from "src/participant/models/entity/participant.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Match } from '../../../matches/models/entity/match.entity';
+import { Participant } from '../../../participant/models/entity/participant.entity';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('players')
 export class Player {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ type: 'integer', name: 'points', default: 0})
+    @Column({ type: 'integer', name: 'poi', default: 0})
     points?: number;
 
     @Column({name: 'match_id', nullable: true})

@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { NotFoundException } from "src/common/exceptions";
-import { BadRequestException } from "src/common/exceptions/bad-request.exception";
-import { Sport } from "src/sports/models/entity/sport.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundException } from '../../../common/exceptions';
+import { BadRequestException } from '../../../common/exceptions/bad-request.exception';
+import { Sport } from '../../models/entity/sport.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SportFindService {

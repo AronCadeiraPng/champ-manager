@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { MatchShuffleService } from "../shuffle-match/shuffle-match.service";
-import { MatchCreateService } from "../create-match/create-match.service";
-import { Participant } from "src/participant/models/entity/participant.entity";
-import { PlayerCreateService } from "src/players/use-cases/create-player/create-player.service";
-import { CreatePlayerDto } from "src/players/models/dtos/create-player.dto";
-import { Match } from "src/matches/models/entity/match.entity";
+import { Injectable } from '@nestjs/common';
+import { MatchShuffleService } from '../shuffle-match/shuffle-match.service';
+import { MatchCreateService } from '../create-match/create-match.service';
+import { Participant } from '../../../participant/models/entity/participant.entity';
+import { PlayerCreateService } from '../../../players/use-cases/create-player/create-player.service';
+import { CreatePlayerDto } from '../../../players/models/dtos/create-player.dto';
+import { Match } from '../../models/entity/match.entity';
 
 @Injectable()
 export class MatchPairService {

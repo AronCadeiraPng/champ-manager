@@ -1,9 +1,9 @@
-import { Injectable, Param } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { UpdateTeamDto } from "src/teams/models/dtos/update-team.dto";
-import { Team } from "src/teams/models/entity/team.entity";
-import { Repository } from "typeorm";
-import { TeamFindService } from "../find-team/find-team.service";
+import { Injectable, Param } from '@nestjs/common';
+import { TeamFindService } from '../find-team/find-team.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UpdateTeamDto } from '../../models/dtos/update-team.dto';
+import { Team } from '../../models/entity/team.entity';
 
 @Injectable()
 export class TeamUpdateService {

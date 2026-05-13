@@ -1,11 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { RegistrationSoloFindService } from "src/registrations-solo/use-cases/find-registration/find-registration.service";
-import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
-import { RegistrationTeamFindService } from "src/registrations-team/use-cases/find-registration/find-registration.service";
-import { ChampionshipFindService } from "../find-championship/find-championship.service";
-import { error } from "console";
-import { BadRequestException } from "src/common/exceptions/bad-request.exception";
-import { ModalityEnum } from "src/common/enums/modality.enum";
+import { Injectable, BadRequestException } from '@nestjs/common';
+import { ModalityEnum } from '../../../common/enums/modality.enum';
+import { RegistrationSoloFindService } from '../../../registrations-solo/use-cases/find-registration/find-registration.service';
+import { RegistrationTeamFindService } from '../../../registrations-team/use-cases/find-registration/find-registration.service';
+import { ChampionshipFindService } from '../find-championship/find-championship.service';
+
 
 @Injectable()
 export class ChampionshipFindRegistrationsService {
@@ -21,7 +19,7 @@ export class ChampionshipFindRegistrationsService {
         if(championship.modality == ModalityEnum.SOLO) {
             const registrations = await this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
             
-            if(registrations.length < 1) throw new BadRequestException('Nenhum registro encontrado.', 204);
+            if(registrations.length < 1) throw new BadRequestException('Nenhum registro encontrado.');
 
             return registrations;
         }
@@ -29,7 +27,7 @@ export class ChampionshipFindRegistrationsService {
         if(championship.modality == ModalityEnum.TEAM) {
             const registrations = await this.registrationSoloFindService.findRegistrationsByChampionship(championshipId);
 
-            if(registrations.length < 1) throw new BadRequestException('Nenhum registro encontrado.', 204);
+            if(registrations.length < 1) throw new BadRequestException('Nenhum registro encontrado.');
 
             return registrations;
         }

@@ -9,16 +9,12 @@ import { MemberDeleteService } from '../use-cases/delete-member/delete-member.se
 @Module({
   imports: [TypeOrmModule.forFeature([Member])],
   controllers: [MembersController],
-  providers: [
-    MemberFindService,
-    MemberCreateService,
-    MemberDeleteService
-  ],
+  providers: [MemberFindService, MemberCreateService, MemberDeleteService],
   exports: [
     MembersModule,
-    MemberCreateService, 
+    MemberCreateService,
     MemberFindService,
-    MemberDeleteService
-  ]
+    MemberDeleteService,
+  ],
 })
 export class MembersModule {}

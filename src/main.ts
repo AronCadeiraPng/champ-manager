@@ -9,23 +9,23 @@ import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: ['error', 'debug', 'fatal', 'log', 'verbose', 'warn']
+    logger: ['error', 'debug', 'fatal', 'log', 'verbose', 'warn'],
   });
 
   app.enableCors({
     origin: 'http://localhost:5173', // porta do React/Vite
     credentials: true,
-  })
+  });
 
   // app.useGlobalFilters(new GlobalExceptionFilter())
 
-  app.useGlobalPipes(new ValidationPipe(
-    {
+  app.useGlobalPipes(
+    new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
-      transform: true
-    }
-  ));
+      transform: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('API Champ-Manager')

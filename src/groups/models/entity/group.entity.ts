@@ -1,6 +1,7 @@
-import { Championship } from "src/championships/models/entity/championship.entity";
-import { Match } from "src/matches/models/entity/match.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Championship } from '../../../championships/models/entity/championship.entity';
+import { Match } from '../../../matches/models/entity/match.entity';
 
 @Entity('groups')
 export class Group {

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SportsController } from './sports.controller';
-import { RegistrationSoloModule } from 'src/registrations-solo/infrastructure/registrations.module';
+import { RegistrationSoloModule } from '../../registrations-solo/infrastructure/registrations.module';
 import { SportFindService } from '../use-cases/find-sport/find-sport.service';
 import { SportCreateService } from '../use-cases/create-sport/create-sport.service';
 import { SportDeleteService } from '../use-cases/delete-sport/delete-sport.service';
@@ -15,11 +15,8 @@ import { Sport } from '../models/entity/sport.entity';
     SportFindService,
     SportCreateService,
     SportDeleteService,
-    SportUpdateService
+    SportUpdateService,
   ],
-  exports: [
-    SportsModule,
-    SportFindService
-  ]
+  exports: [SportsModule, SportFindService],
 })
 export class SportsModule {}

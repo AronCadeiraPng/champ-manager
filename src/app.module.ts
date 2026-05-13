@@ -17,16 +17,19 @@ import { ParticipantModule } from './participant/infrastructure/participant.modu
 import { MatchesModule } from './matches/infrastructure/matches.module';
 import { PhasesModule } from './phases/infrastructure/phases.module';
 import { PlayersModule } from './players/infrastructure/players.module';
-import { DataModule } from 'source/data-source.module';
+
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { PostgresChampConfigService } from './db-config/data.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
-    DataModule,
+    TypeOrmModule.forRootAsync({
+      useClass: PostgresChampConfigService,
+    }),
     UserModule,
     TypeOrmModule.forFeature([User]),
     AuthModule,
@@ -52,7 +55,6 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
       useClass: JwtAuthGuard,
     },
   ],
-  exports: [
-  ]
+  exports: [],
 })
 export class AppModule {}

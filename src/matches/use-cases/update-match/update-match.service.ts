@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Match } from "src/matches/models/entity/match.entity";
-import { Repository } from "typeorm";
-import { MatchFindService } from "../find-match/find-match.service";
-import { Player } from "src/players/models/entity/player.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Match } from '../../models/entity/match.entity';
+import { Repository } from 'typeorm';
+import { MatchFindService } from '../find-match/find-match.service';
+import { Player } from '../../../players/models/entity/player.entity';
 
 @Injectable()
 export class MatchUpdateService {

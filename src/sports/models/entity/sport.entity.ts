@@ -1,6 +1,6 @@
-import { Championship } from "src/championships/models/entity/championship.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Timestamp } from "typeorm";
+import { Championship } from '../../../championships/models/entity/championship.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Timestamp } from 'typeorm';
 
 @Entity()
 export class Sport {

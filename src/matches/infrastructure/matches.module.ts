@@ -4,17 +4,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Match } from '../models/entity/match.entity';
 import { MatchCreateService } from '../use-cases/create-match/create-match.service';
 import { MatchShuffleService } from '../use-cases/shuffle-match/shuffle-match.service';
-import { Player } from 'src/players/models/entity/player.entity';
-import { PlayerCreateService } from 'src/players/use-cases/create-player/create-player.service';
+import { Player } from '../../players/models/entity/player.entity';
+import { PlayerCreateService } from '../../players/use-cases/create-player/create-player.service';
 import { MatchFindService } from '../use-cases/find-match/find-match.service';
 import { MatchUpdateService } from '../use-cases/update-match/update-match.service';
-import { PlayerUpdateService } from 'src/players/use-cases/update-player/update-player.service';
-import { PlayerFindService } from 'src/players/use-cases/find-player/find-player.service';
+import { PlayerUpdateService } from '../../players/use-cases/update-player/update-player.service';
+import { PlayerFindService } from '../../players/use-cases/find-player/find-player.service';
 import { MatchPairService } from '../use-cases/pair-matches/pair-matches.service';
-import { Phase } from 'src/phases/entity/phase.entity';
-import { Championship } from 'src/championships/models/entity/championship.entity';
-import { ChampionshipFindService } from 'src/championships/use-cases/find-championship/find-championship.service';
-import { PhaseFindService } from 'src/phases/use-cases/find-phase/find-phase.service';
+import { Phase } from '../../phases/entity/phase.entity';
+import { Championship } from '../../championships/models/entity/championship.entity';
+import { ChampionshipFindService } from '../../championships/use-cases/find-championship/find-championship.service';
+import { PhaseFindService } from '../../phases/use-cases/find-phase/find-phase.service';
 import { MatchSetWinnerService } from '../use-cases/set-winner/set-winner.service';
 import { MatchGetWinnersService } from '../use-cases/get-winners/get-winners.service';
 
@@ -34,7 +34,7 @@ import { MatchGetWinnersService } from '../use-cases/get-winners/get-winners.ser
     MatchSetWinnerService,
     MatchGetWinnersService,
     ChampionshipFindService,
-    PhaseFindService
+    PhaseFindService,
   ],
   exports: [
     MatchCreateService,
@@ -44,6 +44,6 @@ import { MatchGetWinnersService } from '../use-cases/get-winners/get-winners.ser
     MatchUpdateService,
     MatchSetWinnerService,
     MatchGetWinnersService,
-  ]
+  ],
 })
 export class MatchesModule {}

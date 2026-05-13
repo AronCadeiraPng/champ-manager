@@ -1,26 +1,11 @@
-
-import { 
-    Column, 
-    CreateDateColumn, 
-    DeleteDateColumn, 
-    Entity, 
-    JoinColumn, 
-    ManyToOne, 
-    OneToMany, 
-    OneToOne, 
-    PrimaryGeneratedColumn, 
-    UpdateDateColumn 
-} from "typeorm";
-import { Timestamp } from "typeorm";
-import { GenderEnum } from "../../../common/enums/gender.enum";
-import { ModalityEnum } from "../../../common/enums/modality.enum";
-import { ChampionshipStatusEnum } from "../../../common/enums/championship-status.enum";
-import { Sport } from "../../../sports/models/entity/sport.entity";
-import { RegistrationSolo } from "../../../registrations-solo/models/entity/registration.entity";
-import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
-import { Phase } from "src/phases/entity/phase.entity";
-import { Group } from "src/groups/models/entity/group.entity";
-
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { ChampionshipStatusEnum } from '../../../common/enums/championship-status.enum';
+import { GenderEnum } from '../../../common/enums/gender.enum';
+import { ModalityEnum } from '../../../common/enums/modality.enum';
+import { Group } from '../../../groups/models/entity/group.entity';
+import { RegistrationSolo } from '../../../registrations-solo/models/entity/registration.entity';
+import { RegistrationTeam } from '../../../registrations-team/models/entity/registration-team.entity';
+import { Sport } from '../../../sports/models/entity/sport.entity';
 
 @Entity('championships')
 export class Championship {
@@ -49,13 +34,13 @@ export class Championship {
     sportId?: string;
 
     @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
-    createdAt: Timestamp;
+    createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
-    updatedAt: Timestamp;
+    updatedAt: Date;
 
     @DeleteDateColumn({ type: 'timestamptz', name: 'deleted_at' })
-    deletedAt: Timestamp;
+    deletedAt: Date;
 
     @ManyToOne(() => Sport)
     @JoinColumn({ name: 'sport' })

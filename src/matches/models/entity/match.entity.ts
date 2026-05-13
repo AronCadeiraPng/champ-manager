@@ -1,8 +1,8 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
-import { Phase } from "src/phases/entity/phase.entity";
-import { Player } from "src/players/models/entity/player.entity";
-import { MatchStatusEnum } from "src/common/enums/match-status.enum";
-import { Group } from "src/groups/models/entity/group.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from 'typeorm';
+import { Phase } from '../../../phases/entity/phase.entity';
+import { Player } from '../../../players/models/entity/player.entity';
+import { MatchStatusEnum } from '../../../common/enums/match-status.enum';
+import { Group } from '../../../groups/models/entity/group.entity';
 
 @Entity('matches')
 export class Match {

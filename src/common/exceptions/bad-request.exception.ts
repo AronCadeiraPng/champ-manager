@@ -1,4 +1,4 @@
-import { HttpStatus } from "@nestjs/common";
+import { HttpStatus } from '@nestjs/common';
 import { DomainException } from "./domain.exception"
 
 export class BadRequestException extends DomainException {

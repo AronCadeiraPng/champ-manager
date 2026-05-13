@@ -1,7 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Member } from "src/members/models/entity/member.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Member } from '../../models/entity/member.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MemberDeleteService {

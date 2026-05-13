@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { MatchPairService } from "src/matches/use-cases/pair-matches/pair-matches.service";
-import { ParticipantFindService } from "src/participant/use-cases/find-participants/find-participants.service";
-import { CreatePhaseDto } from "src/phases/dtos/create-phase.dto";
-import { Phase } from "src/phases/entity/phase.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MatchPairService } from '../../../matches/use-cases/pair-matches/pair-matches.service';
+import { ParticipantFindService } from '../../../participant/use-cases/find-participants/find-participants.service';
+import { CreatePhaseDto } from '../../dtos/create-phase.dto';
+import { Phase } from '../../entity/phase.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class BuildGroupPhaseService {

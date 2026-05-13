@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Sport } from "src/sports/models/entity/sport.entity";
-import { Repository } from "typeorm";
-import { SportFindService } from "../find-sport/find-sport.service";
-import { UpdateSportDto } from "src/sports/models/dtos/update-sport.dto";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Sport } from '../../models/entity/sport.entity';
+import { Repository } from 'typeorm';
+import { SportFindService } from '../find-sport/find-sport.service';
+import { UpdateSportDto } from '../../models/dtos/update-sport.dto';
 
 @Injectable()
 export class SportUpdateService {

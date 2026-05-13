@@ -1,7 +1,7 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Transform } from "class-transformer";
-import { IsEmail, IsIn, IsNotEmpty, IsString, MinLength } from "class-validator";
-import { GenderEnum } from "src/common/enums/gender.enum";
+import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
+import { IsEmail, IsIn, IsNotEmpty, IsString } from 'class-validator';
+import { GenderEnum } from '../../../common/enums/gender.enum';
 
 export class UsersListDto {
     @ApiProperty({ example: 'Gabriel', description: 'Nome do usuário' })

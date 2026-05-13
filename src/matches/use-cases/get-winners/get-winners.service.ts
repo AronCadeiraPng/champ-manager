@@ -1,27 +1,34 @@
-import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Match } from 'src/matches/models/entity/match.entity'
-import { Player } from 'src/players/models/entity/player.entity'
-import { Repository } from 'typeorm'
-import { MatchFindService } from '../find-match/find-match.service'
-import { PhaseEnum } from 'src/common/enums/phase-name.enum'
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Match } from '../../models/entity/match.entity';
+import { Player } from '../../../players/models/entity/player.entity';
+import { Repository } from 'typeorm';
+import { MatchFindService } from '../find-match/find-match.service';
+import { PhaseEnum } from '../../../common/enums/phase-name.enum';
 
 @Injectable()
 export class MatchGetWinnersService {
-    constructor(
-        @InjectRepository(Match) private readonly matchRepository: Repository<Match>,
-        private readonly matchFindService: MatchFindService
-    ) { }
+  constructor(
+    @InjectRepository(Match)
+    private readonly matchRepository: Repository<Match>,
+    private readonly matchFindService: MatchFindService,
+  ) {}
 
-    async execute(championshipId: string, phaseStatus: PhaseEnum | any): Promise<Player[]> {
-        const matches = await this.matchFindService.ByPhase(championshipId, phaseStatus);
+  async execute(
+    championshipId: string,
+    phaseStatus: PhaseEnum | any,
+  ): Promise<Player[]> {
+    const matches = await this.matchFindService.ByPhase(
+      championshipId,
+      phaseStatus,
+    );
 
-        const winners = await Promise.all(
-            matches.map(async (match) => {
-                // if(match.status != MatchStatusEnum.FINISHED) throw new BadRequestException('Impossível continuar, ainda há partidas em andamento', 400);
+    const winners = await Promise.all(
+      matches.map(async (match) => {
+        // if(match.status != MatchStatusEnum.FINISHED) throw new BadRequestException('Impossível continuar, ainda há partidas em andamento', 400);
 
-                const winnerArray = await this.matchRepository.query(
-                    /*sql*/`
+        const winnerArray = await this.matchRepository.query(
+          /*sql*/ `
                     SELECT 
                         p.id as "id",
                         p.points
@@ -31,17 +38,16 @@ export class MatchGetWinnersService {
                         p.match_id = $1
                     ORDER BY
                         p.points
-                    DESC LIMIT 1`
-                , 
-                [match.id])     
+                    DESC LIMIT 1`,
+          [match.id],
+        );
 
-                
-                const winner = winnerArray.find(winner => winner.id == winner.id);
+        const winner = winnerArray.find((winner) => winner.id == winner.id);
 
-                return winner;
-            })
-        )
+        return winner;
+      }),
+    );
 
-        return winners;
-    }
+    return winners;
+  }
 }

@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { RegistrationTeam } from "src/registrations-team/models/entity/registration-team.entity";
-import { Repository } from "typeorm";
-import { RegistrationTeamFindService } from "../find-registration/find-registration.service";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { RegistrationTeam } from '../../models/entity/registration-team.entity';
+import { Repository } from 'typeorm';
+import { RegistrationTeamFindService } from '../find-registration/find-registration.service';
 
 @Injectable()
 export class RegistrationTeamDeleteService {

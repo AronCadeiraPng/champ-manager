@@ -1,8 +1,8 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Timestamp } from "typeorm";
-import { Team } from "../../../teams/models/entity/team.entity";
-import { Participant } from "src/participant/models/entity/participant.entity";
-import { Championship } from "src/championships/models/entity/championship.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Timestamp } from 'typeorm';
+import { Team } from '../../../teams/models/entity/team.entity';
+import { Participant } from '../../../participant/models/entity/participant.entity';
+import { Championship } from '../../../championships/models/entity/championship.entity';
 
 @Entity('registrations-team')
 export class RegistrationTeam {

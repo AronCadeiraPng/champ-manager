@@ -1,5 +1,5 @@
 export enum ModalityEnum {
-    SOLO = 'solo-game',
-    DUO = 'duo-game',
-    TEAM = 'team-game'
+  SOLO = 'solo-game',
+  DUO = 'duo-game',
+  TEAM = 'team-game',
 }

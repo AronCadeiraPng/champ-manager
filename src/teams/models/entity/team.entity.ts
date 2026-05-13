@@ -1,7 +1,7 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Timestamp } from "typeorm";
-import { Member } from "../../../members/models/entity/member.entity";
-import { RegistrationTeam } from "../../../registrations-team/models/entity/registration-team.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Timestamp } from 'typeorm';
+import { Member } from '../../../members/models/entity/member.entity';
+import { RegistrationTeam } from '../../../registrations-team/models/entity/registration-team.entity';
 
 @Entity('teams')
 export class Team {

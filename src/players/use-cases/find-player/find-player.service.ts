@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { ChampionshipStatusEnum } from "src/common/enums/championship-status.enum";
-import { NotFoundException } from "src/common/exceptions";
-import { PhaseFindService } from "src/phases/use-cases/find-phase/find-phase.service";
-import { Player } from "src/players/models/entity/player.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ChampionshipStatusEnum } from '../../../common/enums/championship-status.enum';
+import { NotFoundException } from '../../../common/exceptions';
+import { PhaseFindService } from '../../../phases/use-cases/find-phase/find-phase.service';
+import { Player } from '../../models/entity/player.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PlayerFindService {

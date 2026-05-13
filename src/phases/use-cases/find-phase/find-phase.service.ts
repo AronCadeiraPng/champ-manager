@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { NotFoundException } from "src/common/exceptions";
-import { Phase } from "src/phases/entity/phase.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundException } from '../../../common/exceptions';
+import { Phase } from '../../entity/phase.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PhaseFindService {

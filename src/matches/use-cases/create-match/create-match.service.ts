@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { CreateMatchDto } from "src/matches/models/dtos/create-match.dto";
-import { Match } from "src/matches/models/entity/match.entity";
-import { Repository } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateMatchDto } from '../../models/dtos/create-match.dto';
+import { Match } from '../../models/entity/match.entity';
 
 @Injectable()
 export class MatchCreateService {
