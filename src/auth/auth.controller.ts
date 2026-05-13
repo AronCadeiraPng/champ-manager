@@ -87,6 +87,6 @@ export class AuthController {
   async delete(
     @Param('id', ParseUUIDPipe) id: string
   ) {
-    return await this.authService.deleteUser(id)
+    return await this.authService.deleteUser(id);
   }
 }
