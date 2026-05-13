@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { NotFoundException, ConflictException } from 'src/common/exceptions';
@@ -23,7 +23,7 @@ export class AuthService {
     if (!user) { throw new NotFoundException('Usuário', email, 'email') }
 
     const isMatch = await compare(password, user.password);
-    if (!isMatch) { throw new ConflictException('Credenciais incorretas') }
+    if (!isMatch) { throw new UnauthorizedException('Credenciais incorretas') }
 
     const payload = {
       sub: user.id,
@@ -32,7 +32,9 @@ export class AuthService {
       role: user.role
     };
 
-    return { access_token: this.jwtService.sign(payload) };
+    const accessToken: string = this.jwtService.sign(payload);
+    
+    return accessToken;
   }
 
 

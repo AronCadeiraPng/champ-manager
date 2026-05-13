@@ -23,13 +23,22 @@ const roles_decorator_1 = require("../decorators/roles.decorator");
 const user_roles_enum_1 = require("../common/enums/user-roles.enum");
 const roles_guard_1 = require("../common/guards/roles.guard");
 const passport_1 = require("@nestjs/passport");
+const is_public_decorator_1 = require("../decorators/is-public.decorator");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
         this.authService = authService;
     }
-    async login(body) {
-        return await this.authService.loginUser(body.account, body.password);
+    async login(body, response) {
+        const accessToken = await this.authService.loginUser(body.account, body.password);
+        response.status(common_1.HttpStatus.OK)
+            .cookie('accessToken', accessToken, {
+            path: '/',
+            secure: false,
+            httpOnly: true,
+            sameSite: 'lax'
+        })
+            .send({ message: 'Cookie configurado...' });
     }
     async update(id, dto, req) {
         return await this.authService.updateUser(id, dto, req.user.userId);
@@ -41,13 +50,15 @@ let AuthController = class AuthController {
 exports.AuthController = AuthController;
 __decorate([
     (0, common_1.Post)('login'),
+    (0, is_public_decorator_1.Public)(),
     (0, swagger_1.ApiOperation)({ summary: 'Login do usuário' }),
     (0, swagger_1.ApiBody)({ type: login_user_dto_1.LoginUserDto }),
     (0, swagger_1.ApiOkResponse)({ description: 'Usuário logado com sucesso', type: user_entity_1.User }),
     (0, swagger_1.ApiNotFoundResponse)({ description: 'Usuário não encontrado' }),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [login_user_dto_1.LoginUserDto]),
+    __metadata("design:paramtypes", [login_user_dto_1.LoginUserDto, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([

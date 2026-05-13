@@ -37,7 +37,7 @@ export class PlayerFindService {
         return await this.playerRepository.find({
             where: {
                 match: {
-                    phaseId: phaseId                    
+                    // phaseId: phaseId                    
                 }
             }
         })

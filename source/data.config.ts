@@ -10,6 +10,7 @@ import { RegistrationSolo } from 'src/registrations-solo/models/entity/registrat
 import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity'
 import { Sport } from 'src/sports/models/entity/sport.entity'
 import { Team } from 'src/teams/models/entity/team.entity'
+import { Group } from 'src/groups/models/entity/group.entity'
 
 config()
 
@@ -30,8 +31,8 @@ export const DataConfig = {
     Member,
     Participant,
     Match,
-    Phase,
-    Player
+    Player,
+    Group
   ],
   synchronize: true,
 }

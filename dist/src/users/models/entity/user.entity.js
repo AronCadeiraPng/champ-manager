@@ -65,7 +65,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: gender_enum_1.GenderEnum }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: gender_enum_1.GenderEnum, nullable: true, default: gender_enum_1.GenderEnum.MASCULINE }),
     __metadata("design:type", String)
 ], User.prototype, "gender", void 0);
 __decorate([

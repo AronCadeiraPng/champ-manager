@@ -11,7 +11,7 @@ export declare class User {
     password: string;
     teamId: string;
     role: UserRolesEnum;
-    gender: GenderEnum;
+    gender?: GenderEnum;
     createdAt: Timestamp;
     updatedAt: Timestamp;
     deletedAt: Timestamp;

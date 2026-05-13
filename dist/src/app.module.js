@@ -27,6 +27,8 @@ const matches_module_1 = require("./matches/infrastructure/matches.module");
 const phases_module_1 = require("./phases/infrastructure/phases.module");
 const players_module_1 = require("./players/infrastructure/players.module");
 const data_source_module_1 = require("../source/data-source.module");
+const core_1 = require("@nestjs/core");
+const jwt_auth_guard_1 = require("./auth/guards/jwt-auth.guard");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -57,6 +59,10 @@ exports.AppModule = AppModule = __decorate([
             app_service_1.AppService,
             user_register_service_1.UserRegisterService,
             user_entity_1.User,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: jwt_auth_guard_1.JwtAuthGuard,
+            },
         ],
         exports: []
     })

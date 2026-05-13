@@ -37,7 +37,7 @@ let AuthService = class AuthService {
         }
         const isMatch = await (0, bcrypt_1.compare)(password, user.password);
         if (!isMatch) {
-            throw new exceptions_1.ConflictException('Credenciais incorretas');
+            throw new common_1.UnauthorizedException('Credenciais incorretas');
         }
         const payload = {
             sub: user.id,
@@ -45,7 +45,8 @@ let AuthService = class AuthService {
             email: user.email,
             role: user.role
         };
-        return { access_token: this.jwtService.sign(payload) };
+        const accessToken = this.jwtService.sign(payload);
+        return accessToken;
     }
     async updateUser(id, updateUserDto, requesterId) {
         const user = await this.userFindService.findUserById(id);

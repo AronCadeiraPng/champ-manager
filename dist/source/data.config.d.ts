@@ -3,12 +3,12 @@ import { Championship } from 'src/championships/models/entity/championship.entit
 import { Match } from 'src/matches/models/entity/match.entity';
 import { Member } from 'src/members/models/entity/member.entity';
 import { Participant } from 'src/participant/models/entity/participant.entity';
-import { Phase } from 'src/phases/entity/phase.entity';
 import { Player } from 'src/players/models/entity/player.entity';
 import { RegistrationSolo } from 'src/registrations-solo/models/entity/registration.entity';
 import { RegistrationTeam } from 'src/registrations-team/models/entity/registration-team.entity';
 import { Sport } from 'src/sports/models/entity/sport.entity';
 import { Team } from 'src/teams/models/entity/team.entity';
+import { Group } from 'src/groups/models/entity/group.entity';
 export declare const DataConfig: {
     type: "postgres";
     host: string | undefined;
@@ -16,6 +16,6 @@ export declare const DataConfig: {
     username: string | undefined;
     password: string | undefined;
     database: string | undefined;
-    entities: (typeof Sport | typeof Championship | typeof Member | typeof User | typeof Team | typeof RegistrationTeam | typeof Phase | typeof Match | typeof Player | typeof Participant | typeof RegistrationSolo)[];
+    entities: (typeof Sport | typeof Championship | typeof Member | typeof User | typeof Team | typeof RegistrationTeam | typeof Match | typeof Group | typeof Player | typeof Participant | typeof RegistrationSolo)[];
     synchronize: boolean;
 };

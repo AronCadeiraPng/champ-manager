@@ -36,8 +36,8 @@ __decorate([
         example: 'masculine',
         description: 'Gênero do usuário',
     }),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], RegisterUserDto.prototype, "gender", void 0);
 __decorate([

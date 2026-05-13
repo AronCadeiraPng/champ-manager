@@ -11,6 +11,7 @@ import { UserFindService } from '../use-cases/find-user/find-user.service';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { UsersListDto } from '../models/dtos/users-list.dto';
 import { Logger } from 'nestjs-pino';
+import { Public } from 'src/decorators/is-public.decorator';
 
 
 @ApiTags('users')
@@ -25,6 +26,7 @@ export class UserController {
   ) { }
 
   @Post('register')
+  @Public()
   @ApiOperation({ summary: 'Registra um novo usuário' })
   @ApiBody({ type: RegisterUserDto })
   @ApiCreatedResponse({ description: 'Usuário criado com sucesso!', type: User, example: {

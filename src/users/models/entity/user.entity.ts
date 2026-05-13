@@ -44,8 +44,8 @@ export class User {
     @Column({ type: 'enum', enum: UserRolesEnum, default: UserRolesEnum.USER })
     role: UserRolesEnum;
 
-    @Column({ type: 'enum', enum: GenderEnum })
-    gender: GenderEnum;
+    @Column({ type: 'enum', enum: GenderEnum, nullable: true, default: GenderEnum.MASCULINE })
+    gender?: GenderEnum;
 
     @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
     createdAt: Timestamp;

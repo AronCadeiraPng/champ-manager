@@ -18,11 +18,11 @@ export class Phase {
     @Column({ type: 'varchar', name: 'championship_id' })
     championshipId: string;
 
-    @ManyToOne(() => Championship, (championship) => championship.phases)
+    @ManyToOne(() => Championship, (championship) => championship.groups)
     @JoinColumn({ name: 'championship_id' })
     championship: Championship;
 
-    @OneToMany(() => Match, (match) => match.phase, { nullable: true })
+    @OneToMany(() => Match, (match) => match.group, { nullable: true })
     matches?: Match[];
 
     @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })

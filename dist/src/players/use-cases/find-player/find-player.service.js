@@ -43,9 +43,7 @@ let PlayerFindService = class PlayerFindService {
     async ByPhase(phaseId) {
         return await this.playerRepository.find({
             where: {
-                match: {
-                    phaseId: phaseId
-                }
+                match: {}
             }
         });
     }

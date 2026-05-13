@@ -43,12 +43,12 @@ __decorate([
     __metadata("design:type", String)
 ], Phase.prototype, "championshipId", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.phases),
+    (0, typeorm_1.ManyToOne)(() => championship_entity_1.Championship, (championship) => championship.groups),
     (0, typeorm_1.JoinColumn)({ name: 'championship_id' }),
     __metadata("design:type", championship_entity_1.Championship)
 ], Phase.prototype, "championship", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => match_entity_1.Match, (match) => match.phase, { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => match_entity_1.Match, (match) => match.group, { nullable: true }),
     __metadata("design:type", Array)
 ], Phase.prototype, "matches", void 0);
 __decorate([

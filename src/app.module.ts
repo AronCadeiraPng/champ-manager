@@ -18,6 +18,8 @@ import { MatchesModule } from './matches/infrastructure/matches.module';
 import { PhasesModule } from './phases/infrastructure/phases.module';
 import { PlayersModule } from './players/infrastructure/players.module';
 import { DataModule } from 'source/data-source.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -45,6 +47,10 @@ import { DataModule } from 'source/data-source.module';
     AppService,
     UserRegisterService,
     User,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
   exports: [
   ]

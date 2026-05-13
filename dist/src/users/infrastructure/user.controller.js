@@ -25,6 +25,7 @@ const user_register_service_1 = require("../use-cases/register-user/user-registe
 const find_user_service_1 = require("../use-cases/find-user/find-user.service");
 const roles_guard_1 = require("../../common/guards/roles.guard");
 const users_list_dto_1 = require("../models/dtos/users-list.dto");
+const is_public_decorator_1 = require("../../decorators/is-public.decorator");
 let UserController = class UserController {
     userFindService;
     userRegisterService;
@@ -45,6 +46,7 @@ let UserController = class UserController {
 exports.UserController = UserController;
 __decorate([
     (0, common_1.Post)('register'),
+    (0, is_public_decorator_1.Public)(),
     (0, swagger_1.ApiOperation)({ summary: 'Registra um novo usuário' }),
     (0, swagger_1.ApiBody)({ type: register_user_dto_1.RegisterUserDto }),
     (0, swagger_1.ApiCreatedResponse)({ description: 'Usuário criado com sucesso!', type: user_entity_1.User, example: {

@@ -27,7 +27,7 @@ export class MatchFindService {
     async ByChampionship(championshipId: string): Promise<Match> {
         const match =  await this.matchRepository.findOne({
             where: {
-                phase: {
+                group: {
                     championshipId: championshipId
                 }
             }
@@ -74,19 +74,19 @@ export class MatchFindService {
 
     async ByPhase(championshipId: string, phaseStatus: PhaseEnum): Promise<Match[]> {
         const matches = await this.matchRepository.find({
-            where: {
-                phase: {
-                    name: phaseStatus,
-                    championship: {
-                        id: championshipId
-                    }
-                }
-            },
-            relations: {
-                phase: {
-                    championship: true
-                }
-            }
+            // where: {
+            //     group: {
+            //         name: phaseStatus,
+            //         championship: {
+            //             id: championshipId
+            //         }
+            //     }
+            // },
+            // relations: {
+            //     phase: {
+            //         championship: true
+            //     }
+            // }
         })
 
         if(!matches) throw new NotFoundException('Torneio', 400)

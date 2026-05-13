@@ -1,14 +1,37 @@
-import { Controller, Post, Body, Patch, UseGuards, ParseUUIDPipe, Param, Request, Delete, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  UseGuards,
+  ParseUUIDPipe,
+  Param,
+  Request,
+  Delete,
+  HttpStatus,
+  Res
+} from '@nestjs/common';
+
 import { AuthService } from './auth.service';
 import { LoginUserDto } from './dto/login-user.dto';
-import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiForbiddenResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags
+} from '@nestjs/swagger';
 import { User } from 'src/users/models/entity/user.entity';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UpdateUserDto } from 'src/users/models/dtos/update-user.dto';
 import { Roles } from 'src/decorators/roles.decorator';
 import { UserRolesEnum } from 'src/common/enums/user-roles.enum';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { AuthGuard } from '@nestjs/passport';
+import type { Response } from 'express';
+import { Public } from 'src/decorators/is-public.decorator';
 
 @ApiTags('Auth')
 @Controller('user/auth')
@@ -16,15 +39,24 @@ export class AuthController {
   constructor(private authService: AuthService) { }
 
   @Post('login')
+  @Public()
   @ApiOperation({ summary: 'Login do usuário' })
   @ApiBody({ type: LoginUserDto })
   @ApiOkResponse({ description: 'Usuário logado com sucesso', type: User })
   @ApiNotFoundResponse({ description: 'Usuário não encontrado' })
   async login(
-    @Body() body: LoginUserDto
-  )
-  {
-    return await this.authService.loginUser(body.account, body.password);
+    @Body() body: LoginUserDto,
+    @Res() response: Response
+  ) {
+    const accessToken = await this.authService.loginUser(body.account, body.password);
+    response.status(HttpStatus.OK)
+      .cookie('accessToken', accessToken, {
+        path: '/',
+        secure: false,
+        httpOnly: true,
+        sameSite: 'lax'
+      })
+      .send({ message: 'Cookie configurado...' })
   }
 
 
@@ -39,8 +71,7 @@ export class AuthController {
   async update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateUserDto, @Request() req,
-  )
-  {
+  ) {
     return await this.authService.updateUser(id, dto, req.user.userId)
   }
 
@@ -55,8 +86,7 @@ export class AuthController {
   @ApiNotFoundResponse({ description: 'Usuário não encontrado' })
   async delete(
     @Param('id', ParseUUIDPipe) id: string
-  ) 
-  {
+  ) {
     return await this.authService.deleteUser(id)
   }
 }
