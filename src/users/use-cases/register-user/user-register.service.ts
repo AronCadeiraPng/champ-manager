@@ -14,7 +14,7 @@ export class UserRegisterService {
         private readonly findUser: UserFindService
       ) { }
 
-      async registerUser(registerUserDto: RegisterUserDto): Promise<User> {
+      async registerUser(registerUserDto: RegisterUserDto): Promise<void> {
         const emailExists = await this.findUser.findUserByEmail(registerUserDto.email);
         const CpfExists = await this.findUser.findUserByCpf(registerUserDto.cpf);
     
@@ -30,7 +30,5 @@ export class UserRegisterService {
           ...registerUserDto,
           password: hashedPassword,
         })
-    
-        return this.usersRepository.save(user);
       }
 }

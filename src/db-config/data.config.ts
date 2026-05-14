@@ -12,6 +12,7 @@ export class PostgresChampConfigService {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
+      synchronize: process.env.DB_SYNCHRONIZE === 'true'
     };
   }
 }

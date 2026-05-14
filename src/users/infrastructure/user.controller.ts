@@ -49,7 +49,7 @@ export class UserController {
     },
   })
   @ApiBadRequestResponse({ description: 'Credenciais inválidas!' })
-  async create(@Body() registerUserDto: RegisterUserDto): Promise<User> {
+  async create(@Body() registerUserDto: RegisterUserDto) {
     return await this.userRegisterService.registerUser(registerUserDto);
   }
 
