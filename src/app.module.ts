@@ -19,6 +19,7 @@ import { PlayersModule } from './players/infrastructure/players.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { PostgresChampConfigService } from './db-config/data.config';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { PostgresChampConfigService } from './db-config/data.config';
     ParticipantModule,
     MatchesModule,
     PlayersModule,
+
   ],
   controllers: [
     
@@ -52,6 +54,7 @@ import { PostgresChampConfigService } from './db-config/data.config';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
+    JwtService
   ],
   exports: [],
 })

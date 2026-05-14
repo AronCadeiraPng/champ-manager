@@ -18,7 +18,12 @@ export class AuthService {
   ) {}
 
   async loginUser(email: string, password: string) {
+    
+    console.log(await this.usersRepository.find());
     const user = await this.userFindService.findUserByEmail(email);
+    
+    
+    
     if (!user) {
       throw new NotFoundException('Usuário', email, 'email');
     }

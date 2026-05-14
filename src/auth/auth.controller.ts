@@ -10,6 +10,8 @@ import {
   Delete,
   HttpStatus,
   Res,
+  Get,
+  Req,
 } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
@@ -29,9 +31,10 @@ import { UpdateUserDto } from '../users/models/dtos/update-user.dto';
 import { Roles } from '../decorators/roles.decorator';
 import { UserRolesEnum } from '../common/enums/user-roles.enum';
 import { RolesGuard } from '../common/guards/roles.guard';
-import { AuthGuard } from '@nestjs/passport';
 import type { Response } from 'express';
 import { Public } from '../decorators/is-public.decorator';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { Cookies } from '../decorators/cookie.decorator';
 
 @ApiTags('Auth')
 @Controller('user/auth')
@@ -61,7 +64,7 @@ export class AuthController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update do usuário' })
   @ApiBody({ type: UpdateUserDto })
@@ -73,11 +76,19 @@ export class AuthController {
     @Body() dto: UpdateUserDto,
     @Request() req,
   ) {
+    console.log(req.user)
     return await this.authService.updateUser(id, dto, req.user.userId);
   }
 
+  @Get('cookies')
+  findCookie(@Cookies('nome_do_cookie') session: string) {
+    console.log(session);
+    return session;
+  }
+
+
   @Delete(':id')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiBearerAuth()
   @Roles(UserRolesEnum.ADMIN)
   @ApiOperation({ summary: 'Deletar um usuário' })

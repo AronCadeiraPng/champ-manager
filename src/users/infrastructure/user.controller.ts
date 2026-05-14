@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards, Req, Request } from '@nestjs/common';
 import { RegisterUserDto } from '../models/dtos/register-user.dto';
 import {
   ApiBadRequestResponse,
@@ -22,6 +22,7 @@ import { UserRolesEnum } from '../../common/enums/user-roles.enum';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { Public } from '../../decorators/is-public.decorator';
 import { Roles } from '../../decorators/roles.decorator';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @ApiTags('users')
 @Controller('user')
@@ -54,15 +55,25 @@ export class UserController {
   }
 
   @Get('all')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
-  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
+  @Public()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
+  // @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Retorna todos os usuários' })
   @ApiOkResponse({ type: () => UsersListDto })
   @ApiNoContentResponse({ description: 'Nenhum usuário encontrado' })
   @ApiUnauthorizedResponse({ description: 'Permissão negada' })
   async findAllUsers(): Promise<User[]> {
     return await this.userFindService.findAllUsers();
+  }
+
+  @Get('get-info')
+  async getUserInfo(
+    @Request() request
+  )
+  {
+    console.log(request.user.sub)
+    return await this.userFindService.findUserById(request.user.sub);
   }
 
   @Get(':id')

@@ -14,7 +14,7 @@ export class UserRegisterService {
         private readonly findUser: UserFindService
       ) { }
 
-      async registerUser(registerUserDto: RegisterUserDto): Promise<void> {
+      async registerUser(registerUserDto: RegisterUserDto): Promise<User> {
         const emailExists = await this.findUser.findUserByEmail(registerUserDto.email);
         const CpfExists = await this.findUser.findUserByCpf(registerUserDto.cpf);
     
@@ -26,9 +26,11 @@ export class UserRegisterService {
         const hashedPassword = await bcrypt.hash(registerUserDto.password, salt);
     
         /* registra o usuário com sucesso */
-        const user = this.usersRepository.create({
+        const user = this.usersRepository.save  ({
           ...registerUserDto,
           password: hashedPassword,
         })
+
+        return user;
       }
 }
