@@ -4,7 +4,7 @@ import { Match } from '../../models/entity/match.entity';
 import { Player } from '../../../players/models/entity/player.entity';
 import { Repository } from 'typeorm';
 import { MatchFindService } from '../find-match/find-match.service';
-import { PhaseEnum } from '../../../common/enums/phase-name.enum';
+import { PhaseEnum } from '../../../_common/enums/phase-name.enum';
 
 @Injectable()
 export class MatchGetWinnersService {

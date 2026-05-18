@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFoundException } from '../../../common/exceptions';
-import { BadRequestException } from '../../../common/exceptions/bad-request.exception';
+import { NotFoundException } from '../../../_common/exceptions';
+import { BadRequestException } from '../../../_common/exceptions/bad-request.exception';
 import { Sport } from '../../models/entity/sport.entity';
 import { Repository } from 'typeorm';
 

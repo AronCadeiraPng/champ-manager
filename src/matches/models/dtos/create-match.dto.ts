@@ -4,7 +4,7 @@ import { Player } from '../../../players/models/entity/player.entity';
 export class CreateMatchDto {
     @IsOptional()
     @IsString()
-    phaseId?: string;
+    groupId?: string;
 
     @IsOptional()
     @IsArray()

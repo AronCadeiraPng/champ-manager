@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ChampionshipFindService } from '../../../championships/use-cases/find-championship/find-championship.service';
-import { ModalityEnum } from '../../../common/enums/modality.enum';
+import { ModalityEnum } from '../../../_common/enums/modality.enum';
 import {
   ConflictException,
   NotFoundException,
-} from '../../../common/exceptions';
-import { BadRequestException } from '../../../common/exceptions/bad-request.exception';
+} from '../../../_common/exceptions';
+import { BadRequestException } from '../../../_common/exceptions/bad-request.exception';
 import { RegistrationTeam } from '../../models/entity/registration-team.entity';
 import { CreateTeamDto } from '../../../teams/models/dtos/create-team.dto';
 import { TeamCreateService } from '../../../teams/use-cases/create-team/create-team.service';

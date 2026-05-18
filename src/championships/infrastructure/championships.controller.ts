@@ -23,7 +23,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { RolesGuard } from '../../common/guards/roles.guard';
+import { RolesGuard } from '../../_common/guards/roles.guard';
 import { CreateChampionshipDto } from '../models/dtos/create-championship.dto';
 import { UpdateChampionshipDto } from '../models/dtos/update-championship.dto';
 import { Championship } from '../models/entity/championship.entity';
@@ -33,11 +33,12 @@ import { ChampionshipFindService } from '../use-cases/find-championship/find-cha
 import { ChampionshipFindRegistrationsService } from '../use-cases/find-registrations/find-registrations.service';
 import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
 import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
-import { UserRolesEnum } from '../../common/enums/user-roles.enum';
-import { Roles } from '../../decorators/roles.decorator';
+import { UserRolesEnum } from '../../_common/enums/user-roles.enum';
+import { Roles } from '../../_decorators/roles.decorator';
 import { RegistrationTeamListDto } from '../../registrations-team/models/dtos/registrations-team-list.dto';
 import { RegistrationSoloListDto } from '../../registrations-solo/models/dtos/registrations-solo-list.dto';
 import { StartGroupPhaseService } from '../use-cases/start-group-phase/start-group-phase.service';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @ApiTags('Championships')
 @ApiBearerAuth()
@@ -55,17 +56,11 @@ export class ChampionshipsController {
   ) {}
 
   @Post('create')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Roles(UserRolesEnum.ADMIN)
-  @ApiOperation({
-    summary: 'Cria um novo torneio',
-    description: 'Apenas administradores podem criar torneios',
-  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.USER)
+  @ApiOperation({ summary: 'Cria um novo torneio', description: 'Apenas administradores podem criar torneios' })
   @ApiBody({ type: CreateChampionshipDto })
-  @ApiCreatedResponse({
-    description: 'Torneio criado com sucesso',
-    type: Championship,
-  })
+  @ApiCreatedResponse({ description: 'Torneio criado com sucesso', type: Championship })
   @ApiBadRequestResponse({ description: 'Dados inválidos' })
   @ApiUnauthorizedResponse({ description: 'Token inválido ou ausente' })
   @ApiForbiddenResponse({ description: 'Sem permissão para criar torneios' })

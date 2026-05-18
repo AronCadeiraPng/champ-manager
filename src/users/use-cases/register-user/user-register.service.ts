@@ -18,8 +18,8 @@ export class UserRegisterService {
         const emailExists = await this.findUser.findUserByEmail(registerUserDto.email);
         const CpfExists = await this.findUser.findUserByCpf(registerUserDto.cpf);
     
-        if (emailExists) throw new BadRequestException('Usuário com este email já existe!');
-        if (CpfExists) throw new BadRequestException('Usuário com este cpf já cadastrado!');
+        if (emailExists) throw new BadRequestException('Email inválido ou já cadastrado!');
+        if (CpfExists) throw new BadRequestException('CPF inváido ou já cadastrado!');
     
         /* gerar hash da senha */
         const salt = await bcrypt.genSalt(10);

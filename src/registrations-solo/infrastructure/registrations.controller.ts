@@ -9,8 +9,8 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-import { Roles } from '../../decorators/roles.decorator';
-import { UserRolesEnum } from '../../common/enums/user-roles.enum';
+import { Roles } from '../../_decorators/roles.decorator';
+import { UserRolesEnum } from '../../_common/enums/user-roles.enum';
 import {
   ApiBadRequestResponse,
   ApiNoContentResponse,
@@ -25,7 +25,7 @@ import { RegistrationSoloCreateService } from '../use-cases/create-registration/
 import { RegistrationSoloDeleteService } from '../use-cases/delete-registration/delete-registration.service';
 import { RegistrationSolo } from '../models/entity/registration.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from '../../common/guards/roles.guard';
+import { RolesGuard } from '../../_common/guards/roles.guard';
 import { RegistrationSoloListDto } from '../models/dtos/registrations-solo-list.dto';
 
 @ApiTags('registrations-solo')

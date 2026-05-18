@@ -12,8 +12,8 @@ import {
     Timestamp,
     UpdateDateColumn 
 } from 'typeorm';
-import { UserRolesEnum } from '../../../common/enums/user-roles.enum';
-import { GenderEnum } from '../../../common/enums/gender.enum';
+import { UserRolesEnum } from '../../../_common/enums/user-roles.enum';
+import { GenderEnum } from '../../../_common/enums/gender.enum';
 import { RegistrationSolo } from '../../../registrations-solo/models/entity/registration.entity';
 import { Team } from '../../../teams/models/entity/team.entity';
 

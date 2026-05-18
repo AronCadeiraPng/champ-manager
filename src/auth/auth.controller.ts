@@ -28,13 +28,13 @@ import {
 } from '@nestjs/swagger';
 import { User } from '../users/models/entity/user.entity';
 import { UpdateUserDto } from '../users/models/dtos/update-user.dto';
-import { Roles } from '../decorators/roles.decorator';
-import { UserRolesEnum } from '../common/enums/user-roles.enum';
-import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../_decorators/roles.decorator';
+import { UserRolesEnum } from '../_common/enums/user-roles.enum';
+import { RolesGuard } from '../_common/guards/roles.guard';
 import type { Response } from 'express';
-import { Public } from '../decorators/is-public.decorator';
+import { Public } from '../_decorators/is-public.decorator';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { Cookies } from '../decorators/cookie.decorator';
+import { Cookies } from '../_decorators/cookie.decorator';
 
 @ApiTags('Auth')
 @Controller('user/auth')
@@ -65,6 +65,7 @@ export class AuthController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRolesEnum.USER, UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update do usuário' })
   @ApiBody({ type: UpdateUserDto })
@@ -73,16 +74,15 @@ export class AuthController {
   @ApiNotFoundResponse({ description: 'Usuário não encontrado' })
   async update(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() dto: UpdateUserDto,
-    @Request() req,
-  ) {
-    console.log(req.user)
-    return await this.authService.updateUser(id, dto, req.user.userId);
+    @Body() dto: UpdateUserDto, 
+    @Request() req: any
+  )
+  {
+    return await this.authService.updateUser(id, dto, req.user.sub);
   }
 
   @Get('cookies')
   findCookie(@Cookies('nome_do_cookie') session: string) {
-    console.log(session);
     return session;
   }
 

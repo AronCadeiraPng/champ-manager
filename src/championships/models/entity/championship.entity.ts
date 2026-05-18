@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { ChampionshipStatusEnum } from '../../../common/enums/championship-status.enum';
-import { GenderEnum } from '../../../common/enums/gender.enum';
-import { ModalityEnum } from '../../../common/enums/modality.enum';
+import { ChampionshipStatusEnum } from '../../../_common/enums/championship-status.enum';
+import { GenderEnum } from '../../../_common/enums/gender.enum';
+import { ModalityEnum } from '../../../_common/enums/modality.enum';
 import { Group } from '../../../groups/models/entity/group.entity';
 import { RegistrationSolo } from '../../../registrations-solo/models/entity/registration.entity';
 import { RegistrationTeam } from '../../../registrations-team/models/entity/registration-team.entity';

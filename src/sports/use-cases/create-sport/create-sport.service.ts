@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Sport } from '../../models/entity/sport.entity';
 import { Repository } from 'typeorm';
 import { SportFindService } from '../find-sport/find-sport.service';
-import { BadRequestException } from '../../../common/exceptions/bad-request.exception';
+import { BadRequestException } from '../../../_common/exceptions/bad-request.exception';
 
 @Injectable()
 export class SportCreateService {

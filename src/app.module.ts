@@ -18,8 +18,9 @@ import { PlayersModule } from './players/infrastructure/players.module';
 
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { PostgresChampConfigService } from './db-config/data.config';
+import { PostgresChampConfigService } from './_database/data.config';
 import { JwtService } from '@nestjs/jwt';
+import { GroupsModule } from './groups/infrastructure/groups.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { JwtService } from '@nestjs/jwt';
     ParticipantModule,
     MatchesModule,
     PlayersModule,
+    GroupsModule,
 
   ],
   controllers: [
