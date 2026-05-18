@@ -19,7 +19,7 @@ import { SportDeleteService } from '../use-cases/delete-sport/delete-sport.servi
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { User } from '../../users/models/entity/user.entity';
 
-@Controller('spo')
+@Controller('sports')
 export class SportsController {
   constructor(
     private readonly sportCreateService: SportCreateService,
