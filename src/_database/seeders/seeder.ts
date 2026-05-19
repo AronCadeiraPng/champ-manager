@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { SeedUserService } from "../users/user.seeder";
+import { SeedUserService } from "./entities/users/user.seeder";
 import { RegisterUserDto } from "../../users/models/dtos/register-user.dto";
 
 @Injectable()

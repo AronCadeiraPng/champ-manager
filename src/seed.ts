@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { SeederModule } from "./_database/seeders/seeder.module";
 import { Logger } from "@nestjs/common";
-import { usersSeederData } from "./_database/users/data";
+import { usersSeederData } from "./_database/seeders/entities/users/data";
 import { Seeder } from "./_database/seeders/seeder";
 
 async function bootstrap() {

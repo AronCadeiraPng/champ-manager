@@ -1,4 +1,4 @@
-import { GenderEnum } from "../../_common/enums/gender.enum";
+import { GenderEnum } from "../../../../_common/enums/gender.enum";
 
 export const usersSeederData = [
   {

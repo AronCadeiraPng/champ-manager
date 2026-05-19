@@ -4,7 +4,7 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Seeder } from "./seeder";
 import { User } from "../../users/models/entity/user.entity";
-import { SeedUserService } from "../users/user.seeder";
+import { SeedUserService } from "./entities/users/user.seeder";
 
 @Module({
     imports: [
@@ -13,7 +13,7 @@ import { SeedUserService } from "../users/user.seeder";
             host: process.env.DB_HOST,
             port: Number(process.env.DB_PORT),
             username: process.env.DB_USERNAME,
-            password: process.env.DB_PASSWORD, // 👈 sem String()
+            password: process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE,
             entities: [__dirname + '/../../**/*.entity.{js,ts}'],
             synchronize: process.env.DB_SYNCHRONIZE === 'true',
