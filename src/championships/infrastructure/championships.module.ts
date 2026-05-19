@@ -28,9 +28,13 @@ import { StartGroupPhaseService } from '../use-cases/start-group-phase/start-gro
 import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
 import { ChampionshipsController } from './championships.controller';
 import { Module } from '@nestjs/common';
+import { Group } from '../../groups/models/entity/group.entity';
+import { GroupCreateService } from '../../groups/use-cases/create-group/create-group.service';
+import { GroupFindService } from '../../groups/use-cases/find-group/find-group.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Match, Player, Sport, Participant]) ],
+  imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Match, Player, Sport, Participant, Group]) ],
   controllers: [ChampionshipsController],
   providers: [
     Championship,
@@ -54,6 +58,9 @@ import { Module } from '@nestjs/common';
     MatchFindService,
     PlayerUpdateService,
     PlayerFindService,
+    GroupCreateService,
+    GroupFindService,
+    JwtService
   ],
   exports: [    
     ChampionshipDeleteService,

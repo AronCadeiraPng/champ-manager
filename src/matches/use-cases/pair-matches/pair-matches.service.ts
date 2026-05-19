@@ -14,7 +14,7 @@ export class MatchPairService {
         private readonly playerCreateService: PlayerCreateService,
     ) { }
 
-    async execute(phaseId: string, participantsDto: Participant[]) {
+    async execute(groupId: string, participantsDto: Participant[]) {
         const participants: Participant[] = await this.matchShuffleService.execute(participantsDto);
 
         const matchPairs: { playerOne: CreatePlayerDto, playerTwo: CreatePlayerDto }[] = []
@@ -36,7 +36,7 @@ export class MatchPairService {
         for (let i = 0; i < matchPairs.length; i++) {
             const pair = matchPairs[i];
 
-            const match: Match = await this.matchCreateService.execute({ phaseId: phaseId })
+            const match: Match = await this.matchCreateService.execute({ groupId: groupId })
 
             const playerOne = await this.playerCreateService.execute({ matchId: match.id, participantId: pair.playerOne.participantId });
             const playerTwo  = await this.playerCreateService.execute({ matchId: match.id, participantId: pair.playerTwo.participantId });

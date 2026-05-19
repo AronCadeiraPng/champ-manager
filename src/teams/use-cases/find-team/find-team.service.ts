@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFoundException } from '../../../common/exceptions';
+import { NotFoundException } from '../../../_common/exceptions';
 import { Team } from '../../models/entity/team.entity';
 import { Repository } from 'typeorm';
 

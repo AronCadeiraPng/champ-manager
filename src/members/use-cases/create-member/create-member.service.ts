@@ -4,7 +4,7 @@ import { Member } from '../../models/entity/member.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MemberFindService } from '../find-member/find-member.service';
-import { BadRequestException } from '../../../common/exceptions/bad-request.exception';
+import { BadRequestException } from '../../../_common/exceptions/bad-request.exception';
 
 @Injectable()
 export class MemberCreateService {

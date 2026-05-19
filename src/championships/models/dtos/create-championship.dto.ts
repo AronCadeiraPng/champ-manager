@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty, IsDateString, IsOptional } from 'class-validator';
-import { ChampionshipStatusEnum } from '../../../common/enums/championship-status.enum';
-import { GenderEnum } from '../../../common/enums/gender.enum';
-import { ModalityEnum } from '../../../common/enums/modality.enum';
+import { ChampionshipStatusEnum } from '../../../_common/enums/championship-status.enum';
+import { GenderEnum } from '../../../_common/enums/gender.enum';
+import { ModalityEnum } from '../../../_common/enums/modality.enum';
 
 export class CreateChampionshipDto {
     @ApiProperty({ example: 'Sinuca Masculino 2026', description: 'Nome do torneio' })

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ChampionshipFindService } from '../../../championships/use-cases/find-championship/find-championship.service';
-import { PhaseEnum } from '../../../common/enums/phase-name.enum';
-import { NotFoundException } from '../../../common/exceptions';
+import { PhaseEnum } from '../../../_common/enums/phase-name.enum';
+import { NotFoundException } from '../../../_common/exceptions';
 import { Match } from '../../models/entity/match.entity';
 import { Repository } from 'typeorm';
 

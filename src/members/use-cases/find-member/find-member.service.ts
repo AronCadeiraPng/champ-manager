@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Member } from '../../models/entity/member.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { NotFoundException } from '../../../common/exceptions';
+import { NotFoundException } from '../../../_common/exceptions';
 
 @Injectable()
 export class MemberFindService {

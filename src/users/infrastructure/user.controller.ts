@@ -8,7 +8,6 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiResponse,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -18,10 +17,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { UserRegisterService } from '../use-cases/register-user/user-register.service';
 import { UserFindService } from '../use-cases/find-user/find-user.service';
 import { UsersListDto } from '../models/dtos/users-list.dto';
-import { UserRolesEnum } from '../../common/enums/user-roles.enum';
-import { RolesGuard } from '../../common/guards/roles.guard';
-import { Public } from '../../decorators/is-public.decorator';
-import { Roles } from '../../decorators/roles.decorator';
+import { UserRolesEnum } from '../../_common/enums/user-roles.enum';
+import { RolesGuard } from '../../_common/guards/roles.guard';
+import { Public } from '../../_decorators/is-public.decorator';
+import { Roles } from '../../_decorators/roles.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @ApiTags('users')
@@ -55,10 +54,8 @@ export class UserController {
   }
 
   @Get('all')
-  @Public()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
-  // @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Retorna todos os usuários' })
   @ApiOkResponse({ type: () => UsersListDto })
   @ApiNoContentResponse({ description: 'Nenhum usuário encontrado' })
@@ -68,11 +65,11 @@ export class UserController {
   }
 
   @Get('get-info')
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   async getUserInfo(
-    @Request() request
+    @Request() request: any
   )
   {
-    console.log(request.user.sub)
     return await this.userFindService.findUserById(request.user.sub);
   }
 

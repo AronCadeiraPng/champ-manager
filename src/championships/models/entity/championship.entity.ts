@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { ChampionshipStatusEnum } from '../../../common/enums/championship-status.enum';
-import { GenderEnum } from '../../../common/enums/gender.enum';
-import { ModalityEnum } from '../../../common/enums/modality.enum';
+import { ChampionshipStatusEnum } from '../../../_common/enums/championship-status.enum';
+import { GenderEnum } from '../../../_common/enums/gender.enum';
+import { ModalityEnum } from '../../../_common/enums/modality.enum';
 import { Group } from '../../../groups/models/entity/group.entity';
 import { RegistrationSolo } from '../../../registrations-solo/models/entity/registration.entity';
 import { RegistrationTeam } from '../../../registrations-team/models/entity/registration-team.entity';
@@ -21,10 +21,10 @@ export class Championship {
     @Column({ type: 'enum', enum: ModalityEnum, default: ModalityEnum.SOLO, name: 'modality'})
     modality: ModalityEnum;
 
-    @Column({ type: 'timestamptz', default: new Date(), name: 'registration_start'})
+    @Column({ type: 'date', default: new Date(), name: 'registration_start'})
     registrationStart: Date;
     
-    @Column({ type: 'timestamptz' , name: 'registration_end' })
+    @Column({ type: 'date' , name: 'registration_end' })
     registrationEnd: Date;
 
     @Column({ type: 'enum', enum: ChampionshipStatusEnum, name: 'status', default: ChampionshipStatusEnum.REGISTRATION_START })
@@ -33,13 +33,13 @@ export class Championship {
     @Column({ name: 'sport' })
     sportId?: string;
 
-    @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
+    @CreateDateColumn({ type: 'date', name: 'created_at' })
     createdAt: Date;
 
-    @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
+    @UpdateDateColumn({ type: 'date', name: 'updated_at' })
     updatedAt: Date;
 
-    @DeleteDateColumn({ type: 'timestamptz', name: 'deleted_at' })
+    @DeleteDateColumn({ type: 'date', name: 'deleted_at' })
     deletedAt: Date;
 
     @ManyToOne(() => Sport)

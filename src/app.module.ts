@@ -15,11 +15,11 @@ import { Championship } from './championships/models/entity/championship.entity'
 import { ParticipantModule } from './participant/infrastructure/participant.module';
 import { MatchesModule } from './matches/infrastructure/matches.module';
 import { PlayersModule } from './players/infrastructure/players.module';
-
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { PostgresChampConfigService } from './db-config/data.config';
+import { PostgresChampConfigService } from './_database/providers/data.config';
 import { JwtService } from '@nestjs/jwt';
+import { GroupsModule } from './groups/infrastructure/groups.module';
 
 @Module({
   imports: [
@@ -42,7 +42,7 @@ import { JwtService } from '@nestjs/jwt';
     ParticipantModule,
     MatchesModule,
     PlayersModule,
-
+    GroupsModule,
   ],
   controllers: [
     
@@ -56,6 +56,7 @@ import { JwtService } from '@nestjs/jwt';
     },
     JwtService
   ],
-  exports: [],
+  exports: [
+  ],
 })
 export class AppModule {}

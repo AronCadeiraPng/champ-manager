@@ -12,10 +12,10 @@ import { MatchCreateService } from '../use-cases/create-match/create-match.servi
 import { Match } from '../models/entity/match.entity';
 import { CreateMatchDto } from '../models/dtos/create-match.dto';
 import { MatchFindService } from '../use-cases/find-match/find-match.service';
-import { ChampionshipStatusEnum } from '../../common/enums/championship-status.enum';
+import { ChampionshipStatusEnum } from '../../_common/enums/championship-status.enum';
 import { MatchSetWinnerService } from '../use-cases/set-winner/set-winner.service';
 import { MatchGetWinnersService } from '../use-cases/get-winners/get-winners.service';
-import { PhaseEnum } from '../../common/enums/phase-name.enum';
+import { PhaseEnum } from '../../_common/enums/phase-name.enum';
 
 @Controller('matches')
 export class MatchesController {

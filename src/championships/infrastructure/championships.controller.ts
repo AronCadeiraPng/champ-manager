@@ -23,7 +23,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { RolesGuard } from '../../common/guards/roles.guard';
+import { RolesGuard } from '../../_common/guards/roles.guard';
 import { CreateChampionshipDto } from '../models/dtos/create-championship.dto';
 import { UpdateChampionshipDto } from '../models/dtos/update-championship.dto';
 import { Championship } from '../models/entity/championship.entity';
@@ -33,16 +33,17 @@ import { ChampionshipFindService } from '../use-cases/find-championship/find-cha
 import { ChampionshipFindRegistrationsService } from '../use-cases/find-registrations/find-registrations.service';
 import { ChampionshipStartService } from '../use-cases/start-championship/start-championship.service';
 import { ChampionshipUpdateService } from '../use-cases/update-championship/update-championship.service';
-import { UserRolesEnum } from '../../common/enums/user-roles.enum';
-import { Roles } from '../../decorators/roles.decorator';
+import { UserRolesEnum } from '../../_common/enums/user-roles.enum';
+import { Roles } from '../../_decorators/roles.decorator';
 import { RegistrationTeamListDto } from '../../registrations-team/models/dtos/registrations-team-list.dto';
 import { RegistrationSoloListDto } from '../../registrations-solo/models/dtos/registrations-solo-list.dto';
 import { StartGroupPhaseService } from '../use-cases/start-group-phase/start-group-phase.service';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @ApiTags('Championships')
 @ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'), RolesGuard)
-@Controller('championships/')
+@Controller('championships/solo')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ChampionshipsController {
   constructor(
     private readonly championshipCreateService: ChampionshipCreateService,
@@ -55,30 +56,20 @@ export class ChampionshipsController {
   ) {}
 
   @Post('create')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRolesEnum.ADMIN)
-  @ApiOperation({
-    summary: 'Cria um novo torneio',
-    description: 'Apenas administradores podem criar torneios',
-  })
+  @ApiOperation({ summary: 'Cria um novo torneio', description: 'Apenas administradores podem criar torneios' })
   @ApiBody({ type: CreateChampionshipDto })
-  @ApiCreatedResponse({
-    description: 'Torneio criado com sucesso',
-    type: Championship,
-  })
+  @ApiCreatedResponse({ description: 'Torneio criado com sucesso', type: Championship })
   @ApiBadRequestResponse({ description: 'Dados inválidos' })
   @ApiUnauthorizedResponse({ description: 'Token inválido ou ausente' })
   @ApiForbiddenResponse({ description: 'Sem permissão para criar torneios' })
   async createChampionship(
     @Body() createChampionshipDto: CreateChampionshipDto,
   ) {
-    return await this.championshipCreateService.createChampionship(
-      createChampionshipDto,
-    );
+    return await this.championshipCreateService.createChampionship(createChampionshipDto);
   }
 
   @Get('all')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Lista todos os torneios' })
   @ApiOkResponse({ type: CreateChampionshipDto })
@@ -89,7 +80,6 @@ export class ChampionshipsController {
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Busca um torneio pelo id' })
   @ApiParam({ name: 'id', description: 'UUID do torneio', format: 'uuid' })
@@ -103,7 +93,6 @@ export class ChampionshipsController {
   }
 
   @Get(':id/registrations')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({
     summary: 'Lista as inscrições de um torneio',
@@ -121,7 +110,6 @@ export class ChampionshipsController {
   }
 
   @Delete(':id')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({
     summary: 'Deleta um torneio por id',
@@ -137,7 +125,6 @@ export class ChampionshipsController {
   }
 
   @Patch(':id')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Atualiza um torneio pelo id' })
   @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
@@ -153,7 +140,6 @@ export class ChampionshipsController {
   }
 
   @Post(':id/start')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @ApiOperation({ summary: 'Inicia um torneio pela fase de grupo' })
   @ApiBadRequestResponse({ description: 'Torneio não encontrando' })
   @ApiForbiddenResponse({ description: 'Permissão negada' })
@@ -164,7 +150,6 @@ export class ChampionshipsController {
   }
 
   @Post(':id/start/group')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   async startGroupPhase(
     @Param('id', ParseUUIDPipe) championshipId: string,

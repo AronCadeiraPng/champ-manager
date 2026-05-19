@@ -1,8 +1,8 @@
 import { Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserRolesEnum } from '../../../common/enums/user-roles.enum';
-import { Roles } from '../../../decorators/roles.decorator';
+import { UserRolesEnum } from '../../../_common/enums/user-roles.enum';
+import { Roles } from '../../../_decorators/roles.decorator';
 import { User } from '../../models/entity/user.entity';
 
 export class UserFindService {

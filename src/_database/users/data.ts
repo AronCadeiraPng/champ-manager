@@ -1,0 +1,88 @@
+import { GenderEnum } from "../../_common/enums/gender.enum";
+
+export const usersSeederData = [
+  {
+    name: 'Lucas Andrade',
+    email: 'lucas.andrade@gmail.com',
+    cpf: '10010010011',
+    gender: GenderEnum.MASCULINE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Mariana Souza',
+    email: 'mariana.souza@gmail.com',
+    cpf: '20020020022',
+    gender: GenderEnum.FEMININE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Felipe Martins',
+    email: 'felipe.martins@gmail.com',
+    cpf: '30030030033',
+    gender: GenderEnum.MASCULINE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Amanda Oliveira',
+    email: 'amanda.oliveira@gmail.com',
+    cpf: '40040040044',
+    gender: GenderEnum.FEMININE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Rafael Costa',
+    email: 'rafael.costa@gmail.com',
+    cpf: '50050050055',
+    gender: GenderEnum.MASCULINE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Juliana Lima',
+    email: 'juliana.lima@gmail.com',
+    cpf: '60060060066',
+    gender: GenderEnum.FEMININE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Gabriel Ferreira',
+    email: 'gabriel.ferreira@gmail.com',
+    cpf: '70070070077',
+    gender: GenderEnum.MASCULINE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Camila Rocha',
+    email: 'camila.rocha@gmail.com',
+    cpf: '80080080088',
+    gender: GenderEnum.FEMININE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Thiago Almeida',
+    email: 'thiago.almeida@gmail.com',
+    cpf: '90090090099',
+    gender: GenderEnum.MASCULINE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Beatriz Santos',
+    email: 'beatriz.santos@gmail.com',
+    cpf: '11122233344',
+    gender: GenderEnum.FEMININE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Eduardo Mendes',
+    email: 'eduardo.mendes@gmail.com',
+    cpf: '22233344455',
+    gender: GenderEnum.MASCULINE,
+    password: 'bebegames',
+  },
+  {
+    name: 'Larissa Gomes',
+    email: 'larissa.gomes@gmail.com',
+    cpf: '33344455566',
+    gender: GenderEnum.FEMININE,
+    password: 'bebegames',
+  },
+];

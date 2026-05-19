@@ -1,12 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BadRequestException } from '../../../common/exceptions/bad-request.exception';
+import { BadRequestException } from '../../../_common/exceptions/bad-request.exception';
 import { UserFindService } from '../../../users/use-cases/find-user/find-user.service';
 import { RegistrationSolo } from '../../models/entity/registration.entity';
 import { CreateRegistrationSoloDto } from '../../models/dtos/create-registration.dto';
 import { ChampionshipFindService } from '../../../championships/use-cases/find-championship/find-championship.service';
-import { ModalityEnum } from '../../../common/enums/modality.enum';
+import { ModalityEnum } from '../../../_common/enums/modality.enum';
 
 @Injectable()
 export class RegistrationSoloCreateService {
