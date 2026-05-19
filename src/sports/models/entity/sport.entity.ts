@@ -10,7 +10,7 @@ export class Sport {
     @Column({type: 'varchar',unique: true, name: 'name'})
     name: string;
 
-    @Column({ type: 'boolean', name: 'deleted', nullable: true })
+    @Column({ type: 'boolean', name: 'deleted', default: false })
     deleted?: boolean;
 
     @OneToMany(() => Championship, (championship) => championship.sport)

@@ -35,14 +35,16 @@ import type { Response } from 'express';
 import { Public } from '../_decorators/is-public.decorator';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Cookies } from '../_decorators/cookie.decorator';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Auth')
 @Controller('user/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('login')
   @Public()
+  @Post('login')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Login do usuário' })
   @ApiBody({ type: LoginUserDto })
   @ApiOkResponse({ description: 'Usuário logado com sucesso', type: User })

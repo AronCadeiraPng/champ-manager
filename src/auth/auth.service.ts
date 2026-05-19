@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
-import { NotFoundException, ConflictException } from '../_common/exceptions';
+import { ConflictException } from '../_common/exceptions';
 import { UpdateUserDto } from '../users/models/dtos/update-user.dto';
 import { User } from '../users/models/entity/user.entity';
 import { Repository } from 'typeorm';
@@ -18,11 +18,7 @@ export class AuthService {
   ) {}
 
   async loginUser(email: string, password: string) {
-    
-    console.log(await this.usersRepository.find());
     const user = await this.userFindService.findUserByEmail(email);
-    
-    
     
     if (!user) {
       throw new BadRequestException('Credenciais inválidas!');
@@ -41,6 +37,9 @@ export class AuthService {
     };
 
     const accessToken: string = this.jwtService.sign(payload);
+
+    console.log(accessToken);
+    console.log(user);
 
     return accessToken;
   }
