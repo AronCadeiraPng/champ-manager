@@ -35,7 +35,6 @@ import type { Response } from 'express';
 import { Public } from '../_decorators/is-public.decorator';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Cookies } from '../_decorators/cookie.decorator';
-import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Auth')
 @Controller('user/auth')
@@ -50,19 +49,24 @@ export class AuthController {
   @ApiOkResponse({ description: 'Usuário logado com sucesso', type: User })
   @ApiNotFoundResponse({ description: 'Usuário não encontrado' })
   async login(@Body() body: LoginUserDto, @Res() response: Response) {
+
+    
     const accessToken = await this.authService.loginUser(
       body.account,
       body.password,
     );
+
+    console.log(accessToken);
+
     response
-      .status(HttpStatus.OK)
-      .cookie('accessToken', accessToken, {
-        path: '/',
-        secure: false,
-        httpOnly: true,
-        sameSite: 'lax',
-      })
-      .send({ message: 'Cookie configurado...' });
+    .status(HttpStatus.OK)
+    .cookie('accessToken', accessToken, {
+      path: '/',
+      secure: false,
+      httpOnly: true,
+      sameSite: 'lax',
+    })
+    .send({ message: 'Cookie configurado...' });
   }
 
   @Patch(':id')

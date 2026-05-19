@@ -54,7 +54,6 @@ export class UserController {
   }
 
   @Get('all')
-  @Public()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Retorna todos os usuários' })
