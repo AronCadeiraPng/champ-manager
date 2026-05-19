@@ -4,7 +4,7 @@ export const usersSeederData = [
   {
     name: 'Lucas Andrade',
     email: 'lucas.andrade@gmail.com',
-    cpf: '10010010011',
+    cpf: '10010010022',
     gender: GenderEnum.MASCULINE,
     password: 'bebegames',
   },

@@ -10,13 +10,22 @@ export class SeedUserService {
         @InjectRepository(User) private readonly userRepository: Repository<User>
     ) { }
 
-    async execute(
-        userArrayDto: RegisterUserDto[],
-    ): Promise<User[]> {
-        return Promise.all(
-            userArrayDto.map(async (userDto) => {
-                return await this.userRepository.save(userDto);
-            }),
-        );
+    async execute(userArrayDto: RegisterUserDto[]): Promise<User[]> {
+        const createdUsers: User[] = [];
+
+        for (const userDto of userArrayDto) {
+            const userExists = await this.userRepository.findOne({
+                where: { email: userDto.email, cpf: userDto.cpf },
+            });
+
+            if (userExists) {
+                continue;
+            }
+
+            const user = await this.userRepository.save(userDto);
+            createdUsers.push(user);
+        }
+
+        return createdUsers;
     }
 }

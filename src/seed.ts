@@ -12,7 +12,7 @@ async function bootstrap() {
   try {
     const seeder = appContext.get(Seeder);
 
-    await seeder.seed(usersSeederData);
+    await seeder.seed(usersSeederData, "d14e2790-136a-46d0-ab0b-5f65c6b1905c");
 
     logger.debug("Seeding complete!");
   } catch (error) {

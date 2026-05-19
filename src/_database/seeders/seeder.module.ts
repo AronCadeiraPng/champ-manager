@@ -5,6 +5,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { Seeder } from "./seeder";
 import { User } from "../../users/models/entity/user.entity";
 import { SeedUserService } from "./entities/users/user.seeder";
+import { SeedRegistrationService } from "./entities/registrations/registration.seeder";
+import { RegistrationSolo } from "../../registrations-solo/models/entity/registration.entity";
 
 @Module({
     imports: [
@@ -20,11 +22,12 @@ import { SeedUserService } from "./entities/users/user.seeder";
             autoLoadEntities: true,
         }),
 
-        TypeOrmModule.forFeature([User]),
+        TypeOrmModule.forFeature([User, RegistrationSolo]),
     ],
     providers: [
         Seeder,
         SeedUserService,
+        SeedRegistrationService
     ],
     exports: [Seeder]
 })

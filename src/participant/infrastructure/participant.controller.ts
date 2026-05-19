@@ -21,8 +21,8 @@ import {
 } from '@nestjs/swagger';
 import { Player } from '../../players/models/entity/player.entity';
 
-@ApiTags('participa')
-@Controller('participa')
+@ApiTags('participants')
+@Controller('participants')
 export class ParticipantController {
   constructor(
     private readonly participantFindService: ParticipantFindService,

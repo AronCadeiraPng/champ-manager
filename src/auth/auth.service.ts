@@ -19,8 +19,6 @@ export class AuthService {
 
   async loginUser(email: string, password: string) {
     const user = await this.userFindService.findUserByEmail(email);
-    console.log('oi')
-    
 
     if (!user) {
       throw new BadRequestException('Credenciais inválidas!');
@@ -39,9 +37,6 @@ export class AuthService {
     };
 
     const accessToken: string = this.jwtService.sign(payload);
-
-    console.log(accessToken);
-    console.log(user);
 
     return accessToken;
   }

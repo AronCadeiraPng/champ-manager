@@ -56,8 +56,6 @@ export class AuthController {
       body.password,
     );
 
-    console.log(accessToken);
-
     response
     .status(HttpStatus.OK)
     .cookie('accessToken', accessToken, {

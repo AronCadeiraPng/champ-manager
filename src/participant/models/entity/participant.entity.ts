@@ -3,7 +3,7 @@ import { RegistrationSolo } from '../../../registrations-solo/models/entity/regi
 import { RegistrationTeam } from '../../../registrations-team/models/entity/registration-team.entity';
 import { Column, Entity, JoinColumn,OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('participa')
+@Entity('participants')
 export class Participant {
     @PrimaryGeneratedColumn('uuid')
     id: string;

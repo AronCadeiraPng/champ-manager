@@ -13,13 +13,10 @@ export class MatchUpdateService {
     ) { }
 
     async execute(matchId: string, players: Player[]) {
-        console.log('match atualizada para adicionar os players...')
         const match = await this.matchFindService.ById(matchId);
         const matchUpdate = {
             players: players
         }
-
-        console.log('match atualizada' + match)
 
         Object.assign(match, matchUpdate);
 
