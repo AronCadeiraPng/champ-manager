@@ -35,10 +35,10 @@ export class Seeder {
         const createdUsers = await this.seedUserService.execute(usersArrayDto);
 
         this.logger.debug(`Usuários criados: ${createdUsers.length}`);
-        
+
         return createdUsers;
     }
-    
+
     async registrations(usersArray: User[], championshipId: string) {
         const createdRegistrations = await this.seedRegistrationService.execute(usersArray, championshipId);
 
