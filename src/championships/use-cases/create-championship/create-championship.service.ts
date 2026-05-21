@@ -9,7 +9,7 @@ import { Championship } from '../../models/entity/championship.entity';
 @Injectable()
 export class ChampionshipCreateService {
     constructor(
-      @InjectRepository(Championship) private readonly championshipRepository: Repository<Championship>,
+    @InjectRepository(Championship) private readonly championshipRepository: Repository<Championship>,
       private readonly championshipFindService: ChampionshipFindService,
       private readonly sportFindService: SportFindService
   ) {}

@@ -1,6 +1,5 @@
 import { Championship } from '../../../championships/models/entity/championship.entity';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Timestamp } from 'typeorm';
 
 @Entity()
 export class Sport {
@@ -16,9 +15,9 @@ export class Sport {
     @OneToMany(() => Championship, (championship) => championship.sport)
     championship: Championship;
 
-    @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
-    createdAt: Timestamp;
+    @CreateDateColumn({ name: 'created_at', type: 'date' })
+    createdAt: Date;
     
-    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
-    updatedAt: Timestamp;
+    @UpdateDateColumn({ name: 'updated_at', type: 'date' })
+    updatedAt: Date;
 }

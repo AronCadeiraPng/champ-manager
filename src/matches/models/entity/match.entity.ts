@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Player } from '../../../players/models/entity/player.entity';
 import { MatchStatusEnum } from '../../../_common/enums/match-status.enum';
 import { Group } from '../../../groups/models/entity/group.entity';
@@ -26,9 +26,9 @@ export class Match {
     @JoinColumn({ name: 'group_id' })
     group?: Group;
 
-    @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
-    createdAt: Timestamp;
+    @CreateDateColumn({ type: 'date', name: 'created_at' })
+    createdAt: Date;
 
-    @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
-    updatedAt: Timestamp;
+    @UpdateDateColumn({ type: 'date', name: 'updated_at' })
+    updatedAt: Date;
 }

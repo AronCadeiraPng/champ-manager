@@ -1,5 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Timestamp } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { User } from '../../../users/models/entity/user.entity';
 import { Team } from '../../../teams/models/entity/team.entity';
 
@@ -22,9 +21,9 @@ export class Member {
     @JoinColumn({ name: 'team_id' })
     team?: Team;
 
-    @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
-    createdAt: Timestamp;
+    @CreateDateColumn({ name: 'created_at', type: 'date' })
+    createdAt: Date;
     
-    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
-    updatedAt: Timestamp;
+    @UpdateDateColumn({ name: 'updated_at', type: 'date' })
+    updatedAt: Date;
 }

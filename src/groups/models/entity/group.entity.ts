@@ -10,12 +10,16 @@ import {
 } from 'typeorm';
 import { Championship } from '../../../championships/models/entity/championship.entity';
 import { Match } from '../../../matches/models/entity/match.entity';
+import { PhaseEnum } from '../../../_common/enums/phase-name.enum';
 
 @Entity('groups')
 export class Group {
     @PrimaryGeneratedColumn('uuid')
     id: string;
     
+    @Column({ type: 'enum', enum: PhaseEnum })
+    phase: PhaseEnum;
+
     @Index()
     @Column({ type: 'varchar', name: 'championship_id' })
     championshipId: string;
@@ -26,4 +30,4 @@ export class Group {
 
     @OneToMany(() => Match, (Match) => Match.group, {nullable: true})
     matches?: Match[];
-}   
+}

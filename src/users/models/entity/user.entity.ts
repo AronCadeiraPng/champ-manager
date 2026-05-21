@@ -9,7 +9,6 @@ import {
     JoinColumn,
     OneToMany,
     PrimaryGeneratedColumn,
-    Timestamp,
     UpdateDateColumn 
 } from 'typeorm';
 import { UserRolesEnum } from '../../../_common/enums/user-roles.enum';
@@ -47,14 +46,14 @@ export class User {
     @Column({ type: 'enum', enum: GenderEnum, nullable: true, default: GenderEnum.MASCULINE })
     gender?: GenderEnum;
 
-    @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
-    createdAt: Timestamp;
+    @CreateDateColumn({ name: 'created_at', type: 'date' })
+    createdAt: Date;
 
-    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
-    updatedAt: Timestamp;
+    @UpdateDateColumn({ name: 'updated_at', type: 'date' })
+    updatedAt: Date;
 
-    @DeleteDateColumn({ name: 'deleted_at', type: 'timestamptz' })
-    deletedAt: Timestamp;
+    @DeleteDateColumn({ name: 'deleted_at', type: 'date' })
+    deletedAt: Date;
 
     @OneToMany(() => RegistrationSolo, (registration) => registration.user)
     @JoinColumn({ name: 'registrations' })

@@ -1,5 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Timestamp } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Member } from '../../../members/models/entity/member.entity';
 import { RegistrationTeam } from '../../../registrations-team/models/entity/registration-team.entity';
 
@@ -17,9 +16,9 @@ export class Team {
     @OneToMany(() => RegistrationTeam, (registration) => registration.team)
     registration: RegistrationTeam[];
 
-    @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
-    createdAt: Timestamp;
+    @CreateDateColumn({ name: 'created_at', type: 'date' })
+    createdAt: Date;
 
-    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
-    updatedAt: Timestamp;
+    @UpdateDateColumn({ name: 'updated_at', type: 'date' })
+    updatedAt: Date;
 }
