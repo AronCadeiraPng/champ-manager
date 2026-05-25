@@ -43,13 +43,10 @@ export class AuthService {
 
   async updateUser(
     id: string,
-    updateUserDto: UpdateUserDto,
-    requesterId: string,
+    updateUserDto: UpdateUserDto
   ) {
     const user = await this.userFindService.findUserById(id);
 
-    if (user.id !== requesterId)
-      throw new ConflictException('Usuário não corresponde');
     Object.assign(user, updateUserDto);
 
     return this.usersRepository.save(user);

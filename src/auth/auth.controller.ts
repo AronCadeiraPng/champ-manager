@@ -69,7 +69,7 @@ export class AuthController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRolesEnum.USER, UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
+  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update do usuário' })
   @ApiBody({ type: UpdateUserDto })
@@ -77,12 +77,11 @@ export class AuthController {
   @ApiForbiddenResponse({ description: 'Permissão negada' })
   @ApiNotFoundResponse({ description: 'Usuário não encontrado' })
   async update(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() dto: UpdateUserDto, 
-    @Request() req: any
+    @Param('id', ParseUUIDPipe) userId: string,
+    @Body() updateUserDto: UpdateUserDto, 
   )
   {
-    return await this.authService.updateUser(id, dto, req.user.sub);
+    return await this.authService.updateUser(userId, updateUserDto);
   }
 
   @Get('cookies')
