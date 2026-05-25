@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Championship } from '../../models/entity/championship.entity';
+import { NotFoundException } from '../../../_common/exceptions';
 
 @Injectable()
 export class ChampionshipFindService {
