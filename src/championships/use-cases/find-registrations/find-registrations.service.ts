@@ -1,7 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { ModalityEnum } from '../../../_common/enums/modality.enum';
 import { RegistrationSoloFindService } from '../../../registrations-solo/use-cases/find-registration/find-registration.service';
-import { RegistrationTeamFindService } from '../../../registrations-team/use-cases/find-registration/find-registration.service';
 import { ChampionshipFindService } from '../find-championship/find-championship.service';
 
 
@@ -10,7 +9,6 @@ export class ChampionshipFindRegistrationsService {
     constructor(
         private readonly championshipFindService: ChampionshipFindService,
         private readonly registrationSoloFindService: RegistrationSoloFindService,
-        private readonly registrationTeamFindService: RegistrationTeamFindService
     ) {}
 
     async findRegistrations(championshipId: string) {

@@ -35,7 +35,7 @@ export class CreateChampionshipDto {
     @IsDateString()
     registrationEnd?: string;
 
-    @ApiProperty({ example: 'in-progress', description: 'Status do torneio', default: ChampionshipStatusEnum.REGISTRATION_START })
+    @ApiProperty({ example: 'in-progress', description: 'Status do torneio', default: ChampionshipStatusEnum.REGISTRATION_OPEN })
     @IsOptional()
     @IsString()
     status: ChampionshipStatusEnum;

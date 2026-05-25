@@ -15,7 +15,14 @@ export class ChampionshipUpdateService {
 
   async updateChampionship(id: string, updateChampionshipSoloDto: UpdateChampionshipDto) {
     const championship = await this.championshipFindService.findChampionshipById(id);
-    Object.assign(championship, updateChampionshipSoloDto);
+
+    const convertDate: Date = new Date(updateChampionshipSoloDto.registrationEnd);
+
+    const newUpdateDto = {
+      registrationEnd: convertDate
+    }
+
+    Object.assign(championship, newUpdateDto);
 
     return this.championshipSoloRepository.save(championship);
   }

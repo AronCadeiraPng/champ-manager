@@ -27,7 +27,7 @@ export class Championship {
     @Column({ type: 'date' , name: 'registration_end' })
     registrationEnd: Date;
 
-    @Column({ type: 'enum', enum: ChampionshipStatusEnum, name: 'status', default: ChampionshipStatusEnum.REGISTRATION_START })
+    @Column({ type: 'enum', enum: ChampionshipStatusEnum, name: 'status', default: ChampionshipStatusEnum.REGISTRATION_OPEN })
     status: ChampionshipStatusEnum;
     
     @Column({ name: 'sport' })

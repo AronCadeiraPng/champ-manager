@@ -20,9 +20,12 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { PostgresChampConfigService } from './_database/providers/data.config';
 import { JwtService } from '@nestjs/jwt';
 import { GroupsModule } from './groups/infrastructure/groups.module';
+import { ChampionshipSchedulerService } from './championships/use-cases/schedule/championship-schedule.service';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -30,7 +33,7 @@ import { GroupsModule } from './groups/infrastructure/groups.module';
       useClass: PostgresChampConfigService,
     }),
     UserModule,
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Championship]),
     AuthModule,
     Championship,
     RegistrationsTeamModule,
@@ -48,6 +51,7 @@ import { GroupsModule } from './groups/infrastructure/groups.module';
     
   ],
   providers: [
+    ChampionshipSchedulerService,
     UserRegisterService,
     User,
     {
