@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Match } from '../../models/entity/match.entity';
-import { UpdatePlayerDto } from '../../../players/models/dtos/update-player.dto';
 import { Player } from '../../../players/models/entity/player.entity';
-import { PlayerFindService } from '../../../players/use-cases/find-player/find-player.service';
 import { PlayerUpdateService } from '../../../players/use-cases/update-player/update-player.service';
-import { Repository } from 'typeorm';
+import { MatchFindService } from '../find-match/find-match.service';
+import { MatchUpdateService } from '../update-match/update-match.service';
+import { UpdateMatchDto } from '../../models/dtos/update-match.dto';
 
 @Injectable()
 export class MatchSetWinnerService {
   constructor(
     @InjectRepository(Match)
-    private readonly matchRepository: Repository<Match>,
-    private readonly playerFindService: PlayerFindService,
     private readonly playerUpdateService: PlayerUpdateService,
+    private readonly matchFindService: MatchFindService,
+    private readonly matchUpdateService: MatchUpdateService
   ) {}
 
-  async execute(playerId: string): Promise<Player> {
-    const playerUpdateDto: UpdatePlayerDto = {
-      points: 2,
-    };
+  async execute(matchId: string): Promise<Match> {
+    const match = await this.matchFindService.ById(matchId);
 
-    return await this.playerUpdateService.execute(playerId, playerUpdateDto);
+    const players: Player[] = match.players;
+
+    const winner = players.reduce((max, atual ) => {
+      return atual.points > max.points ? atual : max
+    })
+
+    const updateMatchDto: UpdateMatchDto = {
+      winnerId: winner.id
+    }
+
+    return await this.matchUpdateService.execute(match.id, updateMatchDto);
   }
 }

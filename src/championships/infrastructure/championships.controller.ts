@@ -70,7 +70,7 @@ export class ChampionshipsController {
   }
 
   @Get('all')
-  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
+  @Roles(UserRolesEnum.USER, UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({ summary: 'Lista todos os torneios' })
   @ApiOkResponse({ type: CreateChampionshipDto })
   @ApiNoContentResponse({ description: 'Nenhum torneio encontrado' })

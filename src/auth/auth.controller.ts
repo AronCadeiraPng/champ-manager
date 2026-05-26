@@ -69,7 +69,7 @@ export class AuthController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
+  @Roles(UserRolesEnum.USER, UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update do usuário' })
   @ApiBody({ type: UpdateUserDto })
