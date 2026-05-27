@@ -10,7 +10,7 @@ import { BadRequestException } from '../../../_common/exceptions/bad-request.exc
 import { RegistrationTeam } from '../../models/entity/registration-team.entity';
 import { CreateTeamDto } from '../../../teams/models/dtos/create-team.dto';
 import { TeamCreateService } from '../../../teams/use-cases/create-team/create-team.service';
-import { UserFindService } from '../../../users/use-cases/find-user/find-user.service';
+import { UserFindService } from '../../../users/use-cases/find-all/find-user.service';
 import { Repository } from 'typeorm';
 
 @Injectable()

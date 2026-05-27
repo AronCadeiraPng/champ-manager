@@ -1,14 +1,11 @@
-import { Logger, NotFoundException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserRolesEnum } from '../../../_common/enums/user-roles.enum';
-import { Roles } from '../../../_decorators/roles.decorator';
 import { User } from '../../models/entity/user.entity';
 
 export class UserFindService {
   constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>) { }
 
-  @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   async findAllUsers(): Promise<User[]> {
 
     return await this.usersRepository.find({

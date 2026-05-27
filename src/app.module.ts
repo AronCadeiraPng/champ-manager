@@ -5,7 +5,7 @@ import { User } from './users/models/entity/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { SportsModule } from './sports/infrastructure/sports.module';
-import { UserRegisterService } from './users/use-cases/register-user/user-register.service';
+import { UserRegisterService } from './users/use-cases/register/user-register.service';
 import { RegistrationSoloModule } from './registrations-solo/infrastructure/registrations.module';
 import { RegistrationTeam } from './registrations-team/models/entity/registration-team.entity';
 import { TeamsModule } from './teams/infrastructure/teams.module';

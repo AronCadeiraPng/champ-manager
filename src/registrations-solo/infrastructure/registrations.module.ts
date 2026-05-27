@@ -10,7 +10,7 @@ import { ChampionshipModule } from '../../championships/infrastructure/champions
 import { Championship } from '../../championships/models/entity/championship.entity';
 import { Participant } from '../../participant/models/entity/participant.entity';
 import { RegistrationSolo } from '../models/entity/registration.entity';
-import { UserFindService } from '../../users/use-cases/find-user/find-user.service';
+import { UserFindService } from '../../users/use-cases/find-all/find-user.service';
 import { TeamCreateService } from '../../teams/use-cases/create-team/create-team.service';
 import { Team } from '../../teams/models/entity/team.entity';
 import { ChampionshipFindService } from '../../championships/use-cases/find-championship/find-championship.service';

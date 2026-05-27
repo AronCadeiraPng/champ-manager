@@ -6,7 +6,7 @@ import { UpdateUserDto } from '../users/models/dtos/update-user.dto';
 import { User } from '../users/models/entity/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserFindService } from '../users/use-cases/find-user/find-user.service';
+import { UserFindService } from '../users/use-cases/find-all/find-user.service';
 
 @Injectable()
 export class AuthService {

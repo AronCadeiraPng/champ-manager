@@ -13,7 +13,7 @@ import { Member } from '../../members/models/entity/member.entity';
 import { MembersModule } from '../../members/infrastructure/members.module';
 import { Championship } from '../../championships/models/entity/championship.entity';
 import { ChampionshipFindService } from '../../championships/use-cases/find-championship/find-championship.service';
-import { UserFindService } from '../../users/use-cases/find-user/find-user.service';
+import { UserFindService } from '../../users/use-cases/find-all/find-user.service';
 import { User } from '../../users/models/entity/user.entity';
 import { TeamFindService } from '../../teams/use-cases/find-team/find-team.service';
 import { TeamUpdateService } from '../../teams/use-cases/update-team/update-team.service';

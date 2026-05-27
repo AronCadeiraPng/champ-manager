@@ -34,6 +34,7 @@ export class ChampionshipCreateService {
       }
 
     const championship = this.championshipRepository.create(newCreateChampionshipDto);
+    console.log(championship.status)
     return this.championshipRepository.save(championship);
   }
 }
