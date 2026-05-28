@@ -3,6 +3,7 @@ import { UserRepository } from "./user.repository";
 import { User } from "../models/entity/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { Championship } from "../../championships/models/entity/championship.entity";
 
 @Injectable()
 export class TypeOrmUserRepository implements UserRepository {

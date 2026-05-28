@@ -7,9 +7,9 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Request,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -77,6 +77,14 @@ export class ChampionshipsController {
   @ApiForbiddenResponse({ description: 'Permissão negada' })
   async getAllChampionships(): Promise<Championship[]> {
     return this.championshipFindService.findAllChampionships();
+  }
+
+  @Get('user')
+  async findByUser(
+    @Request() request: any
+  )
+  {
+    return await this.championshipFindService.byUser(request.user.sub);
   }
 
   @Get(':id')

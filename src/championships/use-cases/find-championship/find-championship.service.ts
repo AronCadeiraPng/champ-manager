@@ -24,4 +24,17 @@ export class ChampionshipFindService {
 
     return championship;
   }
+
+  async byUser(userId: string): Promise<Championship[]> {
+    return await this.championshipRepository.find({
+      where: {
+        registrationsSolo: {
+          userId: userId
+        }
+      },
+      relations: {
+        registrationsSolo: true
+      }
+    })
+  }
 }
