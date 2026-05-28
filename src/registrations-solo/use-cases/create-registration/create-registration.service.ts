@@ -2,10 +2,10 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BadRequestException } from '../../../_common/exceptions/bad-request.exception';
-import { UserFindService } from '../../../users/use-cases/find-all/find-user.service';
 import { RegistrationSolo } from '../../models/entity/registration.entity';
 import { ChampionshipFindService } from '../../../championships/use-cases/find-championship/find-championship.service';
 import { ModalityEnum } from '../../../_common/enums/modality.enum';
+import { FindUserByIdService } from '../../../users/use-cases/find-by-id/find-by-id.service';
 
 @Injectable()
 export class RegistrationSoloCreateService {
@@ -14,13 +14,13 @@ export class RegistrationSoloCreateService {
   constructor(
     @InjectRepository(RegistrationSolo)
     private readonly registrationSoloRepository: Repository<RegistrationSolo>,
-    private readonly userFindService: UserFindService,
+    private readonly findUserById: FindUserByIdService,
     private readonly championshipFindService: ChampionshipFindService,
   ) {}
 
   async register(championshipId: string, userId: string) {
     this.logger.log('Criando usuário...');
-    const user = await this.userFindService.findUserById(userId);
+    const user = await this.findUserById.execute(userId);
     const championship =
       await this.championshipFindService.findChampionshipById(championshipId);
 

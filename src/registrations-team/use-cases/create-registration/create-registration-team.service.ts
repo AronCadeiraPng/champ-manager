@@ -4,14 +4,13 @@ import { ChampionshipFindService } from '../../../championships/use-cases/find-c
 import { ModalityEnum } from '../../../_common/enums/modality.enum';
 import {
   ConflictException,
-  NotFoundException,
 } from '../../../_common/exceptions';
 import { BadRequestException } from '../../../_common/exceptions/bad-request.exception';
 import { RegistrationTeam } from '../../models/entity/registration-team.entity';
 import { CreateTeamDto } from '../../../teams/models/dtos/create-team.dto';
 import { TeamCreateService } from '../../../teams/use-cases/create-team/create-team.service';
-import { UserFindService } from '../../../users/use-cases/find-all/find-user.service';
 import { Repository } from 'typeorm';
+import { FindUserByIdService } from '../../../users/use-cases/find-by-id/find-by-id.service';
 
 @Injectable()
 export class RegistrationsTeamCreateService {
@@ -20,7 +19,7 @@ export class RegistrationsTeamCreateService {
     private readonly registrationTeamRepository: Repository<RegistrationTeam>,
     private readonly teamCreateService: TeamCreateService,
     private readonly championshipFindService: ChampionshipFindService,
-    private readonly userFindService: UserFindService,
+    private readonly findUserById: FindUserByIdService,
   ) {}
 
   async execute(championshipId: string, createTeamDto: CreateTeamDto) {
@@ -33,7 +32,7 @@ export class RegistrationsTeamCreateService {
 
     await Promise.all(
       members.map(async (memberId) => {
-        this.userFindService.findUserById(memberId);
+        this.findUserById.execute(memberId);
         const teamMemberExists = await this.registrationTeamRepository.findOne({
           where: {
             team: {

@@ -10,13 +10,13 @@ import { ChampionshipModule } from '../../championships/infrastructure/champions
 import { Championship } from '../../championships/models/entity/championship.entity';
 import { Participant } from '../../participant/models/entity/participant.entity';
 import { RegistrationSolo } from '../models/entity/registration.entity';
-import { UserFindService } from '../../users/use-cases/find-all/find-user.service';
 import { TeamCreateService } from '../../teams/use-cases/create-team/create-team.service';
 import { Team } from '../../teams/models/entity/team.entity';
 import { ChampionshipFindService } from '../../championships/use-cases/find-championship/find-championship.service';
 import { MemberCreateService } from '../../members/use-cases/create-member/create-member.service';
 import { Member } from '../../members/models/entity/member.entity';
 import { MemberFindService } from '../../members/use-cases/find-member/find-member.service';
+import { FindUserByIdService } from '../../users/use-cases/find-by-id/find-by-id.service';
 
 @Module({
   imports: [
@@ -36,7 +36,7 @@ import { MemberFindService } from '../../members/use-cases/find-member/find-memb
     MemberFindService,
     MemberCreateService,
     ChampionshipFindService,
-    UserFindService,
+    FindUserByIdService,
     TeamCreateService,
     RegistrationSoloCreateService,
     RegistrationSoloDeleteService,

@@ -5,6 +5,7 @@ import { Participant } from '../../../participant/models/entity/participant.enti
 import { PlayerCreateService } from '../../../players/use-cases/create-player/create-player.service';
 import { CreatePlayerDto } from '../../../players/models/dtos/create-player.dto';
 import { Match } from '../../models/entity/match.entity';
+import { FindGroupByIdService } from '../../../groups/use-cases/find-by-id/find-by-id.service';
 
 @Injectable()
 export class MatchPairService {
@@ -36,7 +37,9 @@ export class MatchPairService {
         for (let i = 0; i < matchPairs.length; i++) {
             const pair = matchPairs[i];
 
-            const match: Match = await this.matchCreateService.execute({ groupId: groupId })
+            console.log('ID DO GRUPO: ' + groupId);
+
+            const match: Match = await this.matchCreateService.execute({ groupId: groupId})
 
             const playerOne = await this.playerCreateService.execute({ matchId: match.id, participantId: pair.playerOne.participantId });
             const playerTwo  = await this.playerCreateService.execute({ matchId: match.id, participantId: pair.playerTwo.participantId });
@@ -47,6 +50,8 @@ export class MatchPairService {
                 match
             })
         }
+
+        console.log(matchPair)
 
         return matchPair;
     }

@@ -1,36 +1,47 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ChampionshipFindService } from '../find-championship/find-championship.service';
 import { CreateGroupDto } from '../../../groups/models/dtos/create-group.dto';
-import { GroupCreateService } from '../../../groups/use-cases/create-group/create-group.service';
 import { MatchPairService } from '../../../matches/use-cases/pair-matches/pair-matches.service';
 import { ParticipantFindService } from '../../../participant/use-cases/find-participants/find-participants.service';
-import { GroupFindService } from '../../../groups/use-cases/find-group/find-group.service';
 import { PhaseEnum } from '../../../_common/enums/phase-name.enum';
+import { CreateGroupService } from '../../../groups/use-cases/create-group/create-group.service';
+import { FindGroupByPhaseService } from '../../../groups/use-cases/find-by-phase/find-group.service';
+import { UpdateGroupService } from '../../../groups/use-cases/update/update.service';
+import { UpdateGroupDto } from '../../../groups/models/dtos/update-group.dto';
 
 @Injectable()
 export class StartGroupPhaseService {
   constructor(
     private readonly championshipFindService: ChampionshipFindService,
-    private readonly groupCreateService: GroupCreateService,
-    private readonly groupFindService: GroupFindService,
+    private readonly groupCreateService: CreateGroupService,
+    private readonly findGroupByPhase: FindGroupByPhaseService,
     private readonly matchPairService: MatchPairService,
     private readonly participantFindService: ParticipantFindService,
+    private readonly groupUpdateService: UpdateGroupService
   ) {}
 
   async execute(championshipId: string) {
-    const championship = await this.championshipFindService.findChampionshipById(championshipId);
+    await this.championshipFindService.findChampionshipById(championshipId);
     
-    const groupPhaseExists = await this.groupFindService.ByPhase(championshipId, PhaseEnum.GROUP_FASE);
+    const groupPhaseExists = await this.findGroupByPhase.execute(championshipId, PhaseEnum.GROUP_PHASE);
 
-    if(groupPhaseExists) throw new BadRequestException('Este torneio já tem uma fase de grupo definida!');
+    // if(groupPhaseExists) throw new BadRequestException('Este torneio já tem uma fase de grupo definida!');
 
     const groupDto: CreateGroupDto = {
-      championshipId: championshipId
+      championshipId: championshipId,
+      phase: PhaseEnum.GROUP_PHASE
     }
 
     const group = await this.groupCreateService.execute(groupDto);
     const participants = await this.participantFindService.findParticipantsByChampionship(championshipId);
 
-    await this.matchPairService.execute(group.id, participants);
+    const matches = await this.matchPairService.execute(group.id, participants);
+
+    const updateGroup: UpdateGroupDto = {
+      matches: matches,
+      ...group
+    }
+
+    return await this.groupUpdateService.execute(updateGroup, group.id);
   }
-}
+} 

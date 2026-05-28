@@ -16,7 +16,7 @@ export class Match {
     status: MatchStatusEnum;
 
     @Index()
-    @Column({type: 'varchar', name: 'group_id' })
+    @Column({type: 'varchar', name: 'group_id', nullable: true })
     groupId: string;
 
     @OneToMany(() => Player, (player) => player.match, { nullable: true })

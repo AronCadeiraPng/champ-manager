@@ -93,6 +93,7 @@ export class ChampionshipsController {
   }
 
   @Get(':id/registrations')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
   @ApiOperation({
     summary: 'Lista as inscrições de um torneio',

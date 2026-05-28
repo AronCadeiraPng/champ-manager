@@ -45,4 +45,9 @@ export class TypeOrmUserRepository implements UserRepository {
             select: ['id', 'gender', 'name', 'email', 'createdAt', 'role']
         })
     }
+
+    async remove(user: User): Promise<void> {
+        await this.repository.remove(user);
+        return;
+    }
 }

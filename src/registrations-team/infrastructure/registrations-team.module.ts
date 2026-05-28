@@ -13,11 +13,13 @@ import { Member } from '../../members/models/entity/member.entity';
 import { MembersModule } from '../../members/infrastructure/members.module';
 import { Championship } from '../../championships/models/entity/championship.entity';
 import { ChampionshipFindService } from '../../championships/use-cases/find-championship/find-championship.service';
-import { UserFindService } from '../../users/use-cases/find-all/find-user.service';
 import { User } from '../../users/models/entity/user.entity';
 import { TeamFindService } from '../../teams/use-cases/find-team/find-team.service';
 import { TeamUpdateService } from '../../teams/use-cases/update-team/update-team.service';
 import { RegistrationTeamDeleteService } from '../use-cases/delete-registration/delete-registration.service';
+import { FindUserByIdService } from '../../users/use-cases/find-by-id/find-by-id.service';
+import { UserRepository } from '../../users/repository/user.repository';
+import { TypeOrmUserRepository } from '../../users/repository/typeorm-user.repository';
 
 @Module({
   imports: [
@@ -43,7 +45,11 @@ import { RegistrationTeamDeleteService } from '../use-cases/delete-registration/
     TeamCreateService,
     TeamFindService,
     TeamUpdateService,
-    UserFindService,
+    FindUserByIdService,
+        {
+          provide: UserRepository,
+          useClass: TypeOrmUserRepository,
+        },
   ],
   exports: [
     RegistrationsTeamModule,

@@ -96,8 +96,12 @@ export class MatchFindService {
 
     async All(): Promise<Match[]> {
         return await this.matchRepository.find({
+            select: {
+                group: true
+            },
             relations: {
-                players: true
+                players: true,
+                group: true
             }
         });
     }

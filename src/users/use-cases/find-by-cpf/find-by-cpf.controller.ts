@@ -36,7 +36,10 @@ export class FindUserByCpfController {
     @ApiOkResponse({ type: () => UsersListDto })
     @ApiNotFoundResponse({ description: 'Usuário não encontrado' })
     @ApiUnauthorizedResponse({ description: 'Permissão negada' })
-    async find(@Body() cpf: string): Promise<User> {
+    async find(
+      @Body() cpf: string)
+      : Promise<User>
+    {
       return await this.findUserByCpf.execute(cpf);
     }
   }

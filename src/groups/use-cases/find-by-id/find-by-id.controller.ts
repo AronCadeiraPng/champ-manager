@@ -1,14 +1,12 @@
 import { AuthGuard } from "@nestjs/passport";
 import { RolesGuard } from "../../../_common/guards/roles.guard";
 import { UserRolesEnum } from "../../../_common/enums/user-roles.enum";
-import { UsersListDto } from "../../models/dtos/users-list.dto";
 import {
     Controller,
     Get, Param,
     ParseUUIDPipe,
     UseGuards
 } from "@nestjs/common";
-import { User } from "../../models/entity/user.entity";
 import {
     ApiNotFoundResponse,
     ApiOkResponse,
@@ -18,26 +16,28 @@ import {
 } from "@nestjs/swagger";
 import { Roles } from "../../../_decorators/roles.decorator";
 import { JwtAuthGuard } from "../../../auth/guards/jwt-auth.guard";
-import { FindAllUserService } from "./find-all.service";
+import { FindGroupByIdService } from "./find-by-id.service";
+import { Group } from "../../models/entity/group.entity";
 
 
-@ApiTags('users')
-@Controller('user')
-export class FindAllUserController {
+@ApiTags('groups')
+@Controller('group')
+export class FindGroupByIdController {
     constructor(
-        private readonly findAll: FindAllUserService
+        private readonly findById: FindGroupByIdService
     ) { }
 
-    @Get('all')
+    @Get(':id')
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
-    @ApiOperation({ summary: 'Return all users' })
-    @ApiOkResponse({ type: () => UsersListDto })
-    @ApiNotFoundResponse({ description: 'User not found' })
+    @ApiOperation({ summary: 'Return group by id' })
+    @ApiOkResponse({ type: () => Group })
+    @ApiNotFoundResponse({ description: 'Group not found' })
     @ApiUnauthorizedResponse({ description: 'Permission denied' })
     async find(
-    ): Promise<User[]> {
-        console.log('entrou na rota certa')
-        return await this.findAll.execute();
+        @Param('id', ParseUUIDPipe) id: string
+    ): Promise<Group> 
+    {
+        return await this.findById.execute(id);
     }
 }

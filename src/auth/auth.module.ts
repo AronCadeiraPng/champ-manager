@@ -7,6 +7,8 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from '../users/models/entity/user.entity';
+import { FindUserByIdService } from '../users/use-cases/find-by-id/find-by-id.service';
+import { FindUserByEmailService } from '../users/use-cases/find-by-email/find-by-email.service';
 
 @Module({
   imports: [
@@ -14,14 +16,25 @@ import { User } from '../users/models/entity/user.entity';
     TypeOrmModule.forFeature([User]),
     UserModule,
     JwtModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
+      inject: [
+        ConfigService
+      ],
+      useFactory: (
+        config: ConfigService
+      ) => ({
         secret: config.get<string>('JWT_SECRET'),
         signOptions: { expiresIn: '60m' },
       }),
     }),
   ],
-  providers: [AuthService, JwtStrategy],
-  controllers: [AuthController],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    FindUserByIdService,
+    FindUserByEmailService
+  ],
+  controllers: [
+    AuthController
+  ],
 })
 export class AuthModule {}

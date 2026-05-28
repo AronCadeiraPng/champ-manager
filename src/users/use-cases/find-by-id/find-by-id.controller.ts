@@ -28,7 +28,7 @@ export class FindUserByIdController {
     private readonly findUserById: FindUserByIdService
   ) {}
 
-    @Get(':id')
+    @Get('id/:id')
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles(UserRolesEnum.ADMIN, UserRolesEnum.MANAGER)
     @ApiOperation({ summary: 'Retorna um usuário pelo id' })

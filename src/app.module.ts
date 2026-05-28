@@ -22,6 +22,9 @@ import { JwtService } from '@nestjs/jwt';
 import { GroupsModule } from './groups/infrastructure/groups.module';
 import { ChampionshipSchedulerService } from './championships/use-cases/schedule/championship-schedule.service';
 import { ScheduleModule } from '@nestjs/schedule';
+import { FindUserByIdService } from './users/use-cases/find-by-id/find-by-id.service';
+import { UserRepository } from './users/repository/user.repository';
+import { TypeOrmUserRepository } from './users/repository/typeorm-user.repository';
 
 @Module({
   imports: [
@@ -48,12 +51,17 @@ import { ScheduleModule } from '@nestjs/schedule';
     GroupsModule,
   ],
   controllers: [
-    
+
   ],
   providers: [
     ChampionshipSchedulerService,
     UserRegisterService,
+    FindUserByIdService,
     User,
+    {
+      provide: UserRepository,
+      useClass: TypeOrmUserRepository,
+    },
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
@@ -63,4 +71,4 @@ import { ScheduleModule } from '@nestjs/schedule';
   exports: [
   ],
 })
-export class AppModule {}
+export class AppModule { }

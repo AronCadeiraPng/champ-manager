@@ -3,22 +3,21 @@ import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { ConflictException } from '../_common/exceptions';
 import { UpdateUserDto } from '../users/models/dtos/update-user.dto';
-import { User } from '../users/models/entity/user.entity';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserFindService } from '../users/use-cases/find-all/find-user.service';
+import { FindUserByIdService } from '../users/use-cases/find-by-id/find-by-id.service';
+import { UserRepository } from '../users/repository/user.repository';
+import { FindUserByEmailService } from '../users/use-cases/find-by-email/find-by-email.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userFindService: UserFindService,
+    private findUserById: FindUserByIdService,
+    private findUserByEmail: FindUserByEmailService,
     private jwtService: JwtService,
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
-  ) {}
+    private readonly userRepository: UserRepository
+  ) { }
 
   async loginUser(email: string, password: string) {
-    const user = await this.userFindService.findUserByEmail(email);
+    const user = await this.findUserByEmail.execute(email);
 
     if (!user) {
       throw new BadRequestException('Credenciais inválidas!');
@@ -45,17 +44,18 @@ export class AuthService {
     id: string,
     updateUserDto: UpdateUserDto
   ) {
-    const user = await this.userFindService.findUserById(id);
+    const user = await this.findUserById.execute(id);
 
     Object.assign(user, updateUserDto);
 
-    return this.usersRepository.save(user);
+    return this.userRepository.save(user);
   }
 
   async deleteUser(id: string) {
-    const user = await this.userFindService.findUserById(id);
+    const user = await this.findUserById.execute(id);
 
     if (!user) throw new ConflictException('Erro ao deletar usuário');
-    return this.usersRepository.remove(user);
+
+    return this.userRepository.remove(user);
   }
 }

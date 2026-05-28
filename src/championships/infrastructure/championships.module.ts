@@ -29,9 +29,13 @@ import { ChampionshipUpdateService } from '../use-cases/update-championship/upda
 import { ChampionshipsController } from './championships.controller';
 import { Module } from '@nestjs/common';
 import { Group } from '../../groups/models/entity/group.entity';
-import { GroupCreateService } from '../../groups/use-cases/create-group/create-group.service';
-import { GroupFindService } from '../../groups/use-cases/find-group/find-group.service';
 import { JwtService } from '@nestjs/jwt';
+import { CreateGroupService } from '../../groups/use-cases/create-group/create-group.service';
+import { FindGroupByPhaseService } from '../../groups/use-cases/find-by-phase/find-group.service';
+import { FindGroupByIdService } from '../../groups/use-cases/find-by-id/find-by-id.service';
+import { GroupRepository } from '../../groups/repository/group.repository';
+import { TypeOrmGroupRepository } from '../../groups/repository/typeorm-group.repository';
+import { UpdateGroupService } from '../../groups/use-cases/update/update.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Championship, RegistrationSolo, RegistrationTeam, Match, Player, Sport, Participant, Group]) ],
@@ -56,11 +60,17 @@ import { JwtService } from '@nestjs/jwt';
     MatchUpdateService, 
     PlayerCreateService,
     MatchFindService,
+    CreateGroupService,
+    FindGroupByPhaseService,
+    FindGroupByIdService,
     PlayerUpdateService,
     PlayerFindService,
-    GroupCreateService,
-    GroupFindService,
-    JwtService
+    UpdateGroupService,
+    JwtService,
+        {
+          provide: GroupRepository,
+          useClass: TypeOrmGroupRepository,
+        },
   ],
   exports: [    
     ChampionshipDeleteService,

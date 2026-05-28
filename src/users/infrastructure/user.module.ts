@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../models/entity/user.entity';
-import { UserFindService } from '../use-cases/find-all/find-user.service';
 import { UserLoginService } from '../use-cases/login/login-user.service';
 import { UserRegisterService } from '../use-cases/register/user-register.service';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -16,6 +15,7 @@ import { FindUserByCpfService } from '../use-cases/find-by-cpf/find-by-cpf.servi
 import { FindUserByEmailService } from '../use-cases/find-by-email/find-by-email.service';
 import { FindUserByCpfController } from '../use-cases/find-by-cpf/find-by-cpf.controller';
 import { FindUserByEmailController } from '../use-cases/find-by-email/find-by-email.controller';
+import { GetUserInfoController } from '../use-cases/get-info/get-info.controller';
 
 @Module({
   imports: [
@@ -23,7 +23,6 @@ import { FindUserByEmailController } from '../use-cases/find-by-email/find-by-em
   ],
 
   providers: [
-    UserFindService,
     UserLoginService,
     UserRegisterService,
     JwtAuthGuard,
@@ -42,11 +41,11 @@ import { FindUserByEmailController } from '../use-cases/find-by-email/find-by-em
     FindAllUserController,
     FindUserByIdController,
     FindUserByCpfController,
-    FindUserByEmailController
+    FindUserByEmailController,
+    GetUserInfoController
   ],
 
   exports: [
-    UserFindService,
     UserLoginService,
     UserRegisterService,
     UserRepository,

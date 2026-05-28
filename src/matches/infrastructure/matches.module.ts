@@ -15,9 +15,13 @@ import { Championship } from '../../championships/models/entity/championship.ent
 import { ChampionshipFindService } from '../../championships/use-cases/find-championship/find-championship.service';
 import { MatchSetWinnerService } from '../use-cases/set-winner/set-winner.service';
 import { MatchGetWinnersService } from '../use-cases/get-winners/get-winners.service';
+import { FindGroupByIdService } from '../../groups/use-cases/find-by-id/find-by-id.service';
+import { GroupRepository } from '../../groups/repository/group.repository';
+import { TypeOrmGroupRepository } from '../../groups/repository/typeorm-group.repository';
+import { Group } from '../../groups/models/entity/group.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Championship, Match, Player])],
+  imports: [TypeOrmModule.forFeature([Championship, Match, Player, Group])],
   controllers: [MatchesController],
   providers: [
     MatchCreateService,
@@ -32,6 +36,11 @@ import { MatchGetWinnersService } from '../use-cases/get-winners/get-winners.ser
     MatchSetWinnerService,
     MatchGetWinnersService,
     ChampionshipFindService,
+    FindGroupByIdService,
+    {
+      provide: GroupRepository,
+      useClass: TypeOrmGroupRepository
+    }
   ],
   exports: [
     MatchCreateService,

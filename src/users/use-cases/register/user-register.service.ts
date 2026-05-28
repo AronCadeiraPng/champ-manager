@@ -3,20 +3,20 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt'
-import { UserFindService } from '../find-all/find-user.service';
 import { RegisterUserDto } from '../../models/dtos/register-user.dto';
 import { User } from '../../models/entity/user.entity';
+import { FindUserByIdService } from "../find-by-id/find-by-id.service";
 
 @Injectable()
 export class UserRegisterService {
       constructor(
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
-        private readonly findUser: UserFindService
+        private readonly findUserById: FindUserByIdService
       ) { }
 
       async registerUser(registerUserDto: RegisterUserDto): Promise<User> {
-        const emailExists = await this.findUser.findUserByEmail(registerUserDto.email);
-        const CpfExists = await this.findUser.findUserByCpf(registerUserDto.cpf);
+        const emailExists = await this.findUserById.execute(registerUserDto.email);
+        const CpfExists = await this.findUserById.execute(registerUserDto.cpf);
     
         if (emailExists) throw new BadRequestException('Email inválido ou já cadastrado!');
         if (CpfExists) throw new BadRequestException('CPF inváido ou já cadastrado!');

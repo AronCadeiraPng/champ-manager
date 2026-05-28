@@ -44,6 +44,9 @@ export class ParticipantFindService {
     }
 
     async findParticipantsByChampionship(championshipId: string): Promise<Participant[]> {
+
+        console.log(championshipId)
+
         const participants = await this.participantRepository.find({
             where: {
                 registrationSolo: {
@@ -51,9 +54,11 @@ export class ParticipantFindService {
                 }
             },
             relations: {
-                registrationSolo: true
+                registrationSolo: true,
             }
         })
+
+        console.log(participants)
 
         return participants;
     }

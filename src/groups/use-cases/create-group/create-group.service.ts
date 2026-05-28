@@ -1,17 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { Group } from '../../models/entity/group.entity';
 import { CreateGroupDto } from '../../models/dtos/create-group.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { GroupRepository } from '../../repository/group.repository';
+import { ChampionshipFindService } from '../../../championships/use-cases/find-championship/find-championship.service';
 
 @Injectable()
-export class GroupCreateService {
+export class CreateGroupService {
 constructor( 
-    @InjectRepository(Group) private readonly groupRepository: Repository<Group>,
+    private readonly repository: GroupRepository,
+    private readonly findChampionship: ChampionshipFindService
 ) {}
 
     async execute(createGroupDto: CreateGroupDto): Promise<Group> {
-        const group: Group = await this.groupRepository.save(createGroupDto);
+        await this.findChampionship.findChampionshipById(createGroupDto.championshipId);
+
+        const group: Group = await this.repository.createAndSave(createGroupDto);
 
         return group;
     }
