@@ -26,8 +26,6 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { User } from '../users/models/entity/user.entity';
-import { UpdateUserDto } from '../users/models/dtos/update-user.dto';
 import { Roles } from '../_decorators/roles.decorator';
 import { UserRolesEnum } from '../_common/enums/user-roles.enum';
 import { RolesGuard } from '../_common/guards/roles.guard';
@@ -35,6 +33,8 @@ import type { Response } from 'express';
 import { Public } from '../_decorators/is-public.decorator';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Cookies } from '../_decorators/cookie.decorator';
+import { User } from '../_modules/users/models/entity/user.entity';
+import { UpdateUserDto } from '../_modules/users/models/dtos/update-user.dto';
 
 @ApiTags('Auth')
 @Controller('user/auth')

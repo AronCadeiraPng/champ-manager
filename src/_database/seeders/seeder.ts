@@ -1,8 +1,8 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { SeedUserService } from "./entities/users/user.seeder";
-import { RegisterUserDto } from "../../users/models/dtos/register-user.dto";
+import { RegisterUserDto } from "../../_modules/users/models/dtos/register-user.dto";
+import { User } from "../../_modules/users/models/entity/user.entity";
 import { SeedRegistrationService } from "./entities/registrations/registration.seeder";
-import { User } from "../../users/models/entity/user.entity";
+import { SeedUserService } from "./entities/users/user.seeder";
 
 @Injectable()
 export class Seeder {

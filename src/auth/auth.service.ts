@@ -1,11 +1,11 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { compare } from 'bcrypt';
-import { ConflictException } from '../_common/exceptions';
-import { UpdateUserDto } from '../users/models/dtos/update-user.dto';
-import { FindUserByIdService } from '../users/use-cases/find-by-id/find-by-id.service';
-import { UserRepository } from '../users/repository/user.repository';
-import { FindUserByEmailService } from '../users/use-cases/find-by-email/find-by-email.service';
+import { Injectable, BadRequestException, UnauthorizedException, ConflictException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { compare } from "bcrypt";
+import { UpdateUserDto } from "../_modules/users/models/dtos/update-user.dto";
+import { UserRepository } from "../_modules/users/repository/user.repository";
+import { FindUserByEmailService } from "../_modules/users/use-cases/find-by-email/find-by-email.service";
+import { FindUserByIdService } from "../_modules/users/use-cases/find-by-id/find-by-id.service";
+
 
 @Injectable()
 export class AuthService {

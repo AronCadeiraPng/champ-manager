@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import { RegistrationSolo } from "../../../../registrations-solo/models/entity/registration.entity";
-import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateRegistrationSoloDto } from "../../../../registrations-solo/models/dtos/create-registration.dto";
-import { User } from "../../../../users/models/entity/user.entity";
+import { Repository } from "typeorm";
+import { CreateRegistrationSoloDto } from "../../../../_modules/registrations-solo/models/dtos/create-registration.dto";
+import { RegistrationSolo } from "../../../../_modules/registrations-solo/models/entity/registration.entity";
+import { User } from "../../../../_modules/users/models/entity/user.entity";
 
 @Injectable()
 export class SeedRegistrationService {

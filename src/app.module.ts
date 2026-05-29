@@ -1,30 +1,31 @@
-import { Module } from '@nestjs/common';
-import { UserModule } from './users/infrastructure/user.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/models/entity/user.entity';
-import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
-import { SportsModule } from './sports/infrastructure/sports.module';
-import { UserRegisterService } from './users/use-cases/register/user-register.service';
-import { RegistrationSoloModule } from './registrations-solo/infrastructure/registrations.module';
-import { RegistrationTeam } from './registrations-team/models/entity/registration-team.entity';
-import { TeamsModule } from './teams/infrastructure/teams.module';
-import { MembersModule } from './members/infrastructure/members.module';
-import { RegistrationsTeamModule } from './registrations-team/infrastructure/registrations-team.module';
-import { Championship } from './championships/models/entity/championship.entity';
-import { ParticipantModule } from './participant/infrastructure/participant.module';
-import { MatchesModule } from './matches/infrastructure/matches.module';
-import { PlayersModule } from './players/infrastructure/players.module';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { PostgresChampConfigService } from './_database/providers/data.config';
-import { JwtService } from '@nestjs/jwt';
-import { GroupsModule } from './groups/infrastructure/groups.module';
-import { ChampionshipSchedulerService } from './championships/use-cases/schedule/championship-schedule.service';
-import { ScheduleModule } from '@nestjs/schedule';
-import { FindUserByIdService } from './users/use-cases/find-by-id/find-by-id.service';
-import { UserRepository } from './users/repository/user.repository';
-import { TypeOrmUserRepository } from './users/repository/typeorm-user.repository';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { ScheduleModule } from "@nestjs/schedule";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { PostgresChampConfigService } from "./_database/providers/data.config";
+import { Championship } from "./_modules/championships/models/entity/championship.entity";
+import { User } from "./_modules/users/models/entity/user.entity";
+import { UserModule } from "./_modules/users/infrastructure/user.module";
+import { APP_GUARD } from "@nestjs/core";
+import { JwtService } from "@nestjs/jwt";
+import { ChampionshipSchedulerService } from "./_modules/championships/use-cases/schedule/championship-schedule.service";
+import { MatchesModule } from "./_modules/matches/infrastructure/matches.module";
+import { MembersModule } from "./_modules/members/infrastructure/members.module";
+import { ParticipantModule } from "./_modules/participant/infrastructure/participant.module";
+import { PlayersModule } from "./_modules/players/infrastructure/players.module";
+import { RegistrationSoloModule } from "./_modules/registrations-solo/infrastructure/registrations.module";
+import { RegistrationsTeamModule } from "./_modules/registrations-team/infrastructure/registrations-team.module";
+import { RegistrationTeam } from "./_modules/registrations-team/models/entity/registration-team.entity";
+import { SportsModule } from "./_modules/sports/infrastructure/sports.module";
+import { TeamsModule } from "./_modules/teams/infrastructure/teams.module";
+import { TypeOrmUserRepository } from "./_modules/users/repository/typeorm-user.repository";
+import { UserRepository } from "./_modules/users/repository/user.repository";
+import { FindUserByIdService } from "./_modules/users/use-cases/find-by-id/find-by-id.service";
+import { UserRegisterService } from "./_modules/users/use-cases/register/user-register.service";
+import { AuthModule } from "./auth/auth.module";
+import { JwtAuthGuard } from "./auth/guards/jwt-auth.guard";
+import { GroupsModule } from "./_modules/groups/infrastructure/group.module";
+
 
 @Module({
   imports: [
@@ -33,7 +34,7 @@ import { TypeOrmUserRepository } from './users/repository/typeorm-user.repositor
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      useClass: PostgresChampConfigService,
+      useClass:  PostgresChampConfigService,
     }),
     UserModule,
     TypeOrmModule.forFeature([User, Championship]),

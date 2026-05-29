@@ -1,12 +1,10 @@
-import "dotenv/config";
-
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { RegistrationSolo } from "../../_modules/registrations-solo/models/entity/registration.entity";
+import { User } from "../../_modules/users/models/entity/user.entity";
 import { Seeder } from "./seeder";
-import { User } from "../../users/models/entity/user.entity";
 import { SeedUserService } from "./entities/users/user.seeder";
 import { SeedRegistrationService } from "./entities/registrations/registration.seeder";
-import { RegistrationSolo } from "../../registrations-solo/models/entity/registration.entity";
 
 @Module({
     imports: [
