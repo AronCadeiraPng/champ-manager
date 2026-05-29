@@ -25,6 +25,8 @@ import { UserRegisterService } from "./_modules/users/use-cases/register/user-re
 import { AuthModule } from "./auth/auth.module";
 import { JwtAuthGuard } from "./auth/guards/jwt-auth.guard";
 import { GroupsModule } from "./_modules/groups/infrastructure/group.module";
+import { FindUserByEmailService } from "./_modules/users/use-cases/find-by-email/find-by-email.service";
+import { FindUserByCpfService } from "./_modules/users/use-cases/find-by-cpf/find-by-cpf.service";
 
 
 @Module({
@@ -58,6 +60,8 @@ import { GroupsModule } from "./_modules/groups/infrastructure/group.module";
     ChampionshipSchedulerService,
     UserRegisterService,
     FindUserByIdService,
+    FindUserByEmailService,
+    FindUserByCpfService,
     User,
     {
       provide: UserRepository,

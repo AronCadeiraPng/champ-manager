@@ -28,7 +28,7 @@ export class RegisterUserDto {
     @IsEmail({}, {message: 'Email inválido!'})
     @IsNotEmpty()
     @Transform(({ value }) => value.toLowerCase().trim())
-    email: string;
+    email: string;  
 
     @ApiProperty({
       example: '100.100.100-10',
